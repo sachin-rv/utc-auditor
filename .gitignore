@@ -1,0 +1,5 @@
+node_modules/
+.next/
+.env*.local
+.utc-auditor/
+data/db.json.bak
