@@ -1,8 +1,15 @@
-function bandColor(score: number) {
-  if (score < 60) return "#FF6B5E";
-  if (score < 80) return "#F5B942";
-  if (score < 90) return "#5FA8FF";
-  return "#3ED598";
+"use client";
+
+import { useTheme } from "@/lib/useTheme";
+import { THEME_COLORS, type ThemeName } from "@/lib/theme-colors";
+
+type ThemePalette = (typeof THEME_COLORS)[ThemeName];
+
+function bandColor(score: number, c: ThemePalette) {
+  if (score < 60) return c.fail;
+  if (score < 80) return c.warn;
+  if (score < 90) return c.info;
+  return c.pass;
 }
 
 function bandLabel(score: number) {
@@ -21,25 +28,20 @@ export default function ScoreDial({
   size?: number;
   label?: string;
 }) {
+  const theme = useTheme();
+  const c = THEME_COLORS[theme];
   const stroke = 10;
   const r = (size - stroke) / 2;
-  const c = 2 * Math.PI * r;
+  const circumference = 2 * Math.PI * r;
   const pct = Math.max(0, Math.min(100, score)) / 100;
-  const dash = c * pct;
-  const color = bandColor(score);
+  const dash = circumference * pct;
+  const color = bandColor(score, c);
 
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={r}
-            fill="none"
-            stroke="#272C34"
-            strokeWidth={stroke}
-          />
+          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={c.line} strokeWidth={stroke} />
           <circle
             cx={size / 2}
             cy={size / 2}
@@ -47,7 +49,7 @@ export default function ScoreDial({
             fill="none"
             stroke={color}
             strokeWidth={stroke}
-            strokeDasharray={`${dash} ${c - dash}`}
+            strokeDasharray={`${dash} ${circumference - dash}`}
             strokeLinecap="round"
             style={{ transition: "stroke-dasharray 700ms ease" }}
           />

@@ -41,18 +41,17 @@ export default function LoginPage() {
         <div className="h-40 w-full bg-signal-pass animate-scan blur-2xl" />
       </div>
 
-      <div className="absolute top-5 right-5">
-        <ThemeToggle />
-      </div>
-
       <div className="w-full max-w-sm relative">
-        <div className="flex items-center gap-2.5 justify-center mb-8">
+        <div className="flex items-center justify-center gap-2.5 mb-8 relative">
           <span className="h-8 w-8 rounded-md bg-signal-pass/15 border border-signal-pass/30 flex items-center justify-center">
             <span className="h-2 w-2 rounded-full bg-signal-pass animate-pulse" />
           </span>
           <span className="font-display font-bold tracking-tight text-xl">
             UTC<span className="text-signal-pass">/</span>Auditor
           </span>
+          <div className="absolute right-0">
+            <ThemeToggle />
+          </div>
         </div>
 
         <div className="border border-line bg-panel rounded-xl p-7">
@@ -96,7 +95,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-signal-pass text-ink font-semibold text-sm rounded-md py-2.5 hover:brightness-110 transition disabled:opacity-60"
+              className="w-full bg-signal-pass text-onaccent font-semibold text-sm rounded-md py-2.5 hover:brightness-110 transition disabled:opacity-60"
             >
               {loading ? "Signing in…" : "Sign in"}
             </button>

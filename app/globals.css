@@ -3,58 +3,55 @@
 @tailwind utilities;
 
 :root {
-  --color-ink: #f3f6fb;
-  --color-panel: #ffffff;
-  --color-panel-2: #edf3f8;
-  --color-line: #dfe7f1;
-  --color-mist: #5f7188;
-  --color-chalk: #152033;
-}
-
-html.dark {
-  --color-ink: #0e1013;
-  --color-panel: #15181d;
-  --color-panel-2: #1b1f26;
-  --color-line: #272c34;
-  --color-mist: #8a93a3;
-  --color-chalk: #edeff3;
-}
-
-html {
   color-scheme: light;
+  --c-ink: 246 247 249;
+  --c-panel: 255 255 255;
+  --c-panel2: 241 242 245;
+  --c-line: 226 229 234;
+  --c-mist: 100 106 119;
+  --c-chalk: 20 22 26;
+  --c-onaccent: 20 22 26;
+  --c-pass: 15 155 108;
+  --c-fail: 214 62 50;
+  --c-warn: 178 122 15;
+  --c-info: 37 108 199;
+  --c-high: 194 99 43;
 }
 
 html.dark {
   color-scheme: dark;
-}
-
-html, body {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-* {
-  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  --c-ink: 14 16 19;
+  --c-panel: 21 24 29;
+  --c-panel2: 27 31 38;
+  --c-line: 39 44 52;
+  --c-mist: 138 147 163;
+  --c-chalk: 237 239 243;
+  --c-onaccent: 14 16 19;
+  --c-pass: 62 213 152;
+  --c-fail: 255 107 94;
+  --c-warn: 245 185 66;
+  --c-info: 95 168 255;
+  --c-high: 255 155 110;
 }
 
 body {
-  background-color: var(--color-ink);
-  color: var(--color-chalk);
+  background-color: rgb(var(--c-ink));
   background-image:
-    radial-gradient(1200px 700px at 100% -10%, rgba(95,168,255,0.18), transparent),
-    radial-gradient(1000px 600px at -10% 110%, rgba(62,213,152,0.12), transparent),
-    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+    radial-gradient(1200px 600px at 100% -10%, rgb(var(--c-info) / 0.05), transparent),
+    radial-gradient(900px 500px at -10% 110%, rgb(var(--c-pass) / 0.04), transparent);
   background-attachment: fixed;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 html.dark body {
   background-image:
-    radial-gradient(1200px 600px at 100% -10%, rgba(95,168,255,0.12), transparent),
-    radial-gradient(900px 500px at -10% 110%, rgba(62,213,152,0.08), transparent);
+    radial-gradient(1200px 600px at 100% -10%, rgb(var(--c-info) / 0.08), transparent),
+    radial-gradient(900px 500px at -10% 110%, rgb(var(--c-pass) / 0.06), transparent);
 }
 
 ::selection {
-  background: #3ed598;
-  color: #0e1013;
+  background: rgb(var(--c-pass));
+  color: rgb(var(--c-onaccent));
 }
 
 .grain {

@@ -56,6 +56,25 @@ Matches the spec's own scope split:
   and composite score weighting (here: a simple, replaceable formula in
   `audit-engine/src/report.js`).
 
+## Interactivity & theming
+
+- **Light/dark theme** — toggle button in the header (and login screen); the
+  choice is stored in `localStorage` and applied before first paint (no
+  flash). All colors run through CSS custom properties in `globals.css` plus
+  `lib/theme-colors.ts` (for the Recharts trend line, which needs literal
+  color strings rather than CSS variables), so both palettes stay in sync
+  from one source.
+- **Client list** (`components/ClientListPanel.tsx`) — live search, status
+  filter chips, and sortable columns (name / score / coverage / last audit),
+  fulfilling DASH-02's "search/filter clients."
+- **Report history** (`components/ReportHistoryList.tsx`) — filter by
+  trigger type or "critical/high findings only," toggleable sort order.
+- **Findings** (`components/FindingsPanel.tsx`) — severity filter chips with
+  live counts and collapsible rule-category groups, so a long findings list
+  stays scannable.
+- **Report sharing** (`components/CopyLinkButton.tsx`) — one-click copy of
+  the current report's URL.
+
 ## Design notes
 
 The dashboard uses a dark "audit console" visual language — signal colors

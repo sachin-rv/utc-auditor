@@ -61,22 +61,22 @@
   ],
   "reports": [
     {
-      "id": "report_bqmj2t4",
+      "id": "report_t1xzk3i",
       "clientId": "client_northwind",
       "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_j1ihgyj",
-      "timestamp": "2026-06-24T07:07:23.490Z",
+      "auditExecutionId": "exec_73xb8cw",
+      "timestamp": "2026-06-25T11:28:17.753Z",
       "trigger": "production_build",
       "buildId": "build-1001",
       "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 39,
+      "overallScore": 34,
       "coverage": {
-        "statements": 61,
-        "branches": 52,
+        "statements": 60,
+        "branches": 50,
         "functions": 60,
-        "lines": 61
+        "lines": 59
       },
       "testExecution": {
         "total": 186,
@@ -88,7 +88,7 @@
       },
       "findings": [
         {
-          "id": "find_2afs9z6",
+          "id": "find_abc7qeo",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -99,7 +99,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_32w93sg",
+          "id": "find_olso8v1",
           "ruleId": "RULE-TP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Presence",
@@ -110,7 +110,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_ph0ys5l",
+          "id": "find_l46i2dw",
           "ruleId": "RULE-MT-01",
           "ruleVersion": "1.2.0",
           "category": "Test Maintainability",
@@ -121,7 +121,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_7vkqtwq",
+          "id": "find_tpa4zer",
           "ruleId": "RULE-DP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Duplication",
@@ -132,439 +132,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_z9fd1tt",
-          "ruleId": "RULE-MK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Mocking",
-          "title": "Excessive or ineffective mocking pattern",
-          "severity": "low",
-          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "app/(shop)/checkout/page.tsx"
-        }
-      ],
-      "dependencyFindings": [],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "algoliasearch"
-          ],
-          "status": "active",
-          "detail": "algoliasearch still referenced by application code and tests."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [
-            "optimizely-sdk"
-          ],
-          "status": "inconsistent",
-          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Remove .only before merging — it silently disables the rest of the suite.",
-        "Add unit tests for the uncovered module before the next release.",
-        "Extract shared setup into a fixture/helper to shrink the test body.",
-        "Consolidate near-duplicate tests into a parameterized test."
-      ],
-      "executionStatus": "completed_with_errors",
-      "errors": [
-        "2 test(s) failed during execution; see findings for detail."
-      ],
-      "durationMs": 21900
-    },
-    {
-      "id": "report_s21qs30",
-      "clientId": "client_northwind",
-      "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_jw2ijgy",
-      "timestamp": "2026-07-03T07:07:23.493Z",
-      "trigger": "production_build",
-      "buildId": "build-1002",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 55,
-      "coverage": {
-        "statements": 61,
-        "branches": 54,
-        "functions": 65,
-        "lines": 61
-      },
-      "testExecution": {
-        "total": 192,
-        "passed": 187,
-        "failed": 0,
-        "skipped": 4,
-        "pending": 1,
-        "durationMs": 15700
-      },
-      "findings": [
-        {
-          "id": "find_8mgj8pq",
-          "ruleId": "RULE-FO-01",
-          "ruleVersion": "1.2.0",
-          "category": "Focused Tests",
-          "title": "Focused (.only) test left in suite",
-          "severity": "critical",
-          "detail": "Focused (.only) test left in suite in lib/inventory.ts.",
-          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
-          "file": "lib/inventory.ts"
-        },
-        {
-          "id": "find_guhorjp",
-          "ruleId": "RULE-DT-01",
-          "ruleVersion": "1.2.0",
-          "category": "Dead Tests",
-          "title": "Test disconnected from current application code",
-          "severity": "medium",
-          "detail": "Test disconnected from current application code in hooks/useCheckout.ts.",
-          "recommendation": "Confirm the code path still exists; remove the test if the feature was deleted.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_ow0oxkc",
-          "ruleId": "RULE-MK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Mocking",
-          "title": "Excessive or ineffective mocking pattern",
-          "severity": "low",
-          "detail": "Excessive or ineffective mocking pattern in hooks/useCheckout.ts.",
-          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_eqwkz5i",
-          "ruleId": "RULE-MT-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Maintainability",
-          "title": "Oversized test with repeated setup blocks",
-          "severity": "low",
-          "detail": "Oversized test with repeated setup blocks in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
-          "file": "app/(shop)/checkout/page.tsx"
-        }
-      ],
-      "dependencyFindings": [],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "algoliasearch"
-          ],
-          "status": "inconsistent",
-          "detail": "Unit tests still reference algoliasearch mocks, but application source now calls the Constructor client exclusively."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [
-            "optimizely-sdk"
-          ],
-          "status": "inconsistent",
-          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Remove .only before merging — it silently disables the rest of the suite.",
-        "Confirm the code path still exists; remove the test if the feature was deleted.",
-        "Reduce mock surface area so the test still exercises real integration points.",
-        "Extract shared setup into a fixture/helper to shrink the test body."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 22800
-    },
-    {
-      "id": "report_st2nu1u",
-      "clientId": "client_northwind",
-      "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_33rviuj",
-      "timestamp": "2026-07-12T07:07:23.494Z",
-      "trigger": "production_build",
-      "buildId": "build-1003",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 56,
-      "coverage": {
-        "statements": 62,
-        "branches": 54,
-        "functions": 66,
-        "lines": 61
-      },
-      "testExecution": {
-        "total": 198,
-        "passed": 194,
-        "failed": 0,
-        "skipped": 3,
-        "pending": 1,
-        "durationMs": 16550
-      },
-      "findings": [
-        {
-          "id": "find_jg80xo3",
-          "ruleId": "RULE-EC-01",
-          "ruleVersion": "1.2.0",
-          "category": "Edge Cases",
-          "title": "Expected boundary/error scenario untested",
-          "severity": "medium",
-          "detail": "Expected boundary/error scenario untested in hooks/useCheckout.ts.",
-          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_oe4x2km",
-          "ruleId": "RULE-AI-01",
-          "ruleVersion": "1.2.0",
-          "category": "Assertions vs Implementation",
-          "title": "Test overly coupled to implementation detail",
-          "severity": "medium",
-          "detail": "Test overly coupled to implementation detail in hooks/useCheckout.ts.",
-          "recommendation": "Assert on observable behavior/output rather than internal implementation details.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_ptjuv52",
-          "ruleId": "RULE-SK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Skipped Tests",
-          "title": "Test suite skipped/disabled",
-          "severity": "medium",
-          "detail": "Test suite skipped/disabled in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_7rzy489",
-          "ruleId": "RULE-TP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Presence",
-          "title": "Source module has no corresponding unit test",
-          "severity": "high",
-          "detail": "Source module has no corresponding unit test in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Add unit tests for the uncovered module before the next release.",
-          "file": "app/(shop)/checkout/page.tsx"
-        }
-      ],
-      "dependencyFindings": [
-        {
-          "package": "react-ga",
-          "kind": "unused_in_source",
-          "detail": "Present in package.json but no application or test references found."
-        }
-      ],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "algoliasearch"
-          ],
-          "status": "inconsistent",
-          "detail": "Unit tests still reference algoliasearch mocks, but application source now calls the Constructor client exclusively."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [
-            "optimizely-sdk"
-          ],
-          "status": "inconsistent",
-          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Add boundary and error-path cases (empty input, network failure, invalid state).",
-        "Assert on observable behavior/output rather than internal implementation details.",
-        "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
-        "Add unit tests for the uncovered module before the next release.",
-        "Confirm react-ga is unused and remove it from package.json."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 23700
-    },
-    {
-      "id": "report_1ic7mim",
-      "clientId": "client_northwind",
-      "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_tczwk6i",
-      "timestamp": "2026-07-21T07:07:23.494Z",
-      "trigger": "scheduled",
-      "buildId": "build-1004",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 68,
-      "coverage": {
-        "statements": 63,
-        "branches": 54,
-        "functions": 67,
-        "lines": 66
-      },
-      "testExecution": {
-        "total": 204,
-        "passed": 202,
-        "failed": 0,
-        "skipped": 2,
-        "pending": 0,
-        "durationMs": 17400
-      },
-      "findings": [
-        {
-          "id": "find_r37fpky",
-          "ruleId": "RULE-EC-01",
-          "ruleVersion": "1.2.0",
-          "category": "Edge Cases",
-          "title": "Expected boundary/error scenario untested",
-          "severity": "medium",
-          "detail": "Expected boundary/error scenario untested in hooks/useCheckout.ts.",
-          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_bmqy88g",
-          "ruleId": "RULE-DP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Duplication",
-          "title": "Highly similar test cases detected",
-          "severity": "low",
-          "detail": "Highly similar test cases detected in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_qpv8mke",
-          "ruleId": "RULE-TD-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Discovery",
-          "title": "Test file not discovered by Jest config",
-          "severity": "medium",
-          "detail": "Test file not discovered by Jest config in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Update the Jest testMatch/testPathIgnorePatterns so the file is picked up.",
-          "file": "app/(shop)/checkout/page.tsx"
-        }
-      ],
-      "dependencyFindings": [],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "@constructor-io/constructorio-client"
-          ],
-          "status": "active",
-          "detail": "Constructor client is referenced in application code with corresponding test coverage."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [
-            "optimizely-sdk"
-          ],
-          "status": "inconsistent",
-          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Add boundary and error-path cases (empty input, network failure, invalid state).",
-        "Consolidate near-duplicate tests into a parameterized test.",
-        "Update the Jest testMatch/testPathIgnorePatterns so the file is picked up."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 24600
-    },
-    {
-      "id": "report_w2hgpa6",
-      "clientId": "client_northwind",
-      "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_f323rfr",
-      "timestamp": "2026-07-30T07:07:23.494Z",
-      "trigger": "production_build",
-      "buildId": "build-1005",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 56,
-      "coverage": {
-        "statements": 67,
-        "branches": 58,
-        "functions": 68,
-        "lines": 68
-      },
-      "testExecution": {
-        "total": 210,
-        "passed": 209,
-        "failed": 0,
-        "skipped": 1,
-        "pending": 0,
-        "durationMs": 18250
-      },
-      "findings": [
-        {
-          "id": "find_0ywlk12",
+          "id": "find_vfa0xxj",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -575,946 +143,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_10l3j5k",
-          "ruleId": "RULE-FO-01",
-          "ruleVersion": "1.2.0",
-          "category": "Focused Tests",
-          "title": "Focused (.only) test left in suite",
-          "severity": "critical",
-          "detail": "Focused (.only) test left in suite in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_exm0q5m",
-          "ruleId": "RULE-DC-01",
-          "ruleVersion": "1.2.0",
-          "category": "Dependency Consistency",
-          "title": "Test import missing from package.json",
-          "severity": "high",
-          "detail": "Test import missing from package.json in lib/search/client.ts.",
-          "recommendation": "Add the missing package to package.json or replace the import.",
-          "file": "lib/search/client.ts"
-        }
-      ],
-      "dependencyFindings": [],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "@constructor-io/constructorio-client"
-          ],
-          "status": "active",
-          "detail": "Constructor client is referenced in application code with corresponding test coverage."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [],
-          "status": "likely_obsolete",
-          "detail": "No optimizely-sdk references remain in package.json or source; residual test mocks were removed."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Reduce mock surface area so the test still exercises real integration points.",
-        "Remove .only before merging — it silently disables the rest of the suite.",
-        "Add the missing package to package.json or replace the import."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 25500
-    },
-    {
-      "id": "report_vvwmsal",
-      "clientId": "client_northwind",
-      "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_v2qz3o1",
-      "timestamp": "2026-08-08T07:07:23.494Z",
-      "trigger": "production_build",
-      "buildId": "build-1006",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 68,
-      "coverage": {
-        "statements": 69,
-        "branches": 56,
-        "functions": 68,
-        "lines": 69
-      },
-      "testExecution": {
-        "total": 216,
-        "passed": 216,
-        "failed": 0,
-        "skipped": 0,
-        "pending": 0,
-        "durationMs": 19100
-      },
-      "findings": [
-        {
-          "id": "find_rtfcbhv",
-          "ruleId": "RULE-MK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Mocking",
-          "title": "Excessive or ineffective mocking pattern",
-          "severity": "low",
-          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_lh9egnb",
-          "ruleId": "RULE-AS-01",
-          "ruleVersion": "1.2.0",
-          "category": "Assertions",
-          "title": "Test contains no meaningful assertion",
-          "severity": "high",
-          "detail": "Test contains no meaningful assertion in lib/search/client.ts.",
-          "recommendation": "Add explicit expect() assertions; a passing test with no assertion proves nothing.",
-          "file": "lib/search/client.ts"
-        },
-        {
-          "id": "find_fjp2qmz",
-          "ruleId": "RULE-MT-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Maintainability",
-          "title": "Oversized test with repeated setup blocks",
-          "severity": "low",
-          "detail": "Oversized test with repeated setup blocks in lib/search/client.ts.",
-          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
-          "file": "lib/search/client.ts"
-        }
-      ],
-      "dependencyFindings": [
-        {
-          "package": "react-ga",
-          "kind": "unused_in_source",
-          "detail": "Present in package.json but no application or test references found."
-        }
-      ],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "@constructor-io/constructorio-client"
-          ],
-          "status": "active",
-          "detail": "Constructor client is referenced in application code with corresponding test coverage."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [],
-          "status": "likely_obsolete",
-          "detail": "No optimizely-sdk references remain in package.json or source; residual test mocks were removed."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Reduce mock surface area so the test still exercises real integration points.",
-        "Add explicit expect() assertions; a passing test with no assertion proves nothing.",
-        "Extract shared setup into a fixture/helper to shrink the test body.",
-        "Confirm react-ga is unused and remove it from package.json."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 26400
-    },
-    {
-      "id": "report_smdgso0",
-      "clientId": "client_northwind",
-      "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_got5v0p",
-      "timestamp": "2026-08-17T07:07:23.494Z",
-      "trigger": "manual",
-      "buildId": "build-1007",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 71,
-      "coverage": {
-        "statements": 69,
-        "branches": 59,
-        "functions": 70,
-        "lines": 71
-      },
-      "testExecution": {
-        "total": 222,
-        "passed": 222,
-        "failed": 0,
-        "skipped": 0,
-        "pending": 0,
-        "durationMs": 19950
-      },
-      "findings": [
-        {
-          "id": "find_53k5nzn",
-          "ruleId": "RULE-DP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Duplication",
-          "title": "Highly similar test cases detected",
-          "severity": "low",
-          "detail": "Highly similar test cases detected in lib/search/client.ts.",
-          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
-          "file": "lib/search/client.ts"
-        },
-        {
-          "id": "find_472ugrg",
-          "ruleId": "RULE-TP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Presence",
-          "title": "Source module has no corresponding unit test",
-          "severity": "high",
-          "detail": "Source module has no corresponding unit test in lib/search/client.ts.",
-          "recommendation": "Add unit tests for the uncovered module before the next release.",
-          "file": "lib/search/client.ts"
-        }
-      ],
-      "dependencyFindings": [],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "@constructor-io/constructorio-client"
-          ],
-          "status": "active",
-          "detail": "Constructor client is referenced in application code with corresponding test coverage."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [],
-          "status": "likely_obsolete",
-          "detail": "No optimizely-sdk references remain in package.json or source; residual test mocks were removed."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Consolidate near-duplicate tests into a parameterized test.",
-        "Add unit tests for the uncovered module before the next release."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 27300
-    },
-    {
-      "id": "report_a8jfrtm",
-      "clientId": "client_northwind",
-      "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_gpt5a32",
-      "timestamp": "2026-07-12T07:07:23.494Z",
-      "trigger": "production_build",
-      "buildId": "build-1001",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 47,
-      "coverage": {
-        "statements": 73,
-        "branches": 66,
-        "functions": 75,
-        "lines": 74
-      },
-      "testExecution": {
-        "total": 186,
-        "passed": 177,
-        "failed": 2,
-        "skipped": 5,
-        "pending": 2,
-        "durationMs": 14850
-      },
-      "findings": [
-        {
-          "id": "find_4uj723y",
-          "ruleId": "RULE-FO-01",
-          "ruleVersion": "1.2.0",
-          "category": "Focused Tests",
-          "title": "Focused (.only) test left in suite",
-          "severity": "critical",
-          "detail": "Focused (.only) test left in suite in lib/inventory.ts.",
-          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
-          "file": "lib/inventory.ts"
-        },
-        {
-          "id": "find_frd1efj",
-          "ruleId": "RULE-TP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Presence",
-          "title": "Source module has no corresponding unit test",
-          "severity": "high",
-          "detail": "Source module has no corresponding unit test in lib/inventory.ts.",
-          "recommendation": "Add unit tests for the uncovered module before the next release.",
-          "file": "lib/inventory.ts"
-        },
-        {
-          "id": "find_33y4399",
-          "ruleId": "RULE-MT-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Maintainability",
-          "title": "Oversized test with repeated setup blocks",
-          "severity": "low",
-          "detail": "Oversized test with repeated setup blocks in hooks/useCheckout.ts.",
-          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_v6ok7be",
-          "ruleId": "RULE-DP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Duplication",
-          "title": "Highly similar test cases detected",
-          "severity": "low",
-          "detail": "Highly similar test cases detected in hooks/useCheckout.ts.",
-          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_rhl7bex",
-          "ruleId": "RULE-MK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Mocking",
-          "title": "Excessive or ineffective mocking pattern",
-          "severity": "low",
-          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "app/(shop)/checkout/page.tsx"
-        }
-      ],
-      "dependencyFindings": [],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "algoliasearch"
-          ],
-          "status": "active",
-          "detail": "algoliasearch still referenced by application code and tests."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [
-            "optimizely-sdk"
-          ],
-          "status": "inconsistent",
-          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Remove .only before merging — it silently disables the rest of the suite.",
-        "Add unit tests for the uncovered module before the next release.",
-        "Extract shared setup into a fixture/helper to shrink the test body.",
-        "Consolidate near-duplicate tests into a parameterized test."
-      ],
-      "executionStatus": "completed_with_errors",
-      "errors": [
-        "2 test(s) failed during execution; see findings for detail."
-      ],
-      "durationMs": 21900
-    },
-    {
-      "id": "report_o84pgxi",
-      "clientId": "client_northwind",
-      "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_coriedx",
-      "timestamp": "2026-07-21T07:07:23.494Z",
-      "trigger": "production_build",
-      "buildId": "build-1002",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 63,
-      "coverage": {
-        "statements": 73,
-        "branches": 69,
-        "functions": 75,
-        "lines": 74
-      },
-      "testExecution": {
-        "total": 192,
-        "passed": 187,
-        "failed": 0,
-        "skipped": 4,
-        "pending": 1,
-        "durationMs": 15700
-      },
-      "findings": [
-        {
-          "id": "find_c6tf947",
-          "ruleId": "RULE-FO-01",
-          "ruleVersion": "1.2.0",
-          "category": "Focused Tests",
-          "title": "Focused (.only) test left in suite",
-          "severity": "critical",
-          "detail": "Focused (.only) test left in suite in lib/inventory.ts.",
-          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
-          "file": "lib/inventory.ts"
-        },
-        {
-          "id": "find_ju1io85",
-          "ruleId": "RULE-DT-01",
-          "ruleVersion": "1.2.0",
-          "category": "Dead Tests",
-          "title": "Test disconnected from current application code",
-          "severity": "medium",
-          "detail": "Test disconnected from current application code in hooks/useCheckout.ts.",
-          "recommendation": "Confirm the code path still exists; remove the test if the feature was deleted.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_kuzm063",
-          "ruleId": "RULE-MK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Mocking",
-          "title": "Excessive or ineffective mocking pattern",
-          "severity": "low",
-          "detail": "Excessive or ineffective mocking pattern in hooks/useCheckout.ts.",
-          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_pezs7i9",
-          "ruleId": "RULE-MT-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Maintainability",
-          "title": "Oversized test with repeated setup blocks",
-          "severity": "low",
-          "detail": "Oversized test with repeated setup blocks in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
-          "file": "app/(shop)/checkout/page.tsx"
-        }
-      ],
-      "dependencyFindings": [],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "algoliasearch"
-          ],
-          "status": "inconsistent",
-          "detail": "Unit tests still reference algoliasearch mocks, but application source now calls the Constructor client exclusively."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [
-            "optimizely-sdk"
-          ],
-          "status": "inconsistent",
-          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Remove .only before merging — it silently disables the rest of the suite.",
-        "Confirm the code path still exists; remove the test if the feature was deleted.",
-        "Reduce mock surface area so the test still exercises real integration points.",
-        "Extract shared setup into a fixture/helper to shrink the test body."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 22800
-    },
-    {
-      "id": "report_y4w1oy1",
-      "clientId": "client_northwind",
-      "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_ys4x7w6",
-      "timestamp": "2026-07-30T07:07:23.494Z",
-      "trigger": "production_build",
-      "buildId": "build-1003",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 66,
-      "coverage": {
-        "statements": 76,
-        "branches": 70,
-        "functions": 81,
-        "lines": 78
-      },
-      "testExecution": {
-        "total": 198,
-        "passed": 194,
-        "failed": 0,
-        "skipped": 3,
-        "pending": 1,
-        "durationMs": 16550
-      },
-      "findings": [
-        {
-          "id": "find_zlwi35v",
-          "ruleId": "RULE-EC-01",
-          "ruleVersion": "1.2.0",
-          "category": "Edge Cases",
-          "title": "Expected boundary/error scenario untested",
-          "severity": "medium",
-          "detail": "Expected boundary/error scenario untested in hooks/useCheckout.ts.",
-          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_t3oiq3w",
-          "ruleId": "RULE-AI-01",
-          "ruleVersion": "1.2.0",
-          "category": "Assertions vs Implementation",
-          "title": "Test overly coupled to implementation detail",
-          "severity": "medium",
-          "detail": "Test overly coupled to implementation detail in hooks/useCheckout.ts.",
-          "recommendation": "Assert on observable behavior/output rather than internal implementation details.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_nzwrbkq",
-          "ruleId": "RULE-SK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Skipped Tests",
-          "title": "Test suite skipped/disabled",
-          "severity": "medium",
-          "detail": "Test suite skipped/disabled in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_nmsfs7e",
-          "ruleId": "RULE-TP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Presence",
-          "title": "Source module has no corresponding unit test",
-          "severity": "high",
-          "detail": "Source module has no corresponding unit test in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Add unit tests for the uncovered module before the next release.",
-          "file": "app/(shop)/checkout/page.tsx"
-        }
-      ],
-      "dependencyFindings": [
-        {
-          "package": "react-ga",
-          "kind": "unused_in_source",
-          "detail": "Present in package.json but no application or test references found."
-        }
-      ],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "algoliasearch"
-          ],
-          "status": "inconsistent",
-          "detail": "Unit tests still reference algoliasearch mocks, but application source now calls the Constructor client exclusively."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [
-            "optimizely-sdk"
-          ],
-          "status": "inconsistent",
-          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Add boundary and error-path cases (empty input, network failure, invalid state).",
-        "Assert on observable behavior/output rather than internal implementation details.",
-        "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
-        "Add unit tests for the uncovered module before the next release.",
-        "Confirm react-ga is unused and remove it from package.json."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 23700
-    },
-    {
-      "id": "report_qf1wciz",
-      "clientId": "client_northwind",
-      "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_k50rejz",
-      "timestamp": "2026-08-08T07:07:23.494Z",
-      "trigger": "scheduled",
-      "buildId": "build-1004",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 77,
-      "coverage": {
-        "statements": 79,
-        "branches": 71,
-        "functions": 82,
-        "lines": 80
-      },
-      "testExecution": {
-        "total": 204,
-        "passed": 202,
-        "failed": 0,
-        "skipped": 2,
-        "pending": 0,
-        "durationMs": 17400
-      },
-      "findings": [
-        {
-          "id": "find_4fl1fdy",
-          "ruleId": "RULE-EC-01",
-          "ruleVersion": "1.2.0",
-          "category": "Edge Cases",
-          "title": "Expected boundary/error scenario untested",
-          "severity": "medium",
-          "detail": "Expected boundary/error scenario untested in hooks/useCheckout.ts.",
-          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_i87d4ni",
-          "ruleId": "RULE-DP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Duplication",
-          "title": "Highly similar test cases detected",
-          "severity": "low",
-          "detail": "Highly similar test cases detected in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_9gahdwd",
-          "ruleId": "RULE-TD-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Discovery",
-          "title": "Test file not discovered by Jest config",
-          "severity": "medium",
-          "detail": "Test file not discovered by Jest config in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Update the Jest testMatch/testPathIgnorePatterns so the file is picked up.",
-          "file": "app/(shop)/checkout/page.tsx"
-        }
-      ],
-      "dependencyFindings": [],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "@constructor-io/constructorio-client"
-          ],
-          "status": "active",
-          "detail": "Constructor client is referenced in application code with corresponding test coverage."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [
-            "optimizely-sdk"
-          ],
-          "status": "inconsistent",
-          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Add boundary and error-path cases (empty input, network failure, invalid state).",
-        "Consolidate near-duplicate tests into a parameterized test.",
-        "Update the Jest testMatch/testPathIgnorePatterns so the file is picked up."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 24600
-    },
-    {
-      "id": "report_dboh1d4",
-      "clientId": "client_northwind",
-      "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_6v4pfvv",
-      "timestamp": "2026-08-17T07:07:23.494Z",
-      "trigger": "manual",
-      "buildId": "build-1005",
-      "auditorVersion": "0.4.2",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 60,
-      "coverage": {
-        "statements": 78,
-        "branches": 71,
-        "functions": 83,
-        "lines": 82
-      },
-      "testExecution": {
-        "total": 210,
-        "passed": 209,
-        "failed": 0,
-        "skipped": 1,
-        "pending": 0,
-        "durationMs": 18250
-      },
-      "findings": [
-        {
-          "id": "find_7hbk4q7",
-          "ruleId": "RULE-MK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Mocking",
-          "title": "Excessive or ineffective mocking pattern",
-          "severity": "low",
-          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_zz49dg5",
-          "ruleId": "RULE-FO-01",
-          "ruleVersion": "1.2.0",
-          "category": "Focused Tests",
-          "title": "Focused (.only) test left in suite",
-          "severity": "critical",
-          "detail": "Focused (.only) test left in suite in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_74scjpm",
-          "ruleId": "RULE-DC-01",
-          "ruleVersion": "1.2.0",
-          "category": "Dependency Consistency",
-          "title": "Test import missing from package.json",
-          "severity": "high",
-          "detail": "Test import missing from package.json in lib/search/client.ts.",
-          "recommendation": "Add the missing package to package.json or replace the import.",
-          "file": "lib/search/client.ts"
-        },
-        {
-          "id": "find_c06gg4a",
-          "ruleId": "RULE-EC-01",
-          "ruleVersion": "1.2.0",
-          "category": "Edge Cases",
-          "title": "Expected boundary/error scenario untested",
-          "severity": "medium",
-          "detail": "Expected boundary/error scenario untested in lib/search/client.ts.",
-          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
-          "file": "lib/search/client.ts"
-        }
-      ],
-      "dependencyFindings": [],
-      "migrationFindings": [
-        {
-          "area": "cms",
-          "packages": [
-            "contentful"
-          ],
-          "status": "active",
-          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
-        },
-        {
-          "area": "search",
-          "packages": [
-            "@constructor-io/constructorio-client"
-          ],
-          "status": "active",
-          "detail": "Constructor client is referenced in application code with corresponding test coverage."
-        },
-        {
-          "area": "ab_testing",
-          "packages": [],
-          "status": "likely_obsolete",
-          "detail": "No optimizely-sdk references remain in package.json or source; residual test mocks were removed."
-        },
-        {
-          "area": "rendering",
-          "packages": [
-            "next"
-          ],
-          "status": "active",
-          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
-        }
-      ],
-      "recommendations": [
-        "Reduce mock surface area so the test still exercises real integration points.",
-        "Remove .only before merging — it silently disables the rest of the suite.",
-        "Add the missing package to package.json or replace the import.",
-        "Add boundary and error-path cases (empty input, network failure, invalid state)."
-      ],
-      "executionStatus": "success",
-      "errors": [],
-      "durationMs": 25500
-    },
-    {
-      "id": "report_2miodg7",
-      "clientId": "client_horizon",
-      "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_gl1njd4",
-      "timestamp": "2026-07-03T07:07:23.494Z",
-      "trigger": "production_build",
-      "buildId": "build-1001",
-      "auditorVersion": "0.4.1",
-      "ruleSetVersion": "1.2.0",
-      "jestVersion": "29.7.0",
-      "overallScore": 35,
-      "coverage": {
-        "statements": 81,
-        "branches": 40,
-        "functions": 56,
-        "lines": 62
-      },
-      "testExecution": {
-        "total": 186,
-        "passed": 177,
-        "failed": 2,
-        "skipped": 5,
-        "pending": 2,
-        "durationMs": 14850
-      },
-      "findings": [
-        {
-          "id": "find_wpp3se4",
-          "ruleId": "RULE-FO-01",
-          "ruleVersion": "1.2.0",
-          "category": "Focused Tests",
-          "title": "Focused (.only) test left in suite",
-          "severity": "critical",
-          "detail": "Focused (.only) test left in suite in lib/inventory.ts.",
-          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
-          "file": "lib/inventory.ts"
-        },
-        {
-          "id": "find_44ekc3t",
-          "ruleId": "RULE-TP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Presence",
-          "title": "Source module has no corresponding unit test",
-          "severity": "high",
-          "detail": "Source module has no corresponding unit test in lib/inventory.ts.",
-          "recommendation": "Add unit tests for the uncovered module before the next release.",
-          "file": "lib/inventory.ts"
-        },
-        {
-          "id": "find_fo6czry",
-          "ruleId": "RULE-MT-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Maintainability",
-          "title": "Oversized test with repeated setup blocks",
-          "severity": "low",
-          "detail": "Oversized test with repeated setup blocks in hooks/useCheckout.ts.",
-          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_4zjki9r",
-          "ruleId": "RULE-DP-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Duplication",
-          "title": "Highly similar test cases detected",
-          "severity": "low",
-          "detail": "Highly similar test cases detected in hooks/useCheckout.ts.",
-          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
-          "file": "hooks/useCheckout.ts"
-        },
-        {
-          "id": "find_hnwmk74",
-          "ruleId": "RULE-MK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Mocking",
-          "title": "Excessive or ineffective mocking pattern",
-          "severity": "low",
-          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_hx1j3po",
+          "id": "find_axa7bpa",
           "ruleId": "RULE-SK-01",
           "ruleVersion": "1.2.0",
           "category": "Skipped Tests",
@@ -1573,22 +202,22 @@
       "durationMs": 21900
     },
     {
-      "id": "report_hq93dcn",
-      "clientId": "client_horizon",
-      "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_5tnlu6k",
-      "timestamp": "2026-07-12T07:07:23.494Z",
+      "id": "report_mfo6szc",
+      "clientId": "client_northwind",
+      "projectId": "proj_atlas_web",
+      "auditExecutionId": "exec_ldjx25b",
+      "timestamp": "2026-07-04T11:28:17.754Z",
       "trigger": "production_build",
       "buildId": "build-1002",
-      "auditorVersion": "0.4.1",
+      "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
       "overallScore": 50,
       "coverage": {
-        "statements": 81,
-        "branches": 40,
-        "functions": 54,
-        "lines": 60
+        "statements": 61,
+        "branches": 52,
+        "functions": 62,
+        "lines": 61
       },
       "testExecution": {
         "total": 192,
@@ -1600,7 +229,7 @@
       },
       "findings": [
         {
-          "id": "find_91zw2l2",
+          "id": "find_h6vps8d",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -1611,7 +240,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_zjsytnm",
+          "id": "find_f6lqqfg",
           "ruleId": "RULE-DT-01",
           "ruleVersion": "1.2.0",
           "category": "Dead Tests",
@@ -1622,7 +251,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_7l9wk7f",
+          "id": "find_6cymbsc",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -1633,7 +262,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_n124qqv",
+          "id": "find_xhq1de0",
           "ruleId": "RULE-MT-01",
           "ruleVersion": "1.2.0",
           "category": "Test Maintainability",
@@ -1644,7 +273,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_u37z10y",
+          "id": "find_hao64dq",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -1701,21 +330,21 @@
       "durationMs": 22800
     },
     {
-      "id": "report_i8q0i49",
-      "clientId": "client_horizon",
-      "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_etklpea",
-      "timestamp": "2026-07-21T07:07:23.494Z",
+      "id": "report_5t2yrek",
+      "clientId": "client_northwind",
+      "projectId": "proj_atlas_web",
+      "auditExecutionId": "exec_0d9egzz",
+      "timestamp": "2026-07-13T11:28:17.754Z",
       "trigger": "production_build",
       "buildId": "build-1003",
-      "auditorVersion": "0.4.1",
+      "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
       "overallScore": 55,
       "coverage": {
-        "statements": 80,
-        "branches": 40,
-        "functions": 54,
+        "statements": 65,
+        "branches": 53,
+        "functions": 63,
         "lines": 62
       },
       "testExecution": {
@@ -1728,7 +357,7 @@
       },
       "findings": [
         {
-          "id": "find_kzyqn5x",
+          "id": "find_wgs8v9x",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -1739,7 +368,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_4lfq643",
+          "id": "find_sg6pdxz",
           "ruleId": "RULE-AI-01",
           "ruleVersion": "1.2.0",
           "category": "Assertions vs Implementation",
@@ -1750,7 +379,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_fk8wwfx",
+          "id": "find_8jzx0s4",
           "ruleId": "RULE-SK-01",
           "ruleVersion": "1.2.0",
           "category": "Skipped Tests",
@@ -1761,7 +390,822 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_hf1m0ei",
+          "id": "find_6zl0pay",
+          "ruleId": "RULE-TP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Presence",
+          "title": "Source module has no corresponding unit test",
+          "severity": "high",
+          "detail": "Source module has no corresponding unit test in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Add unit tests for the uncovered module before the next release.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_r2uyca6",
+          "ruleId": "RULE-MK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Mocking",
+          "title": "Excessive or ineffective mocking pattern",
+          "severity": "low",
+          "detail": "Excessive or ineffective mocking pattern in lib/search/client.ts.",
+          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "lib/search/client.ts"
+        }
+      ],
+      "dependencyFindings": [
+        {
+          "package": "react-ga",
+          "kind": "unused_in_source",
+          "detail": "Present in package.json but no application or test references found."
+        }
+      ],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "algoliasearch"
+          ],
+          "status": "inconsistent",
+          "detail": "Unit tests still reference algoliasearch mocks, but application source now calls the Constructor client exclusively."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [
+            "optimizely-sdk"
+          ],
+          "status": "inconsistent",
+          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Add boundary and error-path cases (empty input, network failure, invalid state).",
+        "Assert on observable behavior/output rather than internal implementation details.",
+        "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
+        "Add unit tests for the uncovered module before the next release.",
+        "Confirm react-ga is unused and remove it from package.json."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 23700
+    },
+    {
+      "id": "report_peqlmkc",
+      "clientId": "client_northwind",
+      "projectId": "proj_atlas_web",
+      "auditExecutionId": "exec_5me6ojw",
+      "timestamp": "2026-07-22T11:28:17.754Z",
+      "trigger": "scheduled",
+      "buildId": "build-1004",
+      "auditorVersion": "0.4.2",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 64,
+      "coverage": {
+        "statements": 62,
+        "branches": 53,
+        "functions": 68,
+        "lines": 65
+      },
+      "testExecution": {
+        "total": 204,
+        "passed": 202,
+        "failed": 0,
+        "skipped": 2,
+        "pending": 0,
+        "durationMs": 17400
+      },
+      "findings": [
+        {
+          "id": "find_10m3djg",
+          "ruleId": "RULE-EC-01",
+          "ruleVersion": "1.2.0",
+          "category": "Edge Cases",
+          "title": "Expected boundary/error scenario untested",
+          "severity": "medium",
+          "detail": "Expected boundary/error scenario untested in hooks/useCheckout.ts.",
+          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_8rv0geo",
+          "ruleId": "RULE-DP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Duplication",
+          "title": "Highly similar test cases detected",
+          "severity": "low",
+          "detail": "Highly similar test cases detected in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_57fk73k",
+          "ruleId": "RULE-TD-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Discovery",
+          "title": "Test file not discovered by Jest config",
+          "severity": "medium",
+          "detail": "Test file not discovered by Jest config in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Update the Jest testMatch/testPathIgnorePatterns so the file is picked up.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_nxwu0pj",
+          "ruleId": "RULE-SK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Skipped Tests",
+          "title": "Test suite skipped/disabled",
+          "severity": "medium",
+          "detail": "Test suite skipped/disabled in lib/search/client.ts.",
+          "recommendation": "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
+          "file": "lib/search/client.ts"
+        }
+      ],
+      "dependencyFindings": [],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "@constructor-io/constructorio-client"
+          ],
+          "status": "active",
+          "detail": "Constructor client is referenced in application code with corresponding test coverage."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [
+            "optimizely-sdk"
+          ],
+          "status": "inconsistent",
+          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Add boundary and error-path cases (empty input, network failure, invalid state).",
+        "Consolidate near-duplicate tests into a parameterized test.",
+        "Update the Jest testMatch/testPathIgnorePatterns so the file is picked up.",
+        "Re-enable or remove the skipped suite; track intentional skips with a linked issue."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 24600
+    },
+    {
+      "id": "report_8r5pxzx",
+      "clientId": "client_northwind",
+      "projectId": "proj_atlas_web",
+      "auditExecutionId": "exec_vv6ixcr",
+      "timestamp": "2026-07-31T11:28:17.754Z",
+      "trigger": "production_build",
+      "buildId": "build-1005",
+      "auditorVersion": "0.4.2",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 50,
+      "coverage": {
+        "statements": 65,
+        "branches": 55,
+        "functions": 67,
+        "lines": 65
+      },
+      "testExecution": {
+        "total": 210,
+        "passed": 209,
+        "failed": 0,
+        "skipped": 1,
+        "pending": 0,
+        "durationMs": 18250
+      },
+      "findings": [
+        {
+          "id": "find_syrx43z",
+          "ruleId": "RULE-MK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Mocking",
+          "title": "Excessive or ineffective mocking pattern",
+          "severity": "low",
+          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_igyosni",
+          "ruleId": "RULE-FO-01",
+          "ruleVersion": "1.2.0",
+          "category": "Focused Tests",
+          "title": "Focused (.only) test left in suite",
+          "severity": "critical",
+          "detail": "Focused (.only) test left in suite in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_yifxgkd",
+          "ruleId": "RULE-DC-01",
+          "ruleVersion": "1.2.0",
+          "category": "Dependency Consistency",
+          "title": "Test import missing from package.json",
+          "severity": "high",
+          "detail": "Test import missing from package.json in lib/search/client.ts.",
+          "recommendation": "Add the missing package to package.json or replace the import.",
+          "file": "lib/search/client.ts"
+        },
+        {
+          "id": "find_zxzzl0d",
+          "ruleId": "RULE-EC-01",
+          "ruleVersion": "1.2.0",
+          "category": "Edge Cases",
+          "title": "Expected boundary/error scenario untested",
+          "severity": "medium",
+          "detail": "Expected boundary/error scenario untested in lib/search/client.ts.",
+          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
+          "file": "lib/search/client.ts"
+        }
+      ],
+      "dependencyFindings": [],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "@constructor-io/constructorio-client"
+          ],
+          "status": "active",
+          "detail": "Constructor client is referenced in application code with corresponding test coverage."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [],
+          "status": "likely_obsolete",
+          "detail": "No optimizely-sdk references remain in package.json or source; residual test mocks were removed."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Reduce mock surface area so the test still exercises real integration points.",
+        "Remove .only before merging — it silently disables the rest of the suite.",
+        "Add the missing package to package.json or replace the import.",
+        "Add boundary and error-path cases (empty input, network failure, invalid state)."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 25500
+    },
+    {
+      "id": "report_x3le125",
+      "clientId": "client_northwind",
+      "projectId": "proj_atlas_web",
+      "auditExecutionId": "exec_0tylgk9",
+      "timestamp": "2026-08-09T11:28:17.754Z",
+      "trigger": "production_build",
+      "buildId": "build-1006",
+      "auditorVersion": "0.4.2",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 70,
+      "coverage": {
+        "statements": 67,
+        "branches": 57,
+        "functions": 71,
+        "lines": 66
+      },
+      "testExecution": {
+        "total": 216,
+        "passed": 216,
+        "failed": 0,
+        "skipped": 0,
+        "pending": 0,
+        "durationMs": 19100
+      },
+      "findings": [
+        {
+          "id": "find_zf58w5e",
+          "ruleId": "RULE-MK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Mocking",
+          "title": "Excessive or ineffective mocking pattern",
+          "severity": "low",
+          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_dma5s1g",
+          "ruleId": "RULE-AS-01",
+          "ruleVersion": "1.2.0",
+          "category": "Assertions",
+          "title": "Test contains no meaningful assertion",
+          "severity": "high",
+          "detail": "Test contains no meaningful assertion in lib/search/client.ts.",
+          "recommendation": "Add explicit expect() assertions; a passing test with no assertion proves nothing.",
+          "file": "lib/search/client.ts"
+        }
+      ],
+      "dependencyFindings": [
+        {
+          "package": "react-ga",
+          "kind": "unused_in_source",
+          "detail": "Present in package.json but no application or test references found."
+        }
+      ],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "@constructor-io/constructorio-client"
+          ],
+          "status": "active",
+          "detail": "Constructor client is referenced in application code with corresponding test coverage."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [],
+          "status": "likely_obsolete",
+          "detail": "No optimizely-sdk references remain in package.json or source; residual test mocks were removed."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Reduce mock surface area so the test still exercises real integration points.",
+        "Add explicit expect() assertions; a passing test with no assertion proves nothing.",
+        "Confirm react-ga is unused and remove it from package.json."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 26400
+    },
+    {
+      "id": "report_fngj9ae",
+      "clientId": "client_northwind",
+      "projectId": "proj_atlas_web",
+      "auditExecutionId": "exec_z64aqvk",
+      "timestamp": "2026-08-18T11:28:17.754Z",
+      "trigger": "manual",
+      "buildId": "build-1007",
+      "auditorVersion": "0.4.2",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 70,
+      "coverage": {
+        "statements": 71,
+        "branches": 58,
+        "functions": 72,
+        "lines": 69
+      },
+      "testExecution": {
+        "total": 222,
+        "passed": 222,
+        "failed": 0,
+        "skipped": 0,
+        "pending": 0,
+        "durationMs": 19950
+      },
+      "findings": [
+        {
+          "id": "find_g3u9jtt",
+          "ruleId": "RULE-DP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Duplication",
+          "title": "Highly similar test cases detected",
+          "severity": "low",
+          "detail": "Highly similar test cases detected in lib/search/client.ts.",
+          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
+          "file": "lib/search/client.ts"
+        },
+        {
+          "id": "find_namtwgw",
+          "ruleId": "RULE-TP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Presence",
+          "title": "Source module has no corresponding unit test",
+          "severity": "high",
+          "detail": "Source module has no corresponding unit test in lib/search/client.ts.",
+          "recommendation": "Add unit tests for the uncovered module before the next release.",
+          "file": "lib/search/client.ts"
+        },
+        {
+          "id": "find_t1br03y",
+          "ruleId": "RULE-MK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Mocking",
+          "title": "Excessive or ineffective mocking pattern",
+          "severity": "low",
+          "detail": "Excessive or ineffective mocking pattern in lib/cms/resolveEntry.ts.",
+          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "lib/cms/resolveEntry.ts"
+        }
+      ],
+      "dependencyFindings": [],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "@constructor-io/constructorio-client"
+          ],
+          "status": "active",
+          "detail": "Constructor client is referenced in application code with corresponding test coverage."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [],
+          "status": "likely_obsolete",
+          "detail": "No optimizely-sdk references remain in package.json or source; residual test mocks were removed."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Consolidate near-duplicate tests into a parameterized test.",
+        "Add unit tests for the uncovered module before the next release.",
+        "Reduce mock surface area so the test still exercises real integration points."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 27300
+    },
+    {
+      "id": "report_pucf8ct",
+      "clientId": "client_northwind",
+      "projectId": "proj_northwind_docs",
+      "auditExecutionId": "exec_yjn5llx",
+      "timestamp": "2026-07-13T11:28:17.754Z",
+      "trigger": "production_build",
+      "buildId": "build-1001",
+      "auditorVersion": "0.4.2",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 46,
+      "coverage": {
+        "statements": 71,
+        "branches": 68,
+        "functions": 74,
+        "lines": 72
+      },
+      "testExecution": {
+        "total": 186,
+        "passed": 177,
+        "failed": 2,
+        "skipped": 5,
+        "pending": 2,
+        "durationMs": 14850
+      },
+      "findings": [
+        {
+          "id": "find_4vszfv1",
+          "ruleId": "RULE-FO-01",
+          "ruleVersion": "1.2.0",
+          "category": "Focused Tests",
+          "title": "Focused (.only) test left in suite",
+          "severity": "critical",
+          "detail": "Focused (.only) test left in suite in lib/inventory.ts.",
+          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
+          "file": "lib/inventory.ts"
+        },
+        {
+          "id": "find_kxr1bvw",
+          "ruleId": "RULE-TP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Presence",
+          "title": "Source module has no corresponding unit test",
+          "severity": "high",
+          "detail": "Source module has no corresponding unit test in lib/inventory.ts.",
+          "recommendation": "Add unit tests for the uncovered module before the next release.",
+          "file": "lib/inventory.ts"
+        },
+        {
+          "id": "find_rptp8m1",
+          "ruleId": "RULE-MT-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Maintainability",
+          "title": "Oversized test with repeated setup blocks",
+          "severity": "low",
+          "detail": "Oversized test with repeated setup blocks in hooks/useCheckout.ts.",
+          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_rohz4lr",
+          "ruleId": "RULE-DP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Duplication",
+          "title": "Highly similar test cases detected",
+          "severity": "low",
+          "detail": "Highly similar test cases detected in hooks/useCheckout.ts.",
+          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_x15s7ou",
+          "ruleId": "RULE-MK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Mocking",
+          "title": "Excessive or ineffective mocking pattern",
+          "severity": "low",
+          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "app/(shop)/checkout/page.tsx"
+        }
+      ],
+      "dependencyFindings": [],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "algoliasearch"
+          ],
+          "status": "active",
+          "detail": "algoliasearch still referenced by application code and tests."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [
+            "optimizely-sdk"
+          ],
+          "status": "inconsistent",
+          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Remove .only before merging — it silently disables the rest of the suite.",
+        "Add unit tests for the uncovered module before the next release.",
+        "Extract shared setup into a fixture/helper to shrink the test body.",
+        "Consolidate near-duplicate tests into a parameterized test."
+      ],
+      "executionStatus": "completed_with_errors",
+      "errors": [
+        "2 test(s) failed during execution; see findings for detail."
+      ],
+      "durationMs": 21900
+    },
+    {
+      "id": "report_0pjjh68",
+      "clientId": "client_northwind",
+      "projectId": "proj_northwind_docs",
+      "auditExecutionId": "exec_644lbko",
+      "timestamp": "2026-07-22T11:28:17.754Z",
+      "trigger": "production_build",
+      "buildId": "build-1002",
+      "auditorVersion": "0.4.2",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 64,
+      "coverage": {
+        "statements": 76,
+        "branches": 70,
+        "functions": 78,
+        "lines": 76
+      },
+      "testExecution": {
+        "total": 192,
+        "passed": 187,
+        "failed": 0,
+        "skipped": 4,
+        "pending": 1,
+        "durationMs": 15700
+      },
+      "findings": [
+        {
+          "id": "find_a5ljzki",
+          "ruleId": "RULE-FO-01",
+          "ruleVersion": "1.2.0",
+          "category": "Focused Tests",
+          "title": "Focused (.only) test left in suite",
+          "severity": "critical",
+          "detail": "Focused (.only) test left in suite in lib/inventory.ts.",
+          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
+          "file": "lib/inventory.ts"
+        },
+        {
+          "id": "find_t6q6fdg",
+          "ruleId": "RULE-DT-01",
+          "ruleVersion": "1.2.0",
+          "category": "Dead Tests",
+          "title": "Test disconnected from current application code",
+          "severity": "medium",
+          "detail": "Test disconnected from current application code in hooks/useCheckout.ts.",
+          "recommendation": "Confirm the code path still exists; remove the test if the feature was deleted.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_fhz2zmm",
+          "ruleId": "RULE-MK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Mocking",
+          "title": "Excessive or ineffective mocking pattern",
+          "severity": "low",
+          "detail": "Excessive or ineffective mocking pattern in hooks/useCheckout.ts.",
+          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_dckinu9",
+          "ruleId": "RULE-MT-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Maintainability",
+          "title": "Oversized test with repeated setup blocks",
+          "severity": "low",
+          "detail": "Oversized test with repeated setup blocks in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
+          "file": "app/(shop)/checkout/page.tsx"
+        }
+      ],
+      "dependencyFindings": [],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "algoliasearch"
+          ],
+          "status": "inconsistent",
+          "detail": "Unit tests still reference algoliasearch mocks, but application source now calls the Constructor client exclusively."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [
+            "optimizely-sdk"
+          ],
+          "status": "inconsistent",
+          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Remove .only before merging — it silently disables the rest of the suite.",
+        "Confirm the code path still exists; remove the test if the feature was deleted.",
+        "Reduce mock surface area so the test still exercises real integration points.",
+        "Extract shared setup into a fixture/helper to shrink the test body."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 22800
+    },
+    {
+      "id": "report_ey6vjd2",
+      "clientId": "client_northwind",
+      "projectId": "proj_northwind_docs",
+      "auditExecutionId": "exec_0n21d7y",
+      "timestamp": "2026-07-31T11:28:17.754Z",
+      "trigger": "production_build",
+      "buildId": "build-1003",
+      "auditorVersion": "0.4.2",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 65,
+      "coverage": {
+        "statements": 74,
+        "branches": 72,
+        "functions": 79,
+        "lines": 77
+      },
+      "testExecution": {
+        "total": 198,
+        "passed": 194,
+        "failed": 0,
+        "skipped": 3,
+        "pending": 1,
+        "durationMs": 16550
+      },
+      "findings": [
+        {
+          "id": "find_kmc9m8f",
+          "ruleId": "RULE-EC-01",
+          "ruleVersion": "1.2.0",
+          "category": "Edge Cases",
+          "title": "Expected boundary/error scenario untested",
+          "severity": "medium",
+          "detail": "Expected boundary/error scenario untested in hooks/useCheckout.ts.",
+          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_xy8y0om",
+          "ruleId": "RULE-AI-01",
+          "ruleVersion": "1.2.0",
+          "category": "Assertions vs Implementation",
+          "title": "Test overly coupled to implementation detail",
+          "severity": "medium",
+          "detail": "Test overly coupled to implementation detail in hooks/useCheckout.ts.",
+          "recommendation": "Assert on observable behavior/output rather than internal implementation details.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_8us61nt",
+          "ruleId": "RULE-SK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Skipped Tests",
+          "title": "Test suite skipped/disabled",
+          "severity": "medium",
+          "detail": "Test suite skipped/disabled in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_en7rrzj",
           "ruleId": "RULE-TP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Presence",
@@ -1825,22 +1269,22 @@
       "durationMs": 23700
     },
     {
-      "id": "report_zpns3oc",
-      "clientId": "client_horizon",
-      "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_hp4xdf2",
-      "timestamp": "2026-07-30T07:07:23.494Z",
+      "id": "report_xgch0oh",
+      "clientId": "client_northwind",
+      "projectId": "proj_northwind_docs",
+      "auditExecutionId": "exec_zu4g1ve",
+      "timestamp": "2026-08-09T11:28:17.754Z",
       "trigger": "scheduled",
       "buildId": "build-1004",
-      "auditorVersion": "0.4.1",
+      "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 65,
+      "overallScore": 73,
       "coverage": {
-        "statements": 81,
-        "branches": 39,
-        "functions": 52,
-        "lines": 59
+        "statements": 76,
+        "branches": 72,
+        "functions": 82,
+        "lines": 80
       },
       "testExecution": {
         "total": 204,
@@ -1852,7 +1296,7 @@
       },
       "findings": [
         {
-          "id": "find_qu2excv",
+          "id": "find_2hqcdhj",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -1863,7 +1307,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_jr10kfy",
+          "id": "find_hrecdbe",
           "ruleId": "RULE-DP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Duplication",
@@ -1874,7 +1318,621 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_672raum",
+          "id": "find_scghrge",
+          "ruleId": "RULE-TD-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Discovery",
+          "title": "Test file not discovered by Jest config",
+          "severity": "medium",
+          "detail": "Test file not discovered by Jest config in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Update the Jest testMatch/testPathIgnorePatterns so the file is picked up.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_8rp9dkm",
+          "ruleId": "RULE-SK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Skipped Tests",
+          "title": "Test suite skipped/disabled",
+          "severity": "medium",
+          "detail": "Test suite skipped/disabled in lib/search/client.ts.",
+          "recommendation": "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
+          "file": "lib/search/client.ts"
+        }
+      ],
+      "dependencyFindings": [],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "@constructor-io/constructorio-client"
+          ],
+          "status": "active",
+          "detail": "Constructor client is referenced in application code with corresponding test coverage."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [
+            "optimizely-sdk"
+          ],
+          "status": "inconsistent",
+          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Add boundary and error-path cases (empty input, network failure, invalid state).",
+        "Consolidate near-duplicate tests into a parameterized test.",
+        "Update the Jest testMatch/testPathIgnorePatterns so the file is picked up.",
+        "Re-enable or remove the skipped suite; track intentional skips with a linked issue."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 24600
+    },
+    {
+      "id": "report_k36fjtg",
+      "clientId": "client_northwind",
+      "projectId": "proj_northwind_docs",
+      "auditExecutionId": "exec_a10e1ne",
+      "timestamp": "2026-08-18T11:28:17.754Z",
+      "trigger": "manual",
+      "buildId": "build-1005",
+      "auditorVersion": "0.4.2",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 59,
+      "coverage": {
+        "statements": 80,
+        "branches": 73,
+        "functions": 81,
+        "lines": 79
+      },
+      "testExecution": {
+        "total": 210,
+        "passed": 209,
+        "failed": 0,
+        "skipped": 1,
+        "pending": 0,
+        "durationMs": 18250
+      },
+      "findings": [
+        {
+          "id": "find_4sm3ogv",
+          "ruleId": "RULE-MK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Mocking",
+          "title": "Excessive or ineffective mocking pattern",
+          "severity": "low",
+          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_17uu36r",
+          "ruleId": "RULE-FO-01",
+          "ruleVersion": "1.2.0",
+          "category": "Focused Tests",
+          "title": "Focused (.only) test left in suite",
+          "severity": "critical",
+          "detail": "Focused (.only) test left in suite in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_s20qczh",
+          "ruleId": "RULE-DC-01",
+          "ruleVersion": "1.2.0",
+          "category": "Dependency Consistency",
+          "title": "Test import missing from package.json",
+          "severity": "high",
+          "detail": "Test import missing from package.json in lib/search/client.ts.",
+          "recommendation": "Add the missing package to package.json or replace the import.",
+          "file": "lib/search/client.ts"
+        },
+        {
+          "id": "find_p095trh",
+          "ruleId": "RULE-EC-01",
+          "ruleVersion": "1.2.0",
+          "category": "Edge Cases",
+          "title": "Expected boundary/error scenario untested",
+          "severity": "medium",
+          "detail": "Expected boundary/error scenario untested in lib/search/client.ts.",
+          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
+          "file": "lib/search/client.ts"
+        }
+      ],
+      "dependencyFindings": [],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "@constructor-io/constructorio-client"
+          ],
+          "status": "active",
+          "detail": "Constructor client is referenced in application code with corresponding test coverage."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [],
+          "status": "likely_obsolete",
+          "detail": "No optimizely-sdk references remain in package.json or source; residual test mocks were removed."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Reduce mock surface area so the test still exercises real integration points.",
+        "Remove .only before merging — it silently disables the rest of the suite.",
+        "Add the missing package to package.json or replace the import.",
+        "Add boundary and error-path cases (empty input, network failure, invalid state)."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 25500
+    },
+    {
+      "id": "report_hol6tmh",
+      "clientId": "client_horizon",
+      "projectId": "proj_horizon_app",
+      "auditExecutionId": "exec_ldri829",
+      "timestamp": "2026-07-04T11:28:17.754Z",
+      "trigger": "production_build",
+      "buildId": "build-1001",
+      "auditorVersion": "0.4.1",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 35,
+      "coverage": {
+        "statements": 81,
+        "branches": 39,
+        "functions": 55,
+        "lines": 62
+      },
+      "testExecution": {
+        "total": 186,
+        "passed": 177,
+        "failed": 2,
+        "skipped": 5,
+        "pending": 2,
+        "durationMs": 14850
+      },
+      "findings": [
+        {
+          "id": "find_2hy2a7m",
+          "ruleId": "RULE-FO-01",
+          "ruleVersion": "1.2.0",
+          "category": "Focused Tests",
+          "title": "Focused (.only) test left in suite",
+          "severity": "critical",
+          "detail": "Focused (.only) test left in suite in lib/inventory.ts.",
+          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
+          "file": "lib/inventory.ts"
+        },
+        {
+          "id": "find_8z7mrvw",
+          "ruleId": "RULE-TP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Presence",
+          "title": "Source module has no corresponding unit test",
+          "severity": "high",
+          "detail": "Source module has no corresponding unit test in lib/inventory.ts.",
+          "recommendation": "Add unit tests for the uncovered module before the next release.",
+          "file": "lib/inventory.ts"
+        },
+        {
+          "id": "find_9hlheno",
+          "ruleId": "RULE-MT-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Maintainability",
+          "title": "Oversized test with repeated setup blocks",
+          "severity": "low",
+          "detail": "Oversized test with repeated setup blocks in hooks/useCheckout.ts.",
+          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_32re6na",
+          "ruleId": "RULE-DP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Duplication",
+          "title": "Highly similar test cases detected",
+          "severity": "low",
+          "detail": "Highly similar test cases detected in hooks/useCheckout.ts.",
+          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_6aep1jd",
+          "ruleId": "RULE-MK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Mocking",
+          "title": "Excessive or ineffective mocking pattern",
+          "severity": "low",
+          "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_tz4jdgl",
+          "ruleId": "RULE-SK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Skipped Tests",
+          "title": "Test suite skipped/disabled",
+          "severity": "medium",
+          "detail": "Test suite skipped/disabled in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
+          "file": "app/(shop)/checkout/page.tsx"
+        }
+      ],
+      "dependencyFindings": [],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "algoliasearch"
+          ],
+          "status": "active",
+          "detail": "algoliasearch still referenced by application code and tests."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [
+            "optimizely-sdk"
+          ],
+          "status": "inconsistent",
+          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Remove .only before merging — it silently disables the rest of the suite.",
+        "Add unit tests for the uncovered module before the next release.",
+        "Extract shared setup into a fixture/helper to shrink the test body.",
+        "Consolidate near-duplicate tests into a parameterized test."
+      ],
+      "executionStatus": "completed_with_errors",
+      "errors": [
+        "2 test(s) failed during execution; see findings for detail."
+      ],
+      "durationMs": 21900
+    },
+    {
+      "id": "report_drsgg4q",
+      "clientId": "client_horizon",
+      "projectId": "proj_horizon_app",
+      "auditExecutionId": "exec_gsq2ko2",
+      "timestamp": "2026-07-13T11:28:17.754Z",
+      "trigger": "production_build",
+      "buildId": "build-1002",
+      "auditorVersion": "0.4.1",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 54,
+      "coverage": {
+        "statements": 80,
+        "branches": 39,
+        "functions": 53,
+        "lines": 62
+      },
+      "testExecution": {
+        "total": 192,
+        "passed": 187,
+        "failed": 0,
+        "skipped": 4,
+        "pending": 1,
+        "durationMs": 15700
+      },
+      "findings": [
+        {
+          "id": "find_skd08pf",
+          "ruleId": "RULE-FO-01",
+          "ruleVersion": "1.2.0",
+          "category": "Focused Tests",
+          "title": "Focused (.only) test left in suite",
+          "severity": "critical",
+          "detail": "Focused (.only) test left in suite in lib/inventory.ts.",
+          "recommendation": "Remove .only before merging — it silently disables the rest of the suite.",
+          "file": "lib/inventory.ts"
+        },
+        {
+          "id": "find_mf5hqjw",
+          "ruleId": "RULE-DT-01",
+          "ruleVersion": "1.2.0",
+          "category": "Dead Tests",
+          "title": "Test disconnected from current application code",
+          "severity": "medium",
+          "detail": "Test disconnected from current application code in hooks/useCheckout.ts.",
+          "recommendation": "Confirm the code path still exists; remove the test if the feature was deleted.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_ec9y3ei",
+          "ruleId": "RULE-MK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Mocking",
+          "title": "Excessive or ineffective mocking pattern",
+          "severity": "low",
+          "detail": "Excessive or ineffective mocking pattern in hooks/useCheckout.ts.",
+          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_xszfwqi",
+          "ruleId": "RULE-MT-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Maintainability",
+          "title": "Oversized test with repeated setup blocks",
+          "severity": "low",
+          "detail": "Oversized test with repeated setup blocks in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
+          "file": "app/(shop)/checkout/page.tsx"
+        }
+      ],
+      "dependencyFindings": [],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "algoliasearch"
+          ],
+          "status": "inconsistent",
+          "detail": "Unit tests still reference algoliasearch mocks, but application source now calls the Constructor client exclusively."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [
+            "optimizely-sdk"
+          ],
+          "status": "inconsistent",
+          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Remove .only before merging — it silently disables the rest of the suite.",
+        "Confirm the code path still exists; remove the test if the feature was deleted.",
+        "Reduce mock surface area so the test still exercises real integration points.",
+        "Extract shared setup into a fixture/helper to shrink the test body."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 22800
+    },
+    {
+      "id": "report_hue4fis",
+      "clientId": "client_horizon",
+      "projectId": "proj_horizon_app",
+      "auditExecutionId": "exec_omz0t9w",
+      "timestamp": "2026-07-22T11:28:17.754Z",
+      "trigger": "production_build",
+      "buildId": "build-1003",
+      "auditorVersion": "0.4.1",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 55,
+      "coverage": {
+        "statements": 82,
+        "branches": 41,
+        "functions": 53,
+        "lines": 59
+      },
+      "testExecution": {
+        "total": 198,
+        "passed": 194,
+        "failed": 0,
+        "skipped": 3,
+        "pending": 1,
+        "durationMs": 16550
+      },
+      "findings": [
+        {
+          "id": "find_1ohh2e3",
+          "ruleId": "RULE-EC-01",
+          "ruleVersion": "1.2.0",
+          "category": "Edge Cases",
+          "title": "Expected boundary/error scenario untested",
+          "severity": "medium",
+          "detail": "Expected boundary/error scenario untested in hooks/useCheckout.ts.",
+          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_rshxkwo",
+          "ruleId": "RULE-AI-01",
+          "ruleVersion": "1.2.0",
+          "category": "Assertions vs Implementation",
+          "title": "Test overly coupled to implementation detail",
+          "severity": "medium",
+          "detail": "Test overly coupled to implementation detail in hooks/useCheckout.ts.",
+          "recommendation": "Assert on observable behavior/output rather than internal implementation details.",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_cpe0w7w",
+          "ruleId": "RULE-SK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Skipped Tests",
+          "title": "Test suite skipped/disabled",
+          "severity": "medium",
+          "detail": "Test suite skipped/disabled in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_y8ms24k",
+          "ruleId": "RULE-TP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Presence",
+          "title": "Source module has no corresponding unit test",
+          "severity": "high",
+          "detail": "Source module has no corresponding unit test in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Add unit tests for the uncovered module before the next release.",
+          "file": "app/(shop)/checkout/page.tsx"
+        }
+      ],
+      "dependencyFindings": [
+        {
+          "package": "react-ga",
+          "kind": "unused_in_source",
+          "detail": "Present in package.json but no application or test references found."
+        }
+      ],
+      "migrationFindings": [
+        {
+          "area": "cms",
+          "packages": [
+            "contentful"
+          ],
+          "status": "active",
+          "detail": "contentful is referenced in package.json, application code, and covered by unit tests."
+        },
+        {
+          "area": "search",
+          "packages": [
+            "algoliasearch"
+          ],
+          "status": "inconsistent",
+          "detail": "Unit tests still reference algoliasearch mocks, but application source now calls the Constructor client exclusively."
+        },
+        {
+          "area": "ab_testing",
+          "packages": [
+            "optimizely-sdk"
+          ],
+          "status": "inconsistent",
+          "detail": "optimizely-sdk removed from package.json but ExperimentBanner tests still mock its API."
+        },
+        {
+          "area": "rendering",
+          "packages": [
+            "next"
+          ],
+          "status": "active",
+          "detail": "Static/ISR rendering paths (getStaticProps/generateStaticParams) have corresponding test coverage."
+        }
+      ],
+      "recommendations": [
+        "Add boundary and error-path cases (empty input, network failure, invalid state).",
+        "Assert on observable behavior/output rather than internal implementation details.",
+        "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
+        "Add unit tests for the uncovered module before the next release.",
+        "Confirm react-ga is unused and remove it from package.json."
+      ],
+      "executionStatus": "success",
+      "errors": [],
+      "durationMs": 23700
+    },
+    {
+      "id": "report_pqhx5g0",
+      "clientId": "client_horizon",
+      "projectId": "proj_horizon_app",
+      "auditExecutionId": "exec_m6duhan",
+      "timestamp": "2026-07-31T11:28:17.754Z",
+      "trigger": "scheduled",
+      "buildId": "build-1004",
+      "auditorVersion": "0.4.1",
+      "ruleSetVersion": "1.2.0",
+      "jestVersion": "29.7.0",
+      "overallScore": 65,
+      "coverage": {
+        "statements": 79,
+        "branches": 38,
+        "functions": 55,
+        "lines": 61
+      },
+      "testExecution": {
+        "total": 204,
+        "passed": 202,
+        "failed": 0,
+        "skipped": 2,
+        "pending": 0,
+        "durationMs": 17400
+      },
+      "findings": [
+        {
+          "id": "find_20bnvpq",
+          "ruleId": "RULE-EC-01",
+          "ruleVersion": "1.2.0",
+          "category": "Edge Cases",
+          "title": "Expected boundary/error scenario untested",
+          "severity": "medium",
+          "detail": "Expected boundary/error scenario untested in hooks/useCheckout.ts.",
+          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
+          "file": "hooks/useCheckout.ts"
+        },
+        {
+          "id": "find_3kie215",
+          "ruleId": "RULE-DP-01",
+          "ruleVersion": "1.2.0",
+          "category": "Test Duplication",
+          "title": "Highly similar test cases detected",
+          "severity": "low",
+          "detail": "Highly similar test cases detected in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Consolidate near-duplicate tests into a parameterized test.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_iujlym2",
           "ruleId": "RULE-TD-01",
           "ruleVersion": "1.2.0",
           "category": "Test Discovery",
@@ -1930,11 +1988,11 @@
       "durationMs": 24600
     },
     {
-      "id": "report_cu84g5w",
+      "id": "report_s79sv4w",
       "clientId": "client_horizon",
       "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_axvllzr",
-      "timestamp": "2026-08-08T07:07:23.494Z",
+      "auditExecutionId": "exec_6oit7hv",
+      "timestamp": "2026-08-09T11:28:17.754Z",
       "trigger": "production_build",
       "buildId": "build-1005",
       "auditorVersion": "0.4.1",
@@ -1942,10 +2000,10 @@
       "jestVersion": "29.7.0",
       "overallScore": 47,
       "coverage": {
-        "statements": 79,
-        "branches": 38,
-        "functions": 52,
-        "lines": 61
+        "statements": 80,
+        "branches": 39,
+        "functions": 51,
+        "lines": 62
       },
       "testExecution": {
         "total": 210,
@@ -1957,7 +2015,7 @@
       },
       "findings": [
         {
-          "id": "find_c7ci6yl",
+          "id": "find_62uirf5",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -1968,7 +2026,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_qjzh4vl",
+          "id": "find_21naz97",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -1979,7 +2037,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_hdtiw4z",
+          "id": "find_21k55oi",
           "ruleId": "RULE-DC-01",
           "ruleVersion": "1.2.0",
           "category": "Dependency Consistency",
@@ -1990,7 +2048,7 @@
           "file": "lib/search/client.ts"
         },
         {
-          "id": "find_3rk1iq7",
+          "id": "find_3pui2hh",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -2045,22 +2103,22 @@
       "durationMs": 25500
     },
     {
-      "id": "report_s6gcvqj",
+      "id": "report_2xixffr",
       "clientId": "client_horizon",
       "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_e53p1ut",
-      "timestamp": "2026-08-17T07:07:23.494Z",
+      "auditExecutionId": "exec_t7mj8du",
+      "timestamp": "2026-08-18T11:28:17.754Z",
       "trigger": "manual",
       "buildId": "build-1006",
       "auditorVersion": "0.4.1",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 64,
+      "overallScore": 65,
       "coverage": {
-        "statements": 80,
-        "branches": 39,
+        "statements": 82,
+        "branches": 36,
         "functions": 51,
-        "lines": 61
+        "lines": 58
       },
       "testExecution": {
         "total": 216,
@@ -2072,7 +2130,7 @@
       },
       "findings": [
         {
-          "id": "find_g4wl0cz",
+          "id": "find_gf750e0",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -2083,7 +2141,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_5cu4sko",
+          "id": "find_4fshsdi",
           "ruleId": "RULE-AS-01",
           "ruleVersion": "1.2.0",
           "category": "Assertions",
@@ -2091,17 +2149,6 @@
           "severity": "high",
           "detail": "Test contains no meaningful assertion in lib/search/client.ts.",
           "recommendation": "Add explicit expect() assertions; a passing test with no assertion proves nothing.",
-          "file": "lib/search/client.ts"
-        },
-        {
-          "id": "find_2r0ke11",
-          "ruleId": "RULE-MT-01",
-          "ruleVersion": "1.2.0",
-          "category": "Test Maintainability",
-          "title": "Oversized test with repeated setup blocks",
-          "severity": "low",
-          "detail": "Oversized test with repeated setup blocks in lib/search/client.ts.",
-          "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
           "file": "lib/search/client.ts"
         }
       ],
@@ -2147,7 +2194,6 @@
       "recommendations": [
         "Reduce mock surface area so the test still exercises real integration points.",
         "Add explicit expect() assertions; a passing test with no assertion proves nothing.",
-        "Extract shared setup into a fixture/helper to shrink the test body.",
         "Confirm react-ga is unused and remove it from package.json."
       ],
       "executionStatus": "success",

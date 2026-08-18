@@ -4,7 +4,8 @@ import { getSession } from "@/lib/auth";
 import { getClient, getReport, listProjectsForClient, listReportsForClient } from "@/lib/db";
 import ScoreDial from "@/components/ScoreDial";
 import CoverageBars from "@/components/CoverageBars";
-import SeverityBadge from "@/components/SeverityBadge";
+import FindingsPanel from "@/components/FindingsPanel";
+import CopyLinkButton from "@/components/CopyLinkButton";
 import type { MigrationFinding } from "@/lib/types";
 
 function fmtDateTime(iso: string) {
@@ -60,11 +61,6 @@ export default function ReportDetailPage({
   const idx = history.findIndex((r) => r.id === report.id);
   const previous = idx >= 0 ? history[idx + 1] : undefined;
 
-  const findingsByCategory = report.findings.reduce<Record<string, typeof report.findings>>((acc, f) => {
-    (acc[f.category] ??= []).push(f);
-    return acc;
-  }, {});
-
   return (
     <div>
       <Link
@@ -79,7 +75,10 @@ export default function ReportDetailPage({
           <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">
             Audit report
           </div>
-          <h1 className="font-display text-3xl font-bold">{project?.name ?? "Unknown project"}</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="font-display text-3xl font-bold">{project?.name ?? "Unknown project"}</h1>
+            <CopyLinkButton />
+          </div>
           <div className="text-sm text-mist mt-1">{fmtDateTime(report.timestamp)}</div>
         </div>
         <dl className="grid grid-cols-2 gap-x-6 gap-y-1 text-xs font-mono text-mist">
@@ -145,36 +144,7 @@ export default function ReportDetailPage({
         <div className="text-xs uppercase tracking-widest text-mist mb-4">
           Findings ({report.findings.length})
         </div>
-        {report.findings.length === 0 ? (
-          <div className="border border-line bg-panel rounded-xl px-6 py-8 text-center text-sm text-signal-pass">
-            No rule violations detected in this audit.
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {Object.entries(findingsByCategory).map(([category, findings]) => (
-              <div key={category} className="border border-line bg-panel rounded-xl overflow-hidden">
-                <div className="px-5 py-2.5 bg-panel2/40 border-b border-line text-sm font-medium">
-                  {category}
-                </div>
-                <div className="divide-y divide-line">
-                  {findings.map((f) => (
-                    <div key={f.id} className="px-5 py-3 flex items-start justify-between gap-4">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-mono text-[11px] text-mist">{f.ruleId}</span>
-                          <SeverityBadge severity={f.severity} />
-                        </div>
-                        <div className="text-sm">{f.detail}</div>
-                        {f.file && <div className="font-mono text-xs text-mist mt-1">{f.file}</div>}
-                        <div className="text-xs text-signal-info mt-1.5">→ {f.recommendation}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        <FindingsPanel findings={report.findings} />
       </section>
 
       {report.dependencyFindings.length > 0 && (

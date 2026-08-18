@@ -6,17 +6,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "var(--color-ink)",
-        panel: "var(--color-panel)",
-        panel2: "var(--color-panel-2)",
-        line: "var(--color-line)",
-        mist: "var(--color-mist)",
-        chalk: "var(--color-chalk)",
+        ink: "rgb(var(--c-ink) / <alpha-value>)",
+        panel: "rgb(var(--c-panel) / <alpha-value>)",
+        panel2: "rgb(var(--c-panel2) / <alpha-value>)",
+        line: "rgb(var(--c-line) / <alpha-value>)",
+        mist: "rgb(var(--c-mist) / <alpha-value>)",
+        chalk: "rgb(var(--c-chalk) / <alpha-value>)",
+        onaccent: "rgb(var(--c-onaccent) / <alpha-value>)",
         signal: {
-          pass: "#3ED598",
-          fail: "#FF6B5E",
-          warn: "#F5B942",
-          info: "#5FA8FF"
+          pass: "rgb(var(--c-pass) / <alpha-value>)",
+          fail: "rgb(var(--c-fail) / <alpha-value>)",
+          warn: "rgb(var(--c-warn) / <alpha-value>)",
+          info: "rgb(var(--c-info) / <alpha-value>)",
+          high: "rgb(var(--c-high) / <alpha-value>)"
         }
       },
       fontFamily: {

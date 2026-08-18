@@ -30,25 +30,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${display.variable} ${body.variable} ${mono.variable}`}>
-      <body className="font-body bg-ink text-chalk antialiased grain min-h-screen">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
+    >
+      <head>
+        {/* Applies the stored/system theme before paint to avoid a flash of
+            the wrong theme. Kept tiny and inline on purpose. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-              (() => {
-                try {
-                  const saved = localStorage.getItem('utc-theme');
-                  const theme = saved === 'light' || saved === 'dark'
-                    ? saved
-                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                  document.documentElement.classList.toggle('dark', theme === 'dark');
-                  document.documentElement.classList.toggle('light', theme === 'light');
-                  document.documentElement.style.colorScheme = theme;
-                } catch (e) {}
-              })();
-            `,
+            __html: `(function(){try{var s=localStorage.getItem('utc-theme');var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
           }}
         />
+      </head>
+      <body className="font-body bg-ink text-chalk antialiased grain min-h-screen" suppressHydrationWarning>
         {children}
       </body>
     </html>

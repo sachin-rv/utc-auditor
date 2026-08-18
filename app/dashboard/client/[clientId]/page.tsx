@@ -6,7 +6,7 @@ import ScoreDial from "@/components/ScoreDial";
 import CoverageBars from "@/components/CoverageBars";
 import TrendChart, { TrendPoint } from "@/components/TrendChart";
 import StatusPill from "@/components/StatusPill";
-import SeverityBadge from "@/components/SeverityBadge";
+import ReportHistoryList, { ReportRow } from "@/components/ReportHistoryList";
 
 function fmtDate(iso: string) {
   return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" });
@@ -103,56 +103,21 @@ export default function ClientHistoryPage({ params }: { params: { clientId: stri
                     <div className="text-xs uppercase tracking-widest text-mist mb-3">
                       Report history ({reports.length})
                     </div>
-                    <div className="divide-y divide-line">
-                      {reports.map((r) => {
-                        const criticalCount = r.findings.filter((f) => f.severity === "critical").length;
-                        const highCount = r.findings.filter((f) => f.severity === "high").length;
-                        return (
-                          <Link
-                            key={r.id}
-                            href={`/dashboard/client/${client.id}/report/${r.id}`}
-                            className="flex items-center justify-between py-3 group hover:bg-panel2/40 -mx-2 px-2 rounded-lg transition-colors"
-                          >
-                            <div className="flex items-center gap-4">
-                              <span className="font-mono text-xs text-mist w-32 shrink-0">
-                                {fmtDateTime(r.timestamp)}
-                              </span>
-                              <span className="text-xs px-2 py-0.5 rounded border border-line text-mist font-mono uppercase tracking-wider">
-                                {r.trigger.replace("_", " ")}
-                              </span>
-                              <div className="flex gap-1.5">
-                                {criticalCount > 0 && <SeverityBadge severity="critical" />}
-                                {highCount > 0 && <SeverityBadge severity="high" />}
-                                {criticalCount === 0 && highCount === 0 && (
-                                  <span className="text-[10px] font-mono text-signal-pass uppercase tracking-wider">
-                                    clean
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-6">
-                              <span className="font-mono text-xs text-mist">
-                                {r.testExecution.passed}/{r.testExecution.total} passed
-                              </span>
-                              <span
-                                className={`font-mono text-sm font-bold w-8 text-right ${
-                                  r.overallScore < 60
-                                    ? "text-signal-fail"
-                                    : r.overallScore < 80
-                                    ? "text-signal-warn"
-                                    : r.overallScore < 90
-                                    ? "text-signal-info"
-                                    : "text-signal-pass"
-                                }`}
-                              >
-                                {r.overallScore}
-                              </span>
-                              <span className="text-mist group-hover:text-signal-pass transition-colors">→</span>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
+                    <ReportHistoryList
+                      clientId={client.id}
+                      reports={reports.map(
+                        (r): ReportRow => ({
+                          id: r.id,
+                          timestamp: r.timestamp,
+                          trigger: r.trigger,
+                          overallScore: r.overallScore,
+                          passed: r.testExecution.passed,
+                          total: r.testExecution.total,
+                          criticalCount: r.findings.filter((f) => f.severity === "critical").length,
+                          highCount: r.findings.filter((f) => f.severity === "high").length,
+                        })
+                      )}
+                    />
                   </div>
                 </>
               )}

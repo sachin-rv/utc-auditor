@@ -21,13 +21,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </span>
           </Link>
           <div className="flex items-center gap-4">
-            <ThemeToggle />
             <div className="text-right leading-tight hidden sm:block">
               <div className="text-sm font-medium">{session.name}</div>
               <div className="text-[11px] text-mist uppercase tracking-wider">
                 {session.role === "admin" ? "Administrator" : "Client user"}
               </div>
             </div>
+            <ThemeToggle />
             <LogoutButton />
           </div>
         </div>
