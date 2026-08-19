@@ -61,22 +61,22 @@
   ],
   "reports": [
     {
-      "id": "report_t1xzk3i",
+      "id": "report_3bx44n5",
       "clientId": "client_northwind",
       "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_73xb8cw",
-      "timestamp": "2026-06-25T11:28:17.753Z",
+      "auditExecutionId": "exec_uocg0a2",
+      "timestamp": "2026-06-24T06:51:46.575Z",
       "trigger": "production_build",
       "buildId": "build-1001",
       "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 34,
+      "overallScore": 38,
       "coverage": {
-        "statements": 60,
-        "branches": 50,
-        "functions": 60,
-        "lines": 59
+        "statements": 58,
+        "branches": 52,
+        "functions": 63,
+        "lines": 60
       },
       "testExecution": {
         "total": 186,
@@ -88,7 +88,7 @@
       },
       "findings": [
         {
-          "id": "find_abc7qeo",
+          "id": "find_g96ni3s",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -99,7 +99,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_olso8v1",
+          "id": "find_gnwudpn",
           "ruleId": "RULE-TP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Presence",
@@ -110,7 +110,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_l46i2dw",
+          "id": "find_19cc37z",
           "ruleId": "RULE-MT-01",
           "ruleVersion": "1.2.0",
           "category": "Test Maintainability",
@@ -121,7 +121,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_tpa4zer",
+          "id": "find_6i3x9le",
           "ruleId": "RULE-DP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Duplication",
@@ -132,7 +132,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_vfa0xxj",
+          "id": "find_1533oyo",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -140,17 +140,6 @@
           "severity": "low",
           "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
           "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_axa7bpa",
-          "ruleId": "RULE-SK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Skipped Tests",
-          "title": "Test suite skipped/disabled",
-          "severity": "medium",
-          "detail": "Test suite skipped/disabled in app/(shop)/checkout/page.tsx.",
-          "recommendation": "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
           "file": "app/(shop)/checkout/page.tsx"
         }
       ],
@@ -202,11 +191,11 @@
       "durationMs": 21900
     },
     {
-      "id": "report_mfo6szc",
+      "id": "report_ewfv1qg",
       "clientId": "client_northwind",
       "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_ldjx25b",
-      "timestamp": "2026-07-04T11:28:17.754Z",
+      "auditExecutionId": "exec_hyd44k3",
+      "timestamp": "2026-07-03T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1002",
       "auditorVersion": "0.4.2",
@@ -214,10 +203,10 @@
       "jestVersion": "29.7.0",
       "overallScore": 50,
       "coverage": {
-        "statements": 61,
-        "branches": 52,
-        "functions": 62,
-        "lines": 61
+        "statements": 60,
+        "branches": 51,
+        "functions": 64,
+        "lines": 59
       },
       "testExecution": {
         "total": 192,
@@ -229,7 +218,7 @@
       },
       "findings": [
         {
-          "id": "find_h6vps8d",
+          "id": "find_fpimeyc",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -240,7 +229,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_f6lqqfg",
+          "id": "find_97arsm1",
           "ruleId": "RULE-DT-01",
           "ruleVersion": "1.2.0",
           "category": "Dead Tests",
@@ -251,7 +240,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_6cymbsc",
+          "id": "find_nwo9kpr",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -262,7 +251,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_xhq1de0",
+          "id": "find_ngxvqgo",
           "ruleId": "RULE-MT-01",
           "ruleVersion": "1.2.0",
           "category": "Test Maintainability",
@@ -273,7 +262,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_hao64dq",
+          "id": "find_hxa2wx3",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -330,22 +319,22 @@
       "durationMs": 22800
     },
     {
-      "id": "report_5t2yrek",
+      "id": "report_t6rzo6w",
       "clientId": "client_northwind",
       "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_0d9egzz",
-      "timestamp": "2026-07-13T11:28:17.754Z",
+      "auditExecutionId": "exec_soae1bl",
+      "timestamp": "2026-07-12T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1003",
       "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 55,
+      "overallScore": 56,
       "coverage": {
-        "statements": 65,
+        "statements": 62,
         "branches": 53,
-        "functions": 63,
-        "lines": 62
+        "functions": 64,
+        "lines": 63
       },
       "testExecution": {
         "total": 198,
@@ -357,7 +346,7 @@
       },
       "findings": [
         {
-          "id": "find_wgs8v9x",
+          "id": "find_kngd1z6",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -368,7 +357,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_sg6pdxz",
+          "id": "find_8n8rcbl",
           "ruleId": "RULE-AI-01",
           "ruleVersion": "1.2.0",
           "category": "Assertions vs Implementation",
@@ -379,7 +368,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_8jzx0s4",
+          "id": "find_41eyaps",
           "ruleId": "RULE-SK-01",
           "ruleVersion": "1.2.0",
           "category": "Skipped Tests",
@@ -390,7 +379,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_6zl0pay",
+          "id": "find_vgvpd1k",
           "ruleId": "RULE-TP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Presence",
@@ -399,17 +388,6 @@
           "detail": "Source module has no corresponding unit test in app/(shop)/checkout/page.tsx.",
           "recommendation": "Add unit tests for the uncovered module before the next release.",
           "file": "app/(shop)/checkout/page.tsx"
-        },
-        {
-          "id": "find_r2uyca6",
-          "ruleId": "RULE-MK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Mocking",
-          "title": "Excessive or ineffective mocking pattern",
-          "severity": "low",
-          "detail": "Excessive or ineffective mocking pattern in lib/search/client.ts.",
-          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "lib/search/client.ts"
         }
       ],
       "dependencyFindings": [
@@ -465,11 +443,11 @@
       "durationMs": 23700
     },
     {
-      "id": "report_peqlmkc",
+      "id": "report_oguhz5c",
       "clientId": "client_northwind",
       "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_5me6ojw",
-      "timestamp": "2026-07-22T11:28:17.754Z",
+      "auditExecutionId": "exec_9mrxdyk",
+      "timestamp": "2026-07-21T06:51:46.576Z",
       "trigger": "scheduled",
       "buildId": "build-1004",
       "auditorVersion": "0.4.2",
@@ -477,10 +455,10 @@
       "jestVersion": "29.7.0",
       "overallScore": 64,
       "coverage": {
-        "statements": 62,
-        "branches": 53,
-        "functions": 68,
-        "lines": 65
+        "statements": 66,
+        "branches": 54,
+        "functions": 66,
+        "lines": 64
       },
       "testExecution": {
         "total": 204,
@@ -492,7 +470,7 @@
       },
       "findings": [
         {
-          "id": "find_10m3djg",
+          "id": "find_e39c6w1",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -503,7 +481,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_8rv0geo",
+          "id": "find_agxlw6f",
           "ruleId": "RULE-DP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Duplication",
@@ -514,7 +492,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_57fk73k",
+          "id": "find_96iyts5",
           "ruleId": "RULE-TD-01",
           "ruleVersion": "1.2.0",
           "category": "Test Discovery",
@@ -525,7 +503,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_nxwu0pj",
+          "id": "find_63jgc0h",
           "ruleId": "RULE-SK-01",
           "ruleVersion": "1.2.0",
           "category": "Skipped Tests",
@@ -582,22 +560,22 @@
       "durationMs": 24600
     },
     {
-      "id": "report_8r5pxzx",
+      "id": "report_l5rrudh",
       "clientId": "client_northwind",
       "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_vv6ixcr",
-      "timestamp": "2026-07-31T11:28:17.754Z",
+      "auditExecutionId": "exec_ynjbdkh",
+      "timestamp": "2026-07-30T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1005",
       "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 50,
+      "overallScore": 51,
       "coverage": {
-        "statements": 65,
-        "branches": 55,
+        "statements": 66,
+        "branches": 56,
         "functions": 67,
-        "lines": 65
+        "lines": 68
       },
       "testExecution": {
         "total": 210,
@@ -609,7 +587,7 @@
       },
       "findings": [
         {
-          "id": "find_syrx43z",
+          "id": "find_08lr1iq",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -620,7 +598,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_igyosni",
+          "id": "find_3q885lc",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -631,7 +609,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_yifxgkd",
+          "id": "find_83e1k66",
           "ruleId": "RULE-DC-01",
           "ruleVersion": "1.2.0",
           "category": "Dependency Consistency",
@@ -642,7 +620,7 @@
           "file": "lib/search/client.ts"
         },
         {
-          "id": "find_zxzzl0d",
+          "id": "find_bv8fldh",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -697,11 +675,11 @@
       "durationMs": 25500
     },
     {
-      "id": "report_x3le125",
+      "id": "report_ceez4d5",
       "clientId": "client_northwind",
       "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_0tylgk9",
-      "timestamp": "2026-08-09T11:28:17.754Z",
+      "auditExecutionId": "exec_jbri72r",
+      "timestamp": "2026-08-08T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1006",
       "auditorVersion": "0.4.2",
@@ -709,8 +687,8 @@
       "jestVersion": "29.7.0",
       "overallScore": 70,
       "coverage": {
-        "statements": 67,
-        "branches": 57,
+        "statements": 68,
+        "branches": 56,
         "functions": 71,
         "lines": 66
       },
@@ -724,7 +702,7 @@
       },
       "findings": [
         {
-          "id": "find_zf58w5e",
+          "id": "find_rbigf38",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -735,7 +713,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_dma5s1g",
+          "id": "find_in0livg",
           "ruleId": "RULE-AS-01",
           "ruleVersion": "1.2.0",
           "category": "Assertions",
@@ -795,22 +773,22 @@
       "durationMs": 26400
     },
     {
-      "id": "report_fngj9ae",
+      "id": "report_wfeonh1",
       "clientId": "client_northwind",
       "projectId": "proj_atlas_web",
-      "auditExecutionId": "exec_z64aqvk",
-      "timestamp": "2026-08-18T11:28:17.754Z",
+      "auditExecutionId": "exec_38ezg5s",
+      "timestamp": "2026-08-17T06:51:46.576Z",
       "trigger": "manual",
       "buildId": "build-1007",
       "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 70,
+      "overallScore": 71,
       "coverage": {
-        "statements": 71,
-        "branches": 58,
+        "statements": 68,
+        "branches": 60,
         "functions": 72,
-        "lines": 69
+        "lines": 70
       },
       "testExecution": {
         "total": 222,
@@ -822,7 +800,7 @@
       },
       "findings": [
         {
-          "id": "find_g3u9jtt",
+          "id": "find_pvlojz0",
           "ruleId": "RULE-DP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Duplication",
@@ -833,7 +811,7 @@
           "file": "lib/search/client.ts"
         },
         {
-          "id": "find_namtwgw",
+          "id": "find_eje6nqj",
           "ruleId": "RULE-TP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Presence",
@@ -842,17 +820,6 @@
           "detail": "Source module has no corresponding unit test in lib/search/client.ts.",
           "recommendation": "Add unit tests for the uncovered module before the next release.",
           "file": "lib/search/client.ts"
-        },
-        {
-          "id": "find_t1br03y",
-          "ruleId": "RULE-MK-01",
-          "ruleVersion": "1.2.0",
-          "category": "Mocking",
-          "title": "Excessive or ineffective mocking pattern",
-          "severity": "low",
-          "detail": "Excessive or ineffective mocking pattern in lib/cms/resolveEntry.ts.",
-          "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
-          "file": "lib/cms/resolveEntry.ts"
         }
       ],
       "dependencyFindings": [],
@@ -890,30 +857,29 @@
       ],
       "recommendations": [
         "Consolidate near-duplicate tests into a parameterized test.",
-        "Add unit tests for the uncovered module before the next release.",
-        "Reduce mock surface area so the test still exercises real integration points."
+        "Add unit tests for the uncovered module before the next release."
       ],
       "executionStatus": "success",
       "errors": [],
       "durationMs": 27300
     },
     {
-      "id": "report_pucf8ct",
+      "id": "report_ymvadn8",
       "clientId": "client_northwind",
       "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_yjn5llx",
-      "timestamp": "2026-07-13T11:28:17.754Z",
+      "auditExecutionId": "exec_fly59qc",
+      "timestamp": "2026-07-12T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1001",
       "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 46,
+      "overallScore": 42,
       "coverage": {
         "statements": 71,
-        "branches": 68,
+        "branches": 66,
         "functions": 74,
-        "lines": 72
+        "lines": 74
       },
       "testExecution": {
         "total": 186,
@@ -925,7 +891,7 @@
       },
       "findings": [
         {
-          "id": "find_4vszfv1",
+          "id": "find_833pdmn",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -936,7 +902,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_kxr1bvw",
+          "id": "find_npaeyqk",
           "ruleId": "RULE-TP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Presence",
@@ -947,7 +913,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_rptp8m1",
+          "id": "find_9kkt1nh",
           "ruleId": "RULE-MT-01",
           "ruleVersion": "1.2.0",
           "category": "Test Maintainability",
@@ -958,7 +924,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_rohz4lr",
+          "id": "find_chs1lfv",
           "ruleId": "RULE-DP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Duplication",
@@ -969,7 +935,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_x15s7ou",
+          "id": "find_ts78ff2",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -977,6 +943,17 @@
           "severity": "low",
           "detail": "Excessive or ineffective mocking pattern in app/(shop)/checkout/page.tsx.",
           "recommendation": "Reduce mock surface area so the test still exercises real integration points.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_uyinzoy",
+          "ruleId": "RULE-SK-01",
+          "ruleVersion": "1.2.0",
+          "category": "Skipped Tests",
+          "title": "Test suite skipped/disabled",
+          "severity": "medium",
+          "detail": "Test suite skipped/disabled in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Re-enable or remove the skipped suite; track intentional skips with a linked issue.",
           "file": "app/(shop)/checkout/page.tsx"
         }
       ],
@@ -1028,22 +1005,22 @@
       "durationMs": 21900
     },
     {
-      "id": "report_0pjjh68",
+      "id": "report_lcolynz",
       "clientId": "client_northwind",
       "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_644lbko",
-      "timestamp": "2026-07-22T11:28:17.754Z",
+      "auditExecutionId": "exec_kd258x2",
+      "timestamp": "2026-07-21T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1002",
       "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 64,
+      "overallScore": 63,
       "coverage": {
-        "statements": 76,
-        "branches": 70,
-        "functions": 78,
-        "lines": 76
+        "statements": 74,
+        "branches": 69,
+        "functions": 77,
+        "lines": 75
       },
       "testExecution": {
         "total": 192,
@@ -1055,7 +1032,7 @@
       },
       "findings": [
         {
-          "id": "find_a5ljzki",
+          "id": "find_nahuctl",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -1066,7 +1043,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_t6q6fdg",
+          "id": "find_trv37nw",
           "ruleId": "RULE-DT-01",
           "ruleVersion": "1.2.0",
           "category": "Dead Tests",
@@ -1077,7 +1054,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_fhz2zmm",
+          "id": "find_04ay6mt",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -1088,7 +1065,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_dckinu9",
+          "id": "find_sb3l2f5",
           "ruleId": "RULE-MT-01",
           "ruleVersion": "1.2.0",
           "category": "Test Maintainability",
@@ -1145,11 +1122,11 @@
       "durationMs": 22800
     },
     {
-      "id": "report_ey6vjd2",
+      "id": "report_kzmb0kx",
       "clientId": "client_northwind",
       "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_0n21d7y",
-      "timestamp": "2026-07-31T11:28:17.754Z",
+      "auditExecutionId": "exec_27cl28t",
+      "timestamp": "2026-07-30T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1003",
       "auditorVersion": "0.4.2",
@@ -1157,9 +1134,9 @@
       "jestVersion": "29.7.0",
       "overallScore": 65,
       "coverage": {
-        "statements": 74,
-        "branches": 72,
-        "functions": 79,
+        "statements": 75,
+        "branches": 68,
+        "functions": 77,
         "lines": 77
       },
       "testExecution": {
@@ -1172,7 +1149,7 @@
       },
       "findings": [
         {
-          "id": "find_kmc9m8f",
+          "id": "find_qeqsjgv",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -1183,7 +1160,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_xy8y0om",
+          "id": "find_h0ha9mi",
           "ruleId": "RULE-AI-01",
           "ruleVersion": "1.2.0",
           "category": "Assertions vs Implementation",
@@ -1194,7 +1171,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_8us61nt",
+          "id": "find_qtt58zm",
           "ruleId": "RULE-SK-01",
           "ruleVersion": "1.2.0",
           "category": "Skipped Tests",
@@ -1205,7 +1182,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_en7rrzj",
+          "id": "find_uagqkrz",
           "ruleId": "RULE-TP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Presence",
@@ -1269,34 +1246,34 @@
       "durationMs": 23700
     },
     {
-      "id": "report_xgch0oh",
+      "id": "report_72htckf",
       "clientId": "client_northwind",
       "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_zu4g1ve",
-      "timestamp": "2026-08-09T11:28:17.754Z",
+      "auditExecutionId": "exec_6f0fizk",
+      "timestamp": "2026-08-08T06:51:46.576Z",
       "trigger": "scheduled",
       "buildId": "build-1004",
       "auditorVersion": "0.4.2",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 73,
+      "overallScore": 63,
       "coverage": {
         "statements": 76,
-        "branches": 72,
-        "functions": 82,
-        "lines": 80
+        "branches": 73,
+        "functions": 81,
+        "lines": 78
       },
       "testExecution": {
         "total": 204,
-        "passed": 202,
-        "failed": 0,
+        "passed": 201,
+        "failed": 1,
         "skipped": 2,
         "pending": 0,
         "durationMs": 17400
       },
       "findings": [
         {
-          "id": "find_2hqcdhj",
+          "id": "find_5041vh4",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -1307,7 +1284,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_hrecdbe",
+          "id": "find_zss1jdd",
           "ruleId": "RULE-DP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Duplication",
@@ -1318,7 +1295,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_scghrge",
+          "id": "find_2a9csvb",
           "ruleId": "RULE-TD-01",
           "ruleVersion": "1.2.0",
           "category": "Test Discovery",
@@ -1329,7 +1306,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_8rp9dkm",
+          "id": "find_k9sf1wc",
           "ruleId": "RULE-SK-01",
           "ruleVersion": "1.2.0",
           "category": "Skipped Tests",
@@ -1381,16 +1358,18 @@
         "Update the Jest testMatch/testPathIgnorePatterns so the file is picked up.",
         "Re-enable or remove the skipped suite; track intentional skips with a linked issue."
       ],
-      "executionStatus": "success",
-      "errors": [],
+      "executionStatus": "completed_with_errors",
+      "errors": [
+        "2 test(s) failed during execution; see findings for detail."
+      ],
       "durationMs": 24600
     },
     {
-      "id": "report_k36fjtg",
+      "id": "report_i3x4cxh",
       "clientId": "client_northwind",
       "projectId": "proj_northwind_docs",
-      "auditExecutionId": "exec_a10e1ne",
-      "timestamp": "2026-08-18T11:28:17.754Z",
+      "auditExecutionId": "exec_lr6l5t0",
+      "timestamp": "2026-08-17T06:51:46.576Z",
       "trigger": "manual",
       "buildId": "build-1005",
       "auditorVersion": "0.4.2",
@@ -1398,8 +1377,8 @@
       "jestVersion": "29.7.0",
       "overallScore": 59,
       "coverage": {
-        "statements": 80,
-        "branches": 73,
+        "statements": 79,
+        "branches": 71,
         "functions": 81,
         "lines": 79
       },
@@ -1413,7 +1392,7 @@
       },
       "findings": [
         {
-          "id": "find_4sm3ogv",
+          "id": "find_sbm6nao",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -1424,7 +1403,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_17uu36r",
+          "id": "find_v6uj1c9",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -1435,7 +1414,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_s20qczh",
+          "id": "find_c42pvj8",
           "ruleId": "RULE-DC-01",
           "ruleVersion": "1.2.0",
           "category": "Dependency Consistency",
@@ -1446,7 +1425,7 @@
           "file": "lib/search/client.ts"
         },
         {
-          "id": "find_p095trh",
+          "id": "find_g4ca3g8",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -1501,11 +1480,11 @@
       "durationMs": 25500
     },
     {
-      "id": "report_hol6tmh",
+      "id": "report_80wl96k",
       "clientId": "client_horizon",
       "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_ldri829",
-      "timestamp": "2026-07-04T11:28:17.754Z",
+      "auditExecutionId": "exec_eo6aqtp",
+      "timestamp": "2026-07-03T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1001",
       "auditorVersion": "0.4.1",
@@ -1513,10 +1492,10 @@
       "jestVersion": "29.7.0",
       "overallScore": 35,
       "coverage": {
-        "statements": 81,
-        "branches": 39,
-        "functions": 55,
-        "lines": 62
+        "statements": 83,
+        "branches": 40,
+        "functions": 53,
+        "lines": 61
       },
       "testExecution": {
         "total": 186,
@@ -1528,7 +1507,7 @@
       },
       "findings": [
         {
-          "id": "find_2hy2a7m",
+          "id": "find_w20q4ky",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -1539,7 +1518,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_8z7mrvw",
+          "id": "find_fugy5v9",
           "ruleId": "RULE-TP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Presence",
@@ -1550,7 +1529,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_9hlheno",
+          "id": "find_y3h33z4",
           "ruleId": "RULE-MT-01",
           "ruleVersion": "1.2.0",
           "category": "Test Maintainability",
@@ -1561,7 +1540,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_32re6na",
+          "id": "find_9qsrj1b",
           "ruleId": "RULE-DP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Duplication",
@@ -1572,7 +1551,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_6aep1jd",
+          "id": "find_u6od3ow",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -1583,7 +1562,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_tz4jdgl",
+          "id": "find_5zz6ufd",
           "ruleId": "RULE-SK-01",
           "ruleVersion": "1.2.0",
           "category": "Skipped Tests",
@@ -1642,34 +1621,34 @@
       "durationMs": 21900
     },
     {
-      "id": "report_drsgg4q",
+      "id": "report_hxh7xtd",
       "clientId": "client_horizon",
       "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_gsq2ko2",
-      "timestamp": "2026-07-13T11:28:17.754Z",
+      "auditExecutionId": "exec_lvmfa69",
+      "timestamp": "2026-07-12T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1002",
       "auditorVersion": "0.4.1",
       "ruleSetVersion": "1.2.0",
       "jestVersion": "29.7.0",
-      "overallScore": 54,
+      "overallScore": 41,
       "coverage": {
-        "statements": 80,
-        "branches": 39,
-        "functions": 53,
-        "lines": 62
+        "statements": 82,
+        "branches": 41,
+        "functions": 54,
+        "lines": 60
       },
       "testExecution": {
         "total": 192,
-        "passed": 187,
-        "failed": 0,
+        "passed": 186,
+        "failed": 1,
         "skipped": 4,
         "pending": 1,
         "durationMs": 15700
       },
       "findings": [
         {
-          "id": "find_skd08pf",
+          "id": "find_fco0rh1",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -1680,7 +1659,7 @@
           "file": "lib/inventory.ts"
         },
         {
-          "id": "find_mf5hqjw",
+          "id": "find_4fj5b58",
           "ruleId": "RULE-DT-01",
           "ruleVersion": "1.2.0",
           "category": "Dead Tests",
@@ -1691,7 +1670,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_ec9y3ei",
+          "id": "find_6z2lngx",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -1702,7 +1681,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_xszfwqi",
+          "id": "find_23vwjts",
           "ruleId": "RULE-MT-01",
           "ruleVersion": "1.2.0",
           "category": "Test Maintainability",
@@ -1710,6 +1689,17 @@
           "severity": "low",
           "detail": "Oversized test with repeated setup blocks in app/(shop)/checkout/page.tsx.",
           "recommendation": "Extract shared setup into a fixture/helper to shrink the test body.",
+          "file": "app/(shop)/checkout/page.tsx"
+        },
+        {
+          "id": "find_b1d8bxz",
+          "ruleId": "RULE-EC-01",
+          "ruleVersion": "1.2.0",
+          "category": "Edge Cases",
+          "title": "Expected boundary/error scenario untested",
+          "severity": "medium",
+          "detail": "Expected boundary/error scenario untested in app/(shop)/checkout/page.tsx.",
+          "recommendation": "Add boundary and error-path cases (empty input, network failure, invalid state).",
           "file": "app/(shop)/checkout/page.tsx"
         }
       ],
@@ -1754,16 +1744,18 @@
         "Reduce mock surface area so the test still exercises real integration points.",
         "Extract shared setup into a fixture/helper to shrink the test body."
       ],
-      "executionStatus": "success",
-      "errors": [],
+      "executionStatus": "completed_with_errors",
+      "errors": [
+        "2 test(s) failed during execution; see findings for detail."
+      ],
       "durationMs": 22800
     },
     {
-      "id": "report_hue4fis",
+      "id": "report_qduxnqz",
       "clientId": "client_horizon",
       "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_omz0t9w",
-      "timestamp": "2026-07-22T11:28:17.754Z",
+      "auditExecutionId": "exec_w61e1qt",
+      "timestamp": "2026-07-21T06:51:46.576Z",
       "trigger": "production_build",
       "buildId": "build-1003",
       "auditorVersion": "0.4.1",
@@ -1772,9 +1764,9 @@
       "overallScore": 55,
       "coverage": {
         "statements": 82,
-        "branches": 41,
-        "functions": 53,
-        "lines": 59
+        "branches": 37,
+        "functions": 54,
+        "lines": 62
       },
       "testExecution": {
         "total": 198,
@@ -1786,7 +1778,7 @@
       },
       "findings": [
         {
-          "id": "find_1ohh2e3",
+          "id": "find_gweofwi",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -1797,7 +1789,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_rshxkwo",
+          "id": "find_uwe9bpz",
           "ruleId": "RULE-AI-01",
           "ruleVersion": "1.2.0",
           "category": "Assertions vs Implementation",
@@ -1808,7 +1800,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_cpe0w7w",
+          "id": "find_ax85djn",
           "ruleId": "RULE-SK-01",
           "ruleVersion": "1.2.0",
           "category": "Skipped Tests",
@@ -1819,7 +1811,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_y8ms24k",
+          "id": "find_gcbaqca",
           "ruleId": "RULE-TP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Presence",
@@ -1883,11 +1875,11 @@
       "durationMs": 23700
     },
     {
-      "id": "report_pqhx5g0",
+      "id": "report_4opmu4x",
       "clientId": "client_horizon",
       "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_m6duhan",
-      "timestamp": "2026-07-31T11:28:17.754Z",
+      "auditExecutionId": "exec_9gl19o7",
+      "timestamp": "2026-07-30T06:51:46.576Z",
       "trigger": "scheduled",
       "buildId": "build-1004",
       "auditorVersion": "0.4.1",
@@ -1896,9 +1888,9 @@
       "overallScore": 65,
       "coverage": {
         "statements": 79,
-        "branches": 38,
-        "functions": 55,
-        "lines": 61
+        "branches": 41,
+        "functions": 51,
+        "lines": 60
       },
       "testExecution": {
         "total": 204,
@@ -1910,7 +1902,7 @@
       },
       "findings": [
         {
-          "id": "find_20bnvpq",
+          "id": "find_l4nq7uw",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -1921,7 +1913,7 @@
           "file": "hooks/useCheckout.ts"
         },
         {
-          "id": "find_3kie215",
+          "id": "find_pvs2ooi",
           "ruleId": "RULE-DP-01",
           "ruleVersion": "1.2.0",
           "category": "Test Duplication",
@@ -1932,7 +1924,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_iujlym2",
+          "id": "find_9043upe",
           "ruleId": "RULE-TD-01",
           "ruleVersion": "1.2.0",
           "category": "Test Discovery",
@@ -1988,11 +1980,11 @@
       "durationMs": 24600
     },
     {
-      "id": "report_s79sv4w",
+      "id": "report_56lkmdh",
       "clientId": "client_horizon",
       "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_6oit7hv",
-      "timestamp": "2026-08-09T11:28:17.754Z",
+      "auditExecutionId": "exec_tfsuedw",
+      "timestamp": "2026-08-08T06:51:46.577Z",
       "trigger": "production_build",
       "buildId": "build-1005",
       "auditorVersion": "0.4.1",
@@ -2000,10 +1992,10 @@
       "jestVersion": "29.7.0",
       "overallScore": 47,
       "coverage": {
-        "statements": 80,
-        "branches": 39,
-        "functions": 51,
-        "lines": 62
+        "statements": 79,
+        "branches": 36,
+        "functions": 53,
+        "lines": 60
       },
       "testExecution": {
         "total": 210,
@@ -2015,7 +2007,7 @@
       },
       "findings": [
         {
-          "id": "find_62uirf5",
+          "id": "find_alu0u1p",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -2026,7 +2018,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_21naz97",
+          "id": "find_ydfm769",
           "ruleId": "RULE-FO-01",
           "ruleVersion": "1.2.0",
           "category": "Focused Tests",
@@ -2037,7 +2029,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_21k55oi",
+          "id": "find_nf5025u",
           "ruleId": "RULE-DC-01",
           "ruleVersion": "1.2.0",
           "category": "Dependency Consistency",
@@ -2048,7 +2040,7 @@
           "file": "lib/search/client.ts"
         },
         {
-          "id": "find_3pui2hh",
+          "id": "find_s9ri0l0",
           "ruleId": "RULE-EC-01",
           "ruleVersion": "1.2.0",
           "category": "Edge Cases",
@@ -2103,11 +2095,11 @@
       "durationMs": 25500
     },
     {
-      "id": "report_2xixffr",
+      "id": "report_ehyhgju",
       "clientId": "client_horizon",
       "projectId": "proj_horizon_app",
-      "auditExecutionId": "exec_t7mj8du",
-      "timestamp": "2026-08-18T11:28:17.754Z",
+      "auditExecutionId": "exec_ko3jxef",
+      "timestamp": "2026-08-17T06:51:46.577Z",
       "trigger": "manual",
       "buildId": "build-1006",
       "auditorVersion": "0.4.1",
@@ -2115,10 +2107,10 @@
       "jestVersion": "29.7.0",
       "overallScore": 65,
       "coverage": {
-        "statements": 82,
+        "statements": 80,
         "branches": 36,
-        "functions": 51,
-        "lines": 58
+        "functions": 54,
+        "lines": 61
       },
       "testExecution": {
         "total": 216,
@@ -2130,7 +2122,7 @@
       },
       "findings": [
         {
-          "id": "find_gf750e0",
+          "id": "find_8y0580l",
           "ruleId": "RULE-MK-01",
           "ruleVersion": "1.2.0",
           "category": "Mocking",
@@ -2141,7 +2133,7 @@
           "file": "app/(shop)/checkout/page.tsx"
         },
         {
-          "id": "find_4fshsdi",
+          "id": "find_n9w2pde",
           "ruleId": "RULE-AS-01",
           "ruleVersion": "1.2.0",
           "category": "Assertions",

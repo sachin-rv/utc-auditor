@@ -1,6 +1,5 @@
 "use client";
 
-import type { CoverageMetrics } from "@/lib/types";
 import { useTheme } from "@/lib/useTheme";
 import { THEME_COLORS } from "@/lib/theme-colors";
 
@@ -11,34 +10,26 @@ function bandColor(v: number, c: typeof THEME_COLORS["dark"]) {
   return c.pass;
 }
 
-const LABELS: { key: keyof CoverageMetrics; label: string }[] = [
-  { key: "statements", label: "Statements" },
-  { key: "branches", label: "Branches" },
-  { key: "functions", label: "Functions" },
-  { key: "lines", label: "Lines" },
-];
-
-export default function CoverageBars({ coverage }: { coverage: CoverageMetrics }) {
+export default function ScoreBarList({ items }: { items: { label: string; value: number }[] }) {
   const theme = useTheme();
   const c = THEME_COLORS[theme];
 
   return (
     <div className="space-y-3">
-      {LABELS.map(({ key, label }) => {
-        const v = coverage[key];
-        const color = bandColor(v, c);
+      {items.map(({ label, value }) => {
+        const color = bandColor(value, c);
         return (
-          <div key={key}>
+          <div key={label}>
             <div className="flex justify-between text-xs mb-1">
               <span className="text-mist uppercase tracking-wider">{label}</span>
               <span className="font-mono tabular-nums" style={{ color }}>
-                {v}%
+                {value}
               </span>
             </div>
             <div className="h-1.5 w-full rounded-full bg-line overflow-hidden">
               <div
                 className="h-full rounded-full"
-                style={{ width: `${v}%`, backgroundColor: color, transition: "width 500ms ease" }}
+                style={{ width: `${Math.max(0, Math.min(100, value))}%`, backgroundColor: color, transition: "width 500ms ease" }}
               />
             </div>
           </div>

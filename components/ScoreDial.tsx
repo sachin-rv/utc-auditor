@@ -1,11 +1,9 @@
 "use client";
 
 import { useTheme } from "@/lib/useTheme";
-import { THEME_COLORS, type ThemeName } from "@/lib/theme-colors";
+import { THEME_COLORS } from "@/lib/theme-colors";
 
-type ThemePalette = (typeof THEME_COLORS)[ThemeName];
-
-function bandColor(score: number, c: ThemePalette) {
+function bandColor(score: number, c: typeof THEME_COLORS["dark"]) {
   if (score < 60) return c.fail;
   if (score < 80) return c.warn;
   if (score < 90) return c.info;
