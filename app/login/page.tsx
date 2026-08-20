@@ -107,8 +107,8 @@ export default function LoginPage() {
             Demo credentials
           </div>
           <div className="space-y-1.5 text-xs font-mono">
-            <button onClick={() => fill("admin@utcauditor.dev", "admin123")} className="block text-left text-mist hover:text-signal-pass transition-colors">
-              admin@utcauditor.dev / admin123 <span className="text-mist/60">— administrator</span>
+            <button onClick={() => fill("admin@example.com", "Admin@123")} className="block text-left text-mist hover:text-signal-pass transition-colors">
+              admin@example.com / Admin@123 <span className="text-mist/60">— administrator</span>
             </button>
             <button onClick={() => fill("dana@northwind.example", "demo123")} className="block text-left text-mist hover:text-signal-pass transition-colors">
               dana@northwind.example / demo123 <span className="text-mist/60">— Northwind Retail</span>

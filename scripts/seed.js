@@ -20,7 +20,7 @@ const projects = [
 ];
 
 const users = [
-  { id: "user_admin", name: "Admin", email: "admin@utcauditor.dev", role: "admin", password: "admin123" },
+  { id: "user_admin", name: "Admin", email: "admin@example.com", role: "admin", password: "Admin@123" },
   { id: "user_dana", name: "Dana Ellery", email: "dana@northwind.example", role: "client", clientId: "client_northwind", password: "demo123" },
   { id: "user_sam", name: "Sam Okafor", email: "sam@horizon.example", role: "client", clientId: "client_horizon", password: "demo123" },
 ];
