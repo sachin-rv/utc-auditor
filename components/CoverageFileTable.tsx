@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import type { ExternalCoverageFile } from "@/lib/externalReport";
+import Modal from "@/components/Modal";
+import ScoreBarList from "@/components/ScoreBarList";
 
 type SortKey = "path" | "statements" | "branches" | "functions" | "lines";
 
@@ -17,6 +19,7 @@ export default function CoverageFileTable({ files }: { files: ExternalCoverageFi
   const [sortKey, setSortKey] = useState<SortKey>("path");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [onlyBelow90, setOnlyBelow90] = useState(false);
+  const [selected, setSelected] = useState<ExternalCoverageFile | null>(null);
 
   const rows = useMemo(() => {
     let r = files.filter((f) => f.path.toLowerCase().includes(query.trim().toLowerCase()));
@@ -108,7 +111,11 @@ export default function CoverageFileTable({ files }: { files: ExternalCoverageFi
             <div className="px-3 py-8 text-center text-sm text-mist">No files match “{query}”.</div>
           ) : (
             rows.map((f) => (
-              <div key={f.path} className="grid grid-cols-[1fr_70px_70px_70px_70px] text-xs hover:bg-panel2/40 transition-colors">
+              <button
+                key={f.path}
+                onClick={() => setSelected(f)}
+                className="w-full grid grid-cols-[1fr_70px_70px_70px_70px] text-xs hover:bg-panel2/40 transition-colors text-left"
+              >
                 <span className="px-3 py-1.5 font-mono text-chalk truncate" title={f.path}>
                   {f.path}
                 </span>
@@ -124,11 +131,44 @@ export default function CoverageFileTable({ files }: { files: ExternalCoverageFi
                 <span className={`px-3 py-1.5 text-right font-mono ${pctColor(f.lines.pct)}`}>
                   {f.lines.pct}%
                 </span>
-              </div>
+              </button>
             ))
           )}
         </div>
       </div>
+
+      <Modal open={!!selected} onClose={() => setSelected(null)} title={selected?.path} widthClass="max-w-md">
+        {selected && (
+          <div>
+            <ScoreBarList
+              items={[
+                { label: "Statements", value: selected.statements.pct },
+                { label: "Branches", value: selected.branches.pct },
+                { label: "Functions", value: selected.functions.pct },
+                { label: "Lines", value: selected.lines.pct },
+              ]}
+            />
+            <div className="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-line text-xs font-mono">
+              <div>
+                <span className="text-mist">Statements </span>
+                {selected.statements.covered}/{selected.statements.total}
+              </div>
+              <div>
+                <span className="text-mist">Branches </span>
+                {selected.branches.covered}/{selected.branches.total}
+              </div>
+              <div>
+                <span className="text-mist">Functions </span>
+                {selected.functions.covered}/{selected.functions.total}
+              </div>
+              <div>
+                <span className="text-mist">Lines </span>
+                {selected.lines.covered}/{selected.lines.total}
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

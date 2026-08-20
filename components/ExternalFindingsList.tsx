@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Modal from "@/components/Modal";
 import type { ExternalFinding, ExternalSeverity } from "@/lib/externalReport";
 
 const SEVERITY_ORDER: ExternalSeverity[] = ["error", "warning", "info"];
@@ -15,6 +16,7 @@ export default function ExternalFindingsList({ findings }: { findings: ExternalF
   const [activeSeverities, setActiveSeverities] = useState<Set<ExternalSeverity>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+  const [selected, setSelected] = useState<ExternalFinding | null>(null);
 
   const categories = useMemo(
     () => [...new Set(findings.map((f) => f.category))].sort(),
@@ -141,7 +143,11 @@ export default function ExternalFindingsList({ findings }: { findings: ExternalF
                 {!isCollapsed && (
                   <div className="divide-y divide-line">
                     {categoryFindings.map((f, i) => (
-                      <div key={i} className="px-5 py-3">
+                      <button
+                        key={i}
+                        onClick={() => setSelected(f)}
+                        className="w-full text-left px-5 py-3 hover:bg-panel2/40 transition-colors"
+                      >
                         <div className="flex items-center gap-2 mb-1">
                           <span
                             className={`inline-flex items-center rounded border px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider ${SEVERITY_STYLE[f.severity]}`}
@@ -156,7 +162,7 @@ export default function ExternalFindingsList({ findings }: { findings: ExternalF
                           {f.line ? `:${f.line}` : ""}
                         </div>
                         <div className="text-xs text-signal-info mt-1.5">→ {f.suggestion}</div>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 )}
@@ -165,6 +171,34 @@ export default function ExternalFindingsList({ findings }: { findings: ExternalF
           })}
         </div>
       )}
+
+      <Modal
+        open={!!selected}
+        onClose={() => setSelected(null)}
+        title={selected?.title ?? selected?.category}
+        widthClass="max-w-lg"
+      >
+        {selected && (
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <span
+                className={`inline-flex items-center rounded border px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider ${SEVERITY_STYLE[selected.severity]}`}
+              >
+                {selected.severity}
+              </span>
+              <span className="text-xs text-mist uppercase tracking-wider">{selected.category}</span>
+            </div>
+            <div className="text-sm mb-3">{selected.message}</div>
+            <div className="font-mono text-xs text-mist bg-panel2 border border-line rounded-md px-3 py-2 mb-3">
+              {selected.file}
+              {selected.line ? `:${selected.line}` : ""}
+            </div>
+            <div className="border-l-2 border-signal-info/40 pl-3 text-sm text-signal-info">
+              {selected.suggestion}
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

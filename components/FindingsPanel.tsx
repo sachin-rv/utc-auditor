@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import SeverityBadge from "@/components/SeverityBadge";
+import Modal from "@/components/Modal";
 import type { Finding, Severity } from "@/lib/types";
 
 const SEVERITY_ORDER: Severity[] = ["critical", "high", "medium", "low", "info"];
@@ -9,6 +10,8 @@ const SEVERITY_ORDER: Severity[] = ["critical", "high", "medium", "low", "info"]
 export default function FindingsPanel({ findings }: { findings: Finding[] }) {
   const [activeSeverities, setActiveSeverities] = useState<Set<Severity>>(new Set());
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+  const [selected, setSelected] = useState<Finding | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const counts = useMemo(() => {
     const c: Record<Severity, number> = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };
@@ -44,6 +47,19 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
       else next.add(category);
       return next;
     });
+  }
+
+  async function copyFinding(f: Finding) {
+    const text = `[${f.severity.toUpperCase()}] ${f.ruleId} — ${f.category}\n${f.detail}${
+      f.file ? `\nFile: ${f.file}` : ""
+    }\nRecommendation: ${f.recommendation}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      // Clipboard API unavailable — nothing to recover, fail silently.
+    }
   }
 
   if (findings.length === 0) {
@@ -118,7 +134,11 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
                 {!isCollapsed && (
                   <div className="divide-y divide-line">
                     {categoryFindings.map((f) => (
-                      <div key={f.id} className="px-5 py-3 flex items-start justify-between gap-4">
+                      <button
+                        key={f.id}
+                        onClick={() => setSelected(f)}
+                        className="w-full text-left px-5 py-3 flex items-start justify-between gap-4 hover:bg-panel2/40 transition-colors"
+                      >
                         <div>
                           <div className="flex items-center gap-2 mb-1">
                             <span className="font-mono text-[11px] text-mist">{f.ruleId}</span>
@@ -128,7 +148,7 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
                           {f.file && <div className="font-mono text-xs text-mist mt-1">{f.file}</div>}
                           <div className="text-xs text-signal-info mt-1.5">→ {f.recommendation}</div>
                         </div>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 )}
@@ -137,6 +157,33 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
           })}
         </div>
       )}
+
+      <Modal open={!!selected} onClose={() => setSelected(null)} title={selected?.ruleId} widthClass="max-w-lg">
+        {selected && (
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <SeverityBadge severity={selected.severity} />
+              <span className="text-xs text-mist uppercase tracking-wider">{selected.category}</span>
+              <span className="text-[10px] font-mono text-mist ml-auto">rule v{selected.ruleVersion}</span>
+            </div>
+            <div className="text-sm mb-3">{selected.detail}</div>
+            {selected.file && (
+              <div className="font-mono text-xs text-mist bg-panel2 border border-line rounded-md px-3 py-2 mb-3">
+                {selected.file}
+              </div>
+            )}
+            <div className="border-l-2 border-signal-info/40 pl-3 text-sm text-signal-info mb-4">
+              {selected.recommendation}
+            </div>
+            <button
+              onClick={() => copyFinding(selected)}
+              className="text-xs font-medium text-mist hover:text-chalk border border-line hover:border-mist rounded-md px-3 py-1.5 transition-colors"
+            >
+              {copied ? "Copied" : "Copy finding"}
+            </button>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

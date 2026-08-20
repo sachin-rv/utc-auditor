@@ -7,6 +7,7 @@ import CoverageBars from "@/components/CoverageBars";
 import TrendChart, { TrendPoint } from "@/components/TrendChart";
 import StatusPill from "@/components/StatusPill";
 import ReportHistoryList, { ReportRow } from "@/components/ReportHistoryList";
+import RunAuditButton from "@/components/RunAuditButton";
 
 function fmtDate(iso: string) {
   return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" });
@@ -70,7 +71,10 @@ export default function ClientHistoryPage({ params }: { params: { clientId: stri
                   </div>
                   <div className="text-xs text-mist font-mono mt-0.5">{project.repo}</div>
                 </div>
-                {latest && <StatusPill status={latest.executionStatus} />}
+                <div className="flex items-center gap-2.5">
+                  {latest && <StatusPill status={latest.executionStatus} />}
+                  {/* <RunAuditButton projectId={project.id} /> */}
+                </div>
               </div>
 
               {!latest ? (

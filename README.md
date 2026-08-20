@@ -73,6 +73,19 @@ npm run import:external   # or: node scripts/importExternalProject.js
 It's idempotent — re-running replaces that project's report rather than
 duplicating it.
 
+- **Popups / modals** (`components/Modal.tsx`, reused everywhere below) —
+  Escape-to-close, backdrop-click-to-close, scroll-locked:
+  - Click any finding (in `FindingsPanel` or `ExternalFindingsList`) to open
+    its full detail in a popup, with a "Copy finding" action.
+  - Click any file row in `CoverageFileTable` to see that file's four
+    coverage metrics as bars plus raw covered/total counts.
+  - Sign out now asks for confirmation (`LogoutButton`) instead of firing
+    immediately.
+  - Each project section on the client history page has a "Run audit"
+    button (`RunAuditButton`) that opens the real CLI command for
+    triggering that project's audit via `@utc-auditor/cli`, with a copy
+    button — genuinely tied to the audit-engine package, not a fake action.
+
 ## Interactivity & theming
 
 - **Light/dark theme** — toggle button in the header (and login screen); the
