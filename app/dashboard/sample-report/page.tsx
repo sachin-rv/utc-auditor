@@ -44,9 +44,6 @@ export default function SampleReportPage() {
     <div>
       <div className="flex flex-wrap items-start justify-between gap-4 mb-8">
         <div>
-          <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">
-            Uploaded report
-          </div>
           <h1 className="font-display text-3xl font-bold">{project.packageJson.name}</h1>
           <div className="text-sm text-mist mt-1">
             {fmtDateTime(report.generatedAt)} · {project.framework} · {project.packageManager}

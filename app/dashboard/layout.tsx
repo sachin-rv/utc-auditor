@@ -21,12 +21,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link
-              href="/dashboard/sample-report"
-              className="text-xs font-medium text-mist hover:text-chalk border border-line hover:border-mist rounded-md px-3 py-1.5 transition-colors hidden md:block"
-            >
-              Uploaded Report
-            </Link>
             <div className="text-right leading-tight hidden sm:block">
               <div className="text-sm font-medium">{session.name}</div>
               <div className="text-[11px] text-mist uppercase tracking-wider">

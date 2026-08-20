@@ -1,3 +1,5 @@
+import type { ExternalCoverageFile, ExternalFinding } from "./externalReport";
+
 export type Role = "admin" | "client";
 
 export interface UserRecord {
@@ -66,6 +68,32 @@ export interface MigrationFinding {
   detail: string;
 }
 
+// Richer, per-file test-quality breakdown — same shape family as the
+// external report format (lib/externalReport.ts / test-quality-report.json)
+// so a generated AuditReport can carry the same level of detail and be
+// rendered with the same viewer components.
+export interface DetailedTestQuality {
+  scores: {
+    overall: number;
+    coverage: number;
+    isolation: number;
+    mockHygiene: number;
+    readability: number;
+    titles: number;
+    reliability: number;
+    assertions: number;
+    hygiene: number;
+  };
+  grade: string;
+  verdict: string;
+  strategiesRun: string[];
+  testFileCount: number;
+  findingCounts: { error: number; warning: number; info: number };
+  files: ExternalCoverageFile[];
+  qualityFindings: ExternalFinding[];
+  rawOutput: string;
+}
+
 export interface AuditReport {
   id: string;
   clientId: string;
@@ -87,6 +115,7 @@ export interface AuditReport {
   executionStatus: "success" | "completed_with_errors" | "failed";
   errors: string[];
   durationMs: number;
+  detailed?: DetailedTestQuality;
 }
 
 export interface DB {

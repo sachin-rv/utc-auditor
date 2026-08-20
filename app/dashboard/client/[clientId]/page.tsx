@@ -115,6 +115,8 @@ export default function ClientHistoryPage({ params }: { params: { clientId: stri
                           total: r.testExecution.total,
                           criticalCount: r.findings.filter((f) => f.severity === "critical").length,
                           highCount: r.findings.filter((f) => f.severity === "high").length,
+                          hasDetailed: !!r.detailed,
+                          grade: r.detailed?.grade,
                         })
                       )}
                     />

@@ -56,6 +56,23 @@ Matches the spec's own scope split:
   and composite score weighting (here: a simple, replaceable formula in
   `audit-engine/src/report.js`).
 
+## Importing a real external report as its own project
+
+`scripts/importExternalProject.js` adds `data/sample-external-report.json`
+(a real, uploaded Jest audit run — not synthetic) into `data/db.json` as its
+own project (`nextjs-app`, currently attached to Northwind Retail) with one
+report carrying the upload's actual numbers end-to-end: real coverage, the
+real letter grade (A), the real 29-file coverage table, and the real 24
+quality findings — visible at its `/details` page alongside the synthetic
+projects from `scripts/seed.js`. Re-run it any time the upload changes:
+
+```bash
+npm run import:external   # or: node scripts/importExternalProject.js
+```
+
+It's idempotent — re-running replaces that project's report rather than
+duplicating it.
+
 ## Interactivity & theming
 
 - **Light/dark theme** — toggle button in the header (and login screen); the
@@ -74,6 +91,16 @@ Matches the spec's own scope split:
   stays scannable.
 - **Report sharing** (`components/CopyLinkButton.tsx`) — one-click copy of
   the current report's URL.
+
+- **Per-report detailed test-quality breakdown** — every generated report now
+  carries an optional `detailed` field (`lib/types.ts`'s `DetailedTestQuality`)
+  in the same shape family as the uploaded external report format: per-file
+  coverage, 8 quality sub-scores, a letter grade + verdict, strategies run,
+  and raw Jest output. From any report page, a "Detailed test-quality
+  breakdown" banner links to `/dashboard/client/[clientId]/report/[reportId]/details`,
+  which reuses the same `ScoreBarList` / `CoverageFileTable` /
+  `ExternalFindingsList` / `RawOutputViewer` components as the standalone
+  uploaded-report page — so both report sources render with one shared UI.
 
 ## Design notes
 

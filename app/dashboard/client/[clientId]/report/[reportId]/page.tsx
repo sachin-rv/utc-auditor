@@ -97,6 +97,39 @@ export default function ReportDetailPage({
         </dl>
       </div>
 
+      {report.detailed && (
+        <Link
+          href={`/dashboard/client/${client.id}/report/${report.id}/details`}
+          className="group mb-6 flex items-center justify-between border border-line bg-panel hover:border-signal-pass/40 rounded-xl px-5 py-3.5 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <span
+              className={`text-sm font-display font-bold border rounded-md h-8 w-8 flex items-center justify-center ${
+                report.detailed.grade[0] === "A"
+                  ? "text-signal-pass border-signal-pass/30 bg-signal-pass/10"
+                  : report.detailed.grade[0] === "B"
+                  ? "text-signal-info border-signal-info/30 bg-signal-info/10"
+                  : report.detailed.grade[0] === "C"
+                  ? "text-signal-warn border-signal-warn/30 bg-signal-warn/10"
+                  : report.detailed.grade[0] === "D"
+                  ? "text-signal-high border-signal-high/30 bg-signal-high/10"
+                  : "text-signal-fail border-signal-fail/30 bg-signal-fail/10"
+              }`}
+            >
+              {report.detailed.grade}
+            </span>
+            <div>
+              <div className="text-sm font-medium">Detailed test-quality breakdown</div>
+              <div className="text-xs text-mist mt-0.5">
+                Per-file coverage, {report.detailed.qualityFindings.length} quality finding
+                {report.detailed.qualityFindings.length === 1 ? "" : "s"}, and 8 sub-scores
+              </div>
+            </div>
+          </div>
+          <span className="text-mist group-hover:text-signal-pass transition-colors">→</span>
+        </Link>
+      )}
+
       {report.errors.length > 0 && (
         <div className="mb-6 border border-signal-warn/30 bg-signal-warn/10 rounded-lg px-4 py-3 text-sm text-signal-warn">
           {report.errors.map((e, i) => (
@@ -170,6 +203,11 @@ export default function ReportDetailPage({
 
       <section className="mb-10">
         <div className="text-xs uppercase tracking-widest text-mist mb-4">Migration analysis</div>
+        {report.migrationFindings.length === 0 ? (
+          <div className="border border-line bg-panel rounded-xl px-6 py-6 text-center text-sm text-mist">
+            Not evaluated for this report.
+          </div>
+        ) : (
         <div className="grid sm:grid-cols-2 gap-3">
           {report.migrationFindings.map((m, i) => (
             <div key={i} className="border border-line bg-panel rounded-xl p-4">
@@ -188,6 +226,7 @@ export default function ReportDetailPage({
             </div>
           ))}
         </div>
+        )}
       </section>
 
       {report.recommendations.length > 0 && (

@@ -13,6 +13,8 @@ export interface ReportRow {
   total: number;
   criticalCount: number;
   highCount: number;
+  hasDetailed?: boolean;
+  grade?: string;
 }
 
 function fmtDateTime(iso: string) {
@@ -29,6 +31,21 @@ function scoreColor(score: number) {
   if (score < 80) return "text-signal-warn";
   if (score < 90) return "text-signal-info";
   return "text-signal-pass";
+}
+
+function gradeColor(grade?: string) {
+  switch (grade?.[0]) {
+    case "A":
+      return "text-signal-pass border-signal-pass/30 bg-signal-pass/10";
+    case "B":
+      return "text-signal-info border-signal-info/30 bg-signal-info/10";
+    case "C":
+      return "text-signal-warn border-signal-warn/30 bg-signal-warn/10";
+    case "D":
+      return "text-signal-high border-signal-high/30 bg-signal-high/10";
+    default:
+      return "text-signal-fail border-signal-fail/30 bg-signal-fail/10";
+  }
 }
 
 const TRIGGER_FILTERS = [
@@ -100,7 +117,11 @@ export default function ReportHistoryList({
           {filtered.map((r) => (
             <Link
               key={r.id}
-              href={`/dashboard/client/${clientId}/report/${r.id}`}
+              href={
+                r.hasDetailed
+                  ? `/dashboard/client/${clientId}/report/${r.id}/details`
+                  : `/dashboard/client/${clientId}/report/${r.id}`
+              }
               className="flex items-center justify-between py-3 group hover:bg-panel2/40 -mx-2 px-2 rounded-lg transition-colors"
             >
               <div className="flex items-center gap-4">
@@ -117,6 +138,16 @@ export default function ReportHistoryList({
                 </div>
               </div>
               <div className="flex items-center gap-6">
+                {r.hasDetailed && r.grade && (
+                  <span
+                    className={`text-[10px] font-mono font-bold uppercase tracking-wider border rounded px-1.5 py-0.5 ${gradeColor(
+                      r.grade
+                    )}`}
+                    title="View detailed test-quality breakdown"
+                  >
+                    {r.grade}
+                  </span>
+                )}
                 <span className="font-mono text-xs text-mist">
                   {r.passed}/{r.total} passed
                 </span>

@@ -47,6 +47,199 @@ const FILES = [
   "lib/render/staticProps.ts", "components/Nav.tsx", "lib/auth/session.ts",
 ];
 
+const PROJECT_FILES = {
+  proj_atlas_web: [
+    "components/CartSummary/CartSummary.tsx", "components/CartSummary/index.ts",
+    "components/ProductCard/ProductCard.tsx", "components/ProductCard/index.ts",
+    "components/CheckoutForm/CheckoutForm.tsx", "components/CheckoutForm/index.ts",
+    "components/ExperimentBanner/ExperimentBanner.tsx", "components/ExperimentBanner/index.ts",
+    "components/PriceTag/PriceTag.tsx", "components/PriceTag/index.ts",
+    "components/AddressForm/AddressForm.tsx", "components/AddressForm/index.ts",
+    "components/OrderSummary/OrderSummary.tsx", "components/OrderSummary/index.ts",
+    "components/StockBadge/StockBadge.tsx", "components/StockBadge/index.ts",
+    "hooks/useCheckout.ts", "hooks/useCart.ts",
+    "lib/pricing.ts", "lib/inventory.ts",
+    "lib/search/client.ts", "lib/cms/resolveEntry.ts", "lib/auth/session.ts",
+  ],
+  proj_northwind_docs: [
+    "components/SearchBox/SearchBox.tsx", "components/SearchBox/index.ts",
+    "components/ArticleCard/ArticleCard.tsx", "components/ArticleCard/index.ts",
+    "components/Sidebar/Sidebar.tsx", "components/Sidebar/index.ts",
+    "components/TableOfContents/TableOfContents.tsx", "components/TableOfContents/index.ts",
+    "components/Breadcrumbs/Breadcrumbs.tsx", "components/Breadcrumbs/index.ts",
+    "components/VersionSwitcher/VersionSwitcher.tsx", "components/VersionSwitcher/index.ts",
+    "components/CodeBlock/CodeBlock.tsx", "components/CodeBlock/index.ts",
+    "lib/markdown.ts", "lib/searchIndex.ts", "lib/navigation.ts", "lib/frontmatter.ts",
+  ],
+  proj_horizon_app: [
+    "components/HeroBanner/HeroBanner.tsx", "components/HeroBanner/index.ts",
+    "components/MediaPlayer/MediaPlayer.tsx", "components/MediaPlayer/index.ts",
+    "components/FloatingActions/FloatingActions.tsx", "components/FloatingActions/index.ts",
+    "components/ExperimentBanner/ExperimentBanner.tsx", "components/ExperimentBanner/index.ts",
+    "components/CommentThread/CommentThread.tsx", "components/CommentThread/index.ts",
+    "components/ShareSheet/ShareSheet.tsx", "components/ShareSheet/index.ts",
+    "components/SubscribeModal/SubscribeModal.tsx", "components/SubscribeModal/index.ts",
+    "lib/render/staticProps.ts", "lib/analytics.ts", "lib/api.ts", "lib/utils.ts",
+  ],
+};
+
+const STRATEGIES_RUN = [
+  "real-api-call", "redundant-mock", "title-quality", "readability", "disabled-focused",
+  "async-flake", "snapshot-overuse", "rtl-antipattern", "non-deterministic", "debug-leftover",
+  "assertion-quality", "duplicate-title", "conditional-logic", "hardcoded-secret", "coverage",
+];
+
+const QUALITY_FINDING_TEMPLATES = [
+  {
+    category: "unused-mock", severity: "warning",
+    message: 'Mock "onClose" is created with jest.fn() but never used.',
+    suggestion: "Remove unused mocks to keep tests focused and readable.",
+  },
+  {
+    category: "title-quality", severity: "info",
+    message: (name) => `Title looks like a function name ("${name}") rather than a behavior description.`,
+    suggestion: 'Use descriptive titles, e.g. "returns empty list when the user has no orders".',
+    useTitle: true,
+  },
+  {
+    category: "async-flake", severity: "warning",
+    message: 'Sleep/wait helper "delay()" often causes flaky timing.',
+    suggestion: "Use deterministic waits (waitFor, findBy*, fake timers).",
+  },
+  {
+    category: "rtl-antipattern", severity: "info",
+    message: "Heavy getByTestId usage vs accessible queries.",
+    suggestion: "Favor role/label/text queries; reserve test ids for truly non-accessible cases.",
+  },
+  {
+    category: "duplicate-title", severity: "info",
+    message: "Two tests in this file share the same title.",
+    suggestion: "Give each test a distinct, behavior-specific title so failures are easy to locate.",
+  },
+  {
+    category: "snapshot-overuse", severity: "info",
+    message: "Large snapshot covers more than the behavior under test.",
+    suggestion: "Prefer targeted assertions over broad snapshots for easier-to-diagnose failures.",
+  },
+];
+
+function gradeFromScore(score) {
+  if (score >= 90) return "A";
+  if (score >= 80) return "B";
+  if (score >= 70) return "C";
+  if (score >= 60) return "D";
+  return "F";
+}
+
+function verdictFor(grade) {
+  const map = {
+    A: "Strong unit test suite — coverage and quality look healthy.",
+    B: "Solid unit test suite with a few areas worth tightening up.",
+    C: "Adequate coverage, but quality gaps are starting to accumulate.",
+    D: "Test suite needs attention — coverage and quality gaps are notable.",
+    F: "Test suite is in poor shape and should be prioritized for remediation.",
+  };
+  return map[grade];
+}
+
+function componentNameFromPath(filePath) {
+  const base = filePath.split("/").pop().replace(/\.[jt]sx?$/, "");
+  return base === "index" ? filePath.split("/").slice(-2, -1)[0] : base;
+}
+
+function seedNum(str, salt) {
+  let h = salt + 7;
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+  return h % 100000;
+}
+
+function buildDetailedTestQuality({ projectId, index, coverage, overallScore, migrationFindings }) {
+  const projectFiles = PROJECT_FILES[projectId] ?? FILES;
+
+  const files = projectFiles.map((filePath, i) => {
+    const jitter = (seedNum(filePath, index) % 9) - 4; // -4..4
+    const mk = (base) => {
+      const pct = Math.max(40, Math.min(100, Math.round(base + jitter)));
+      const total = 4 + (seedNum(filePath, index + i) % 60);
+      const covered = Math.round((pct / 100) * total);
+      return { covered, total, pct };
+    };
+    return {
+      path: filePath,
+      statements: mk(coverage.statements),
+      branches: mk(coverage.branches),
+      functions: mk(coverage.functions),
+      lines: mk(coverage.lines),
+    };
+  });
+
+  const testFiles = projectFiles.filter((f) => !f.endsWith("index.ts"));
+  const findingBudget = Math.max(1, 7 - Math.floor(index / 1.5) + (seedNum(projectId, index) % 3));
+  const templates = pick(QUALITY_FINDING_TEMPLATES, findingBudget, index + 7);
+  const qualityFindings = templates.map((t, i) => {
+    const srcFile = pick(testFiles, 1, index + i + 2)[0] ?? testFiles[0];
+    const testFile = srcFile.replace(/\.tsx?$/, "").replace(/\.ts$/, "") + ".test.tsx";
+    const name = componentNameFromPath(srcFile);
+    return {
+      category: t.category,
+      severity: t.severity,
+      file: testFile,
+      line: 1 + (seedNum(testFile, i) % 90),
+      ...(t.useTitle ? { title: name } : {}),
+      message: typeof t.message === "function" ? t.message(name) : t.message,
+      suggestion: t.suggestion,
+    };
+  });
+
+  const findingCounts = qualityFindings.reduce(
+    (acc, f) => ({ ...acc, [f.severity]: (acc[f.severity] ?? 0) + 1 }),
+    { error: 0, warning: 0, info: 0 }
+  );
+
+  const covAvg = Math.round((coverage.statements + coverage.branches + coverage.functions + coverage.lines) / 4);
+  const inconsistentMigrations = migrationFindings.filter((m) => m.status !== "active").length;
+  const clamp = (v) => Math.max(0, Math.min(100, Math.round(v)));
+
+  const scores = {
+    overall: clamp(overallScore),
+    coverage: clamp(covAvg),
+    isolation: clamp(96 - inconsistentMigrations * 4),
+    mockHygiene: clamp(96 - findingCounts.warning * 6),
+    readability: clamp(90 - findingCounts.info * 1.5),
+    titles: clamp(80 - qualityFindings.filter((f) => f.category === "title-quality").length * 4),
+    reliability: clamp(94 - findingCounts.warning * 5),
+    assertions: clamp(98 - findingCounts.error * 8),
+    hygiene: clamp(97 - findingCounts.warning * 3),
+  };
+
+  const grade = gradeFromScore(scores.overall);
+
+  const rawOutputLines = testFiles.slice(0, 8).map((f) => {
+    const testFile = f.replace(/\.tsx?$/, "").replace(/\.ts$/, "") + ".test.tsx";
+    return `PASS ${testFile}`;
+  });
+  const rawOutput = [
+    "> project@0.1.0 test",
+    "> jest --coverage --coverageReporters=json-summary --coverageReporters=json --passWithNoTests --watchAll=false",
+    "",
+    ...rawOutputLines,
+    "",
+    `Test Suites: ${rawOutputLines.length} passed, ${rawOutputLines.length} total`,
+  ].join("\n");
+
+  return {
+    scores,
+    grade,
+    verdict: verdictFor(grade),
+    strategiesRun: STRATEGIES_RUN,
+    testFileCount: testFiles.length,
+    findingCounts,
+    files,
+    qualityFindings,
+    rawOutput,
+  };
+}
+
 function pick(arr, n, seedOffset = 0) {
   const copy = [...arr];
   const out = [];
@@ -112,6 +305,14 @@ function buildReport({ clientId, projectId, index, total, baseCoverage, trendUp,
   const recommendations = Array.from(new Set(findings.map((f) => f.recommendation))).slice(0, 4);
   if (dependencyFindings.length) recommendations.push("Confirm react-ga is unused and remove it from package.json.");
 
+  const detailed = buildDetailedTestQuality({
+    projectId,
+    index,
+    coverage,
+    overallScore,
+    migrationFindings,
+  });
+
   return {
     id: rid("report"),
     clientId,
@@ -140,6 +341,7 @@ function buildReport({ clientId, projectId, index, total, baseCoverage, trendUp,
     executionStatus: failed > 0 ? "completed_with_errors" : "success",
     errors: failed > 0 ? ["2 test(s) failed during execution; see findings for detail."] : [],
     durationMs: 21000 + index * 900,
+    detailed,
   };
 }
 
