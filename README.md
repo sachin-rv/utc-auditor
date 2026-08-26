@@ -2,14 +2,13 @@
 
 Authenticated Next.js console for UTC Auditor. It talks to the Nest backend
 (`utc-auditor-be`) over JWT and shows different views for **admin** and
-**client** users. The CLI that produces reports lives in `/audit-engine`.
+**client** users.
 
 ```
 utc-auditor/
 ├── app/                 Dashboard routes + auth/session BFF
 ├── components/          Console UI
-├── lib/                 Backend client, session, report mapping
-└── audit-engine/        @utc-auditor/cli (runs in a client repo)
+└── lib/                 Backend client, session, report mapping
 ```
 
 The dashboard does not store clients, projects, or reports itself. Those live
@@ -82,17 +81,14 @@ Project lists support search, passing/failing filters, and expand/collapse.
 Report history supports trigger filter, failing-only, and date/score sort.
 The report view has Overview / Findings / JSON tabs.
 
-## CI / library upload
+## Report upload
 
-Admins issue an API key per project. The library uploads with:
+Admins issue an API key per project. Reports are uploaded to the Nest API with:
 
 ```
 X-API-Key: utc_...
 POST /api/reports
 ```
-
-CLI setup is documented in `audit-engine/README.md`. Point it at the Nest API
-(`UTC_AUDITOR_API_URL=http://localhost:3000`) and the key from the dashboard.
 
 ## Scripts
 
