@@ -5,12 +5,12 @@ import { SESSION_MAX_AGE } from "@/lib/constants";
 import type { AuthResponse } from "@/lib/api-types";
 
 export async function POST(req: NextRequest) {
-  const { email, password } = await req.json();
+  const body = await req.json();
 
   try {
-    const data = await backendPublic<AuthResponse>("/auth/login", {
+    const data = await backendPublic<AuthResponse>("/auth/setup", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(body),
     });
 
     const token = encodeSession({
@@ -38,6 +38,6 @@ export async function POST(req: NextRequest) {
     if (e instanceof BackendError) {
       return NextResponse.json({ error: e.message }, { status: e.status });
     }
-    return NextResponse.json({ error: "Sign in failed." }, { status: 502 });
+    return NextResponse.json({ error: "Setup failed." }, { status: 502 });
   }
 }
