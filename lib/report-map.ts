@@ -1,4 +1,3 @@
-import type { ExternalFinding, ExternalCoverageFile, ExternalReport } from "./externalReport";
 import type { CoverageMetrics, Finding } from "./types";
 import type { ApiReportDetail, ApiReportListItem } from "./api-types";
 import { parseUserReport, shortPath } from "./user-report";
@@ -57,14 +56,6 @@ export function mapStatus(status?: string) {
   if (status === "warning" || status === "completed_with_errors") return "completed_with_errors";
   if (status === "fail" || status === "failed") return "failed";
   return status || "no_reports";
-}
-
-export function isExternalReport(json: Record<string, unknown> | undefined): json is Record<string, unknown> & {
-  scores: ExternalReport["scores"];
-} {
-  if (!json) return false;
-  const scores = json.scores as Record<string, unknown> | undefined;
-  return typeof scores?.overall === "number";
 }
 
 function asFindingSeverity(value: unknown): Finding["severity"] {
@@ -133,52 +124,12 @@ export function findingsFromJson(reportJson: Record<string, unknown> | undefined
   return out;
 }
 
-export function externalFromJson(reportJson: Record<string, unknown>): {
-  scores: ExternalReport["scores"];
-  grade: string;
-  verdict: string;
-  strategiesRun: string[];
-  testFileCount: number;
-  findingCounts: { error: number; warning: number; info: number };
-  files: ExternalCoverageFile[];
-  qualityFindings: ExternalFinding[];
-  rawOutput: string;
-  coverage: CoverageMetrics;
-} | null {
-  if (!isExternalReport(reportJson)) return null;
-  const scores = reportJson.scores as ExternalReport["scores"];
-  const summary = (reportJson.summary ?? {}) as Record<string, unknown>;
-  const coverage = (reportJson.coverage ?? {}) as Record<string, unknown>;
-  const findings = (Array.isArray(reportJson.findings) ? reportJson.findings : []) as ExternalFinding[];
-  const files = (Array.isArray(coverage.files) ? coverage.files : []) as ExternalCoverageFile[];
-  const findingCounts = (summary.findingCounts as { error: number; warning: number; info: number } | undefined) ?? {
-    error: findings.filter((f) => f.severity === "error").length,
-    warning: findings.filter((f) => f.severity === "warning").length,
-    info: findings.filter((f) => f.severity === "info").length,
-  };
-  return {
-    scores,
-    grade: String(summary.grade ?? ""),
-    verdict: String(summary.verdict ?? ""),
-    strategiesRun: Array.isArray(summary.strategiesRun) ? (summary.strategiesRun as string[]) : [],
-    testFileCount: Number(summary.testFileCount ?? 0),
-    findingCounts,
-    files,
-    qualityFindings: findings,
-    rawOutput: typeof coverage.rawOutput === "string" ? coverage.rawOutput : "",
-    coverage: coverageFromJson(reportJson, scores.coverage),
-  };
-}
-
 export function listRowFromApi(r: ApiReportListItem) {
   const s = r.summary ?? {};
   const json = r.reportJson ?? {};
   const user = parseUserReport(json);
-  const detailed = Object.keys(json).length ? externalFromJson(json) : null;
   const coverage = coverageFromJson(json, s.coveragePercent ?? user?.coverageTotals.lines);
-  const overallScore = Math.round(
-    s.auditScore ?? user?.quality.score ?? detailed?.scores.overall ?? 0
-  );
+  const overallScore = Math.round(s.auditScore ?? user?.quality.score ?? 0);
   const passed = s.passedTests ?? user?.run.passed ?? 0;
   const total = s.totalTests ?? user?.run.total ?? 0;
   const failed = s.failedTests ?? user?.run.failed ?? Math.max(0, total - passed);
@@ -203,7 +154,7 @@ export function listRowFromApi(r: ApiReportListItem) {
     coverage,
     coveragePercent: s.coveragePercent ?? coverage.lines,
     status,
-    qualityGrade: user?.quality.grade ?? detailed?.grade,
+    qualityGrade: user?.quality.grade,
     completenessScore: user?.completeness.score,
     findingsCount,
   };
@@ -212,7 +163,6 @@ export function listRowFromApi(r: ApiReportListItem) {
 export function detailView(report: ApiReportDetail) {
   const s = report.summary ?? {};
   const json = report.reportJson ?? {};
-  const detailed = externalFromJson(json);
   const user = parseUserReport(json);
   const findings = findingsFromJson(json);
   return {
@@ -221,8 +171,8 @@ export function detailView(report: ApiReportDetail) {
     clientId: report.clientId,
     projectId: report.projectId,
     timestamp: report.generatedAt,
-    overallScore: Math.round(s.auditScore ?? user?.quality.score ?? detailed?.scores.overall ?? 0),
-    coverage: coverageFromJson(json, s.coveragePercent ?? user?.coverageTotals.lines ?? detailed?.scores.coverage),
+    overallScore: Math.round(s.auditScore ?? user?.quality.score ?? 0),
+    coverage: coverageFromJson(json, s.coveragePercent ?? user?.coverageTotals.lines),
     testExecution: {
       total: s.totalTests ?? user?.run.total ?? 0,
       passed: s.passedTests ?? user?.run.passed ?? 0,
@@ -234,8 +184,7 @@ export function detailView(report: ApiReportDetail) {
     findings,
     status: mapStatus(s.status),
     pipeline: report.pipeline,
-    detailed,
-    hasDetailed: Boolean(user || detailed),
+    hasDetailed: Boolean(user),
     rawJson: json,
   };
 }
