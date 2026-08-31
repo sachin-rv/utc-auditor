@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import ThemeToggle from "@/components/ThemeToggle";
 
 function Logo() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
-      <rect width="28" height="28" rx="8" fill="#1a62ea" />
+      <rect width="28" height="28" rx="8" className="fill-signal-pass" />
       <path
         d="M8 10.5h12M8 14h12M8 17.5h8"
         stroke="white"
@@ -36,85 +37,111 @@ function EyeIcon({ open }: { open: boolean }) {
   );
 }
 
-function DashboardPreview() {
-  const bars = [40, 65, 45, 80, 55, 70, 50, 85, 60, 75, 48, 90];
-  const tableRows = [
-    { name: "Enterprise Plan", value: "$12,400", trend: "+12%" },
-    { name: "Pro Subscription", value: "$8,240", trend: "+8%" },
-    { name: "Starter Pack", value: "$4,044", trend: "+3%" },
+function CoverageRow({ label, value }: { label: string; value: number }) {
+  return (
+    <div>
+      <div className="flex items-center justify-between text-[11px] mb-1">
+        <span className="text-white/70 font-medium">{label}</span>
+        <span className="text-white font-semibold tabular-nums">{value}%</span>
+      </div>
+      <div className="h-1.5 rounded-full bg-white/15 overflow-hidden">
+        <div
+          className="h-full rounded-full bg-white/90"
+          style={{ width: `${value}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function AuditPreview() {
+  const findings = [
+    { name: "Auth session expiry", sev: "High", tone: "fail" },
+    { name: "Uncovered branch in billing", sev: "Med", tone: "warn" },
+    { name: "Jest snapshot drift", sev: "Low", tone: "info" },
   ];
 
   return (
-    <div className="relative mt-8 flex-1 min-h-[280px]">
+    <div className="relative mt-8 flex-1 min-h-[300px]">
       <div className="absolute inset-0 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl p-5 overflow-hidden">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-start justify-between mb-5">
           <div>
-            <p className="text-white/60 text-xs font-medium">Total Revenue</p>
-            <p className="text-white text-2xl font-bold tracking-tight">$189,374</p>
-            <p className="text-emerald-300 text-xs font-medium mt-0.5">+18.2% from last month</p>
+            <p className="text-white/60 text-[11px] font-medium uppercase tracking-wider">
+              Quality score
+            </p>
+            <p className="text-white text-3xl font-bold tracking-tight font-display">86</p>
+            <p className="text-emerald-100 text-xs font-medium mt-0.5">Grade B · last audit 2h ago</p>
           </div>
-          <div className="text-right">
-            <p className="text-white/60 text-xs font-medium">Active Users</p>
-            <p className="text-white text-xl font-bold">$25,684</p>
+          <div className="relative w-[72px] h-[72px] shrink-0">
+            <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="9" />
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                fill="none"
+                stroke="white"
+                strokeWidth="9"
+                strokeLinecap="round"
+                strokeDasharray="206 239"
+              />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-sm font-bold text-white">86</span>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-end gap-1 h-16 mb-4">
-          {bars.map((h, i) => (
-            <div
-              key={i}
-              className="flex-1 rounded-sm bg-white/30"
-              style={{ height: `${h}%` }}
-            />
-          ))}
+        <div className="space-y-2.5 mb-5">
+          <CoverageRow label="Statements" value={92} />
+          <CoverageRow label="Branches" value={78} />
+          <CoverageRow label="Functions" value={85} />
+          <CoverageRow label="Lines" value={90} />
         </div>
 
-        <div className="space-y-2">
-          <div className="grid grid-cols-3 text-[10px] text-white/50 font-medium uppercase tracking-wide px-1">
-            <span>Product</span>
-            <span className="text-right">Revenue</span>
-            <span className="text-right">Growth</span>
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between text-[10px] text-white/50 font-medium uppercase tracking-wide px-0.5">
+            <span>Open findings</span>
+            <span>3</span>
           </div>
-          {tableRows.map((row) => (
+          {findings.map((row) => (
             <div
               key={row.name}
-              className="grid grid-cols-3 text-xs text-white/90 bg-white/10 rounded-lg px-2 py-1.5"
+              className="flex items-center justify-between text-xs text-white/90 bg-white/10 rounded-lg px-2.5 py-1.5 gap-2"
             >
               <span className="truncate">{row.name}</span>
-              <span className="text-right font-medium">{row.value}</span>
-              <span className="text-right text-emerald-300">{row.trend}</span>
+              <span
+                className={`shrink-0 text-[10px] font-semibold uppercase tracking-wide rounded px-1.5 py-0.5 ${
+                  row.tone === "fail"
+                    ? "bg-red-400/25 text-red-100"
+                    : row.tone === "warn"
+                      ? "bg-amber-300/25 text-amber-100"
+                      : "bg-white/15 text-white/80"
+                }`}
+              >
+                {row.sev}
+              </span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="absolute -bottom-4 -right-2 w-44 rounded-2xl bg-white shadow-2xl p-4 border border-gray-100">
-        <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wide mb-2">
-          Units Sold
+      <div className="absolute -bottom-3 -right-1 sm:-right-2 w-40 rounded-2xl bg-panel shadow-2xl p-3.5 border border-line">
+        <p className="text-[10px] text-mist font-medium uppercase tracking-wide mb-2">
+          Test run
         </p>
-        <div className="relative w-24 h-24 mx-auto">
-          <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-            <circle cx="50" cy="50" r="38" fill="none" stroke="#e8ecf0" strokeWidth="10" />
-            <circle
-              cx="50"
-              cy="50"
-              r="38"
-              fill="none"
-              stroke="#1a62ea"
-              strokeWidth="10"
-              strokeLinecap="round"
-              strokeDasharray="179 239"
-            />
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-lg font-bold text-gray-900 leading-none">6,248</span>
-            <span className="text-[10px] text-gray-400">Units</span>
-          </div>
+        <p className="font-display text-xl font-bold text-chalk leading-none">248<span className="text-sm font-medium text-mist"> / 256</span></p>
+        <p className="text-[11px] text-signal-pass font-medium mt-1.5">97% passing</p>
+        <div className="mt-2 h-1.5 rounded-full bg-panel2 overflow-hidden">
+          <div className="h-full w-[97%] rounded-full bg-signal-pass" />
         </div>
       </div>
     </div>
   );
 }
+
+const fieldClass =
+  "w-full bg-panel2 border border-line rounded-xl px-3.5 py-2.5 text-sm text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -156,23 +183,25 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f6f8] flex items-center justify-center p-4 sm:p-6 md:p-8">
-      <div className="w-full max-w-5xl bg-white rounded-2xl md:rounded-3xl border border-gray-200/80 shadow-xl shadow-gray-200/50 overflow-hidden flex flex-col md:flex-row md:min-h-[640px]">
-        {/* Left — Authentication */}
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
+      <div className="w-full max-w-5xl bg-panel rounded-2xl md:rounded-3xl border border-line shadow-xl shadow-black/5 dark:shadow-black/40 overflow-hidden flex flex-col md:flex-row md:min-h-[640px]">
         <div className="flex-1 flex flex-col p-8 sm:p-10 md:p-12 relative">
-          <div className="flex items-center gap-2.5 mb-10">
-            <Logo />
-            <span className="font-display font-bold text-lg text-gray-900 tracking-tight">
-              UTC Auditor
-            </span>
+          <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center gap-2.5">
+              <Logo />
+              <span className="font-display font-bold text-lg text-chalk tracking-tight">
+                UTC<span className="text-signal-pass">/</span>Auditor
+              </span>
+            </div>
+            <ThemeToggle />
           </div>
 
           <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
             <div className="text-center mb-8">
-              <h1 className="font-display text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="font-display text-2xl sm:text-3xl font-bold text-chalk mb-2">
                 {setupRequired ? "Create Your Account" : "Welcome Back"}
               </h1>
-              <p className="text-sm text-gray-500 leading-relaxed">
+              <p className="text-sm text-mist leading-relaxed">
                 {setupRequired
                   ? "Set up the first admin account to get started."
                   : "Enter your email and password to access your account."}
@@ -182,10 +211,7 @@ export default function LoginPage() {
             <form onSubmit={onSubmit} className="space-y-5">
               {setupRequired && (
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-1.5"
-                  >
+                  <label htmlFor="name" className="block text-sm font-medium text-chalk mb-1.5">
                     Name
                   </label>
                   <input
@@ -193,17 +219,14 @@ export default function LoginPage() {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#1a62ea] focus:ring-2 focus:ring-[#1a62ea]/20 transition"
+                    className={fieldClass}
                     placeholder="Admin User"
                   />
                 </div>
               )}
 
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1.5"
-                >
+                <label htmlFor="email" className="block text-sm font-medium text-chalk mb-1.5">
                   Email
                 </label>
                 <input
@@ -212,16 +235,13 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#1a62ea] focus:ring-2 focus:ring-[#1a62ea]/20 transition"
+                  className={fieldClass}
                   placeholder="email@company.com"
                 />
               </div>
 
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700 mb-1.5"
-                >
+                <label htmlFor="password" className="block text-sm font-medium text-chalk mb-1.5">
                   Password
                 </label>
                 <div className="relative">
@@ -231,13 +251,13 @@ export default function LoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 pr-11 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#1a62ea] focus:ring-2 focus:ring-[#1a62ea]/20 transition"
+                    className={`${fieldClass} pr-11`}
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-mist hover:text-chalk transition"
                     aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     <EyeIcon open={showPassword} />
@@ -252,13 +272,13 @@ export default function LoginPage() {
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="h-4 w-4 rounded border-gray-300 text-[#1a62ea] focus:ring-[#1a62ea]/30"
+                      className="h-4 w-4 rounded border-line text-signal-pass focus:ring-signal-pass/30"
                     />
-                    <span className="text-sm text-gray-600">Remember Me</span>
+                    <span className="text-sm text-mist">Remember Me</span>
                   </label>
                   <a
                     href="#"
-                    className="text-sm font-medium text-[#1a62ea] hover:text-[#1550c4] transition"
+                    className="text-sm font-medium text-signal-pass hover:brightness-110 transition"
                     onClick={(e) => e.preventDefault()}
                   >
                     Forgot Your Password?
@@ -267,7 +287,7 @@ export default function LoginPage() {
               )}
 
               {error && (
-                <div className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">
+                <div className="text-sm text-signal-fail bg-signal-fail/10 border border-signal-fail/20 rounded-xl px-3 py-2">
                   {error}
                 </div>
               )}
@@ -275,7 +295,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#1a62ea] hover:bg-[#1550c4] text-white font-semibold text-sm rounded-lg py-2.5 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full bg-chalk dark:bg-signal-pass text-panel dark:text-onaccent hover:opacity-90 font-semibold text-sm rounded-full py-2.5 transition disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {loading
                   ? setupRequired
@@ -286,38 +306,23 @@ export default function LoginPage() {
                     : "Log in"}
               </button>
             </form>
-
-            {!setupRequired && (
-              <>
-                <p className="text-center text-sm text-gray-500 mt-8">
-                  Don&apos;t Have An Account?{" "}
-                  <a
-                    href="#"
-                    className="font-medium text-[#1a62ea] hover:text-[#1550c4] transition"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    Register Now
-                  </a>
-                </p>
-              </>
-            )}
           </div>
 
-          <p className="text-[11px] text-gray-400 mt-8 md:mt-0 md:absolute md:bottom-8 md:left-10 lg:left-12">
+          <p className="text-[11px] text-mist mt-8 md:mt-0 md:absolute md:bottom-8 md:left-10 lg:left-12">
             Copyright © 2026 UTC Auditor. All rights reserved.
           </p>
         </div>
 
-        {/* Right — Branding Preview */}
-        <div className="flex-1 bg-[#1a62ea] p-8 sm:p-10 md:p-12 flex flex-col rounded-t-2xl md:rounded-t-none md:rounded-r-3xl">
-          <div className="max-w-md mx-auto w-full flex flex-col flex-1">
+        <div className="flex-1 relative overflow-hidden p-8 sm:p-10 md:p-12 flex flex-col rounded-t-2xl md:rounded-t-none md:rounded-r-3xl bg-gradient-to-br from-[#12b8a8] via-[#0d8f7f] to-[#0a6b62] dark:from-[#0d8f7f] dark:via-[#0a4f48] dark:to-[#071110]">
+          <div className="pointer-events-none absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.35),transparent_45%)]" />
+          <div className="relative max-w-md mx-auto w-full flex flex-col flex-1">
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight">
-              Effortlessly manage your applications.
+              Coverage, quality, and migration — in one console.
             </h2>
-            <p className="text-white/70 text-sm sm:text-base mt-3 leading-relaxed">
-              Log in to access your Auditor
+            <p className="text-white/75 text-sm sm:text-base mt-3 leading-relaxed">
+              Sign in to review Jest audits, findings, and recommendations for your React and Next.js suites.
             </p>
-            <DashboardPreview />
+            <AuditPreview />
           </div>
         </div>
       </div>
