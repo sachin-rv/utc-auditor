@@ -76,7 +76,7 @@ export default function ProjectsBoard({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search projects, slugs, repos…"
-            className="ui-input pl-9 pr-3 py-2"
+            className="w-full bg-panel border border-line rounded-md pl-9 pr-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors"
           />
         </div>
         {chips.map((c) => (
@@ -84,8 +84,10 @@ export default function ProjectsBoard({
             key={c.id}
             type="button"
             onClick={() => setStatus(c.id)}
-            className={`ui-chip ${
-              status === c.id ? "ui-chip-on" : "ui-chip-off"
+            className={`text-[11px] font-mono uppercase tracking-wider px-2.5 py-1.5 rounded border transition-colors ${
+              status === c.id
+                ? "border-signal-pass/40 text-signal-pass bg-signal-pass/10"
+                : "border-line text-mist hover:text-chalk"
             }`}
           >
             {c.label}
@@ -94,14 +96,14 @@ export default function ProjectsBoard({
         <button
           type="button"
           onClick={() => setExpandAll((v) => !v)}
-          className="text-[11px] text-mist hover:text-chalk ml-auto"
+          className="text-[11px] font-mono text-mist hover:text-chalk ml-auto"
         >
           {expandAll ? "Collapse all" : "Expand all"}
         </button>
       </div>
 
       {filtered.length === 0 ? (
-        <div className="ui-empty">
+        <div className="border border-line bg-panel rounded-xl px-6 py-12 text-center text-sm text-mist">
           {items.length === 0 ? "No projects yet." : "No projects match the current filters."}
         </div>
       ) : (
