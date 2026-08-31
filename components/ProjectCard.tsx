@@ -37,7 +37,7 @@ export default function ProjectCard({
     latest && latest.total > 0 ? Math.round((latest.passed / latest.total) * 100) : 0;
 
   return (
-    <section className="border border-line bg-panel rounded-xl overflow-hidden">
+    <section className="ui-card overflow-hidden">
       <div className="flex items-center justify-between px-6 py-4 border-b border-line bg-panel2/40 gap-4">
         <button
           type="button"
@@ -47,11 +47,11 @@ export default function ProjectCard({
         >
           <div className="flex items-center gap-2 flex-wrap">
             <h2 className="font-display font-bold text-lg group-hover:text-signal-pass transition-colors">{project.name}</h2>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-mist border border-line rounded px-1.5 py-0.5">
+            <span className="ui-badge">
               {project.slug}
             </span>
             {project.auditConfig?.schedule && (
-              <span className="text-[10px] font-mono uppercase tracking-wider text-mist border border-line rounded px-1.5 py-0.5">
+              <span className="ui-badge">
                 {project.auditConfig.schedule}
               </span>
             )}
@@ -67,7 +67,7 @@ export default function ProjectCard({
               <path d="M6 9l6 6 6-6" />
             </svg>
           </div>
-          <div className="text-xs text-mist font-mono mt-0.5 truncate">
+          <div className="text-xs text-mist mt-0.5 truncate">
             {project.repositoryUrl ?? "No repository URL"}
             {project.branch ? ` · ${project.branch}` : ""}
           </div>
@@ -97,21 +97,21 @@ export default function ProjectCard({
                   <div className="text-xs uppercase tracking-widest text-mist mb-3">Latest coverage</div>
                   <CoverageBars coverage={coverage} />
                   <div className="flex flex-wrap gap-2 mt-4">
-                    <span className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-line text-mist">
+                    <span className="text-[11px] px-2 py-0.5 rounded-full border border-line text-mist">
                       {latest?.passed ?? 0}/{latest?.total ?? 0} tests · {passRate}% pass
                     </span>
                     {latest?.failed ? (
-                      <span className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-signal-fail/40 text-signal-fail">
+                      <span className="text-[11px] px-2 py-0.5 rounded-full border border-signal-fail/40 text-signal-fail">
                         {latest.failed} failed
                       </span>
                     ) : null}
                     {latest?.findingsCount ? (
-                      <span className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-signal-warn/40 text-signal-warn">
+                      <span className="text-[11px] px-2 py-0.5 rounded-full border border-signal-warn/40 text-signal-warn">
                         {latest.findingsCount} findings
                       </span>
                     ) : null}
                     {latest?.completenessScore != null ? (
-                      <span className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-line text-mist">
+                      <span className="text-[11px] px-2 py-0.5 rounded-full border border-line text-mist">
                         Completeness {latest.completenessScore}
                       </span>
                     ) : null}

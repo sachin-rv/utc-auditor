@@ -42,12 +42,12 @@ export default function ClientListPanel({ clients }: { clients: ClientRow[] }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search clients…"
-          className="w-full bg-panel border border-line rounded-md pl-9 pr-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors"
+          className="ui-input pl-9 pr-3 py-2"
         />
       </div>
 
       {filtered.length === 0 ? (
-        <div className="border border-line bg-panel rounded-xl px-6 py-12 text-center text-sm text-mist">
+        <div className="ui-empty">
           {clients.length === 0 ? "No clients yet. Create one to get started." : `No clients match “${query}”.`}
         </div>
       ) : (
@@ -56,10 +56,10 @@ export default function ClientListPanel({ clients }: { clients: ClientRow[] }) {
             <Link
               key={c.id}
               href={`/dashboard/client/${c.id}`}
-              className="group border border-line bg-panel rounded-xl p-5 flex items-center justify-between hover:border-signal-pass/40 transition-colors"
+              className="group ui-card-hover p-5 flex items-center justify-between"
             >
               <div className="flex items-center gap-4">
-                <div className="h-11 w-11 rounded-lg bg-panel2 border border-line flex items-center justify-center font-display font-bold text-mist group-hover:text-signal-pass group-hover:border-signal-pass/30 transition-colors">
+                <div className="h-11 w-11 rounded-full bg-panel2 border border-line flex items-center justify-center font-display font-bold text-mist group-hover:text-signal-pass group-hover:border-signal-pass/30 transition-colors">
                   {c.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div>

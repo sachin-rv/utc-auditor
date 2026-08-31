@@ -69,3 +69,51 @@ html.dark body {
 @media (prefers-reduced-motion: reduce) {
   .animate-scan { animation: none; }
 }
+
+@layer components {
+  .ui-kicker {
+    @apply text-xs font-medium uppercase tracking-[0.16em] text-signal-pass mb-1;
+  }
+  .ui-back {
+    @apply text-xs text-mist hover:text-chalk mb-4 inline-flex items-center gap-1 transition-colors;
+  }
+  .ui-card {
+    @apply border border-line bg-panel rounded-2xl shadow-sm shadow-black/[0.03] dark:shadow-black/20;
+  }
+  .ui-card-hover {
+    @apply border border-line bg-panel rounded-2xl shadow-sm shadow-black/[0.03] dark:shadow-black/20 hover:border-signal-pass/40 hover:shadow-md transition-all;
+  }
+  .ui-empty {
+    @apply border border-line bg-panel rounded-2xl px-6 py-12 text-center text-sm text-mist;
+  }
+  .ui-input {
+    @apply w-full bg-panel2 border border-line rounded-xl px-3.5 py-2.5 text-sm text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition;
+  }
+  .ui-select {
+    @apply bg-panel2 border border-line rounded-xl px-2.5 py-1.5 text-[11px] text-mist outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition;
+  }
+  .ui-btn-primary {
+    @apply text-xs font-semibold bg-chalk dark:bg-signal-pass text-panel dark:text-onaccent rounded-full px-4 py-2 hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+  .ui-btn-secondary {
+    @apply text-xs font-medium border border-line hover:border-mist rounded-full px-4 py-2 text-mist hover:text-chalk transition-colors;
+  }
+  .ui-btn-danger {
+    @apply text-xs font-semibold bg-signal-fail text-white rounded-full px-4 py-2 hover:brightness-110 transition disabled:opacity-60;
+  }
+  .ui-chip {
+    @apply text-[11px] font-medium px-2.5 py-1.5 rounded-full border transition-colors;
+  }
+  .ui-chip-on {
+    @apply border-signal-pass/40 text-signal-pass bg-signal-pass/10;
+  }
+  .ui-chip-off {
+    @apply border-line text-mist hover:text-chalk hover:border-mist;
+  }
+  .ui-icon-btn {
+    @apply h-8 w-8 shrink-0 rounded-full border border-line hover:border-mist text-mist hover:text-chalk flex items-center justify-center transition-colors;
+  }
+  .ui-badge {
+    @apply inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-mist border-line;
+  }
+}

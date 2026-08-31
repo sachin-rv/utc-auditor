@@ -34,24 +34,24 @@ export default async function ClientProjectsPage({ params }: { params: { clientI
   return (
     <div>
       {isAdmin && (
-        <Link href="/dashboard" className="text-xs text-mist hover:text-chalk font-mono mb-4 inline-block">
+        <Link href="/dashboard" className="ui-back">
           ← All clients
         </Link>
       )}
       <div className="flex items-end justify-between gap-4 mb-8">
         <div>
-          <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">
+          <div className="ui-kicker">
             {isAdmin ? "Client" : "Your projects"}
           </div>
           <h1 className="font-display text-3xl font-bold">{title}</h1>
           {client && (
-            <div className="text-xs text-mist font-mono mt-1">
+            <div className="text-xs text-mist mt-1">
               {client.slug}
               {client.contactEmail ? ` · ${client.contactEmail}` : ""}
               {client.status ? ` · ${client.status}` : ""}
             </div>
           )}
-          <div className="text-xs text-mist font-mono mt-1">
+          <div className="text-xs text-mist mt-1">
             {projects.length} project{projects.length === 1 ? "" : "s"} · {reportCount} report
             {reportCount === 1 ? "" : "s"}
             {latestScore != null ? ` · latest score ${latestScore}` : ""}
@@ -66,7 +66,7 @@ export default async function ClientProjectsPage({ params }: { params: { clientI
       </div>
 
       {projects.length === 0 ? (
-        <div className="border border-line bg-panel rounded-xl px-6 py-12 text-center text-sm text-mist">
+        <div className="ui-empty">
           No projects yet{isAdmin ? " — add one to start collecting reports." : "."}
         </div>
       ) : (

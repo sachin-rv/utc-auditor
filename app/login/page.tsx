@@ -140,8 +140,7 @@ function AuditPreview() {
   );
 }
 
-const fieldClass =
-  "w-full bg-panel2 border border-line rounded-xl px-3.5 py-2.5 text-sm text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition";
+const fieldClass = "ui-input";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -295,7 +294,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-chalk dark:bg-signal-pass text-panel dark:text-onaccent hover:opacity-90 font-semibold text-sm rounded-full py-2.5 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full ui-btn-primary py-2.5 text-sm"
               >
                 {loading
                   ? setupRequired

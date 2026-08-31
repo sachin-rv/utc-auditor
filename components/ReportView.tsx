@@ -68,14 +68,14 @@ export default function ReportView({
     <div>
       <Link
         href={`/dashboard/client/${view.clientId}`}
-        className="text-xs text-mist hover:text-chalk font-mono mb-4 inline-block"
+        className="ui-back"
       >
         ← Project history
       </Link>
 
       <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
         <div>
-          <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">Audit report</div>
+          <div className="ui-kicker">Audit report</div>
           <div className="flex items-center gap-3">
             <h1 className="font-display text-3xl font-bold">{projectName}</h1>
             <CopyLinkButton />
@@ -94,10 +94,8 @@ export default function ReportView({
             key={t.id}
             type="button"
             onClick={() => setTab(t.id)}
-            className={`text-xs font-medium rounded-md px-3 py-1.5 transition-colors ${
-              tab === t.id
-                ? "bg-signal-pass/15 text-signal-pass border border-signal-pass/30"
-                : "text-mist hover:text-chalk border border-transparent"
+            className={`ui-chip ${
+              tab === t.id ? "ui-chip-on" : "ui-chip-off border-transparent"
             }`}
           >
             {t.label}
@@ -107,7 +105,7 @@ export default function ReportView({
 
       {tab === "overview" && (
         <>
-          <div className="w-full mb-6 border border-line bg-panel rounded-xl overflow-hidden">
+          <div className="w-full mb-6 ui-card overflow-hidden">
             <button
               type="button"
               onClick={() => setPipelineOpen((v) => !v)}
@@ -142,7 +140,7 @@ export default function ReportView({
           {view.hasDetailed && (
             <Link
               href={`/dashboard/client/${view.clientId}/report/${view.id}/details`}
-              className="group mb-6 flex items-center justify-between border border-line bg-panel hover:border-signal-pass/40 rounded-xl px-5 py-3.5 transition-colors"
+              className="group mb-6 flex items-center justify-between ui-card-hover px-5 py-3.5"
             >
               <div>
                 <div className="text-sm font-medium">Detailed test-quality breakdown</div>
@@ -153,18 +151,18 @@ export default function ReportView({
           )}
 
           <div className="grid md:grid-cols-[auto_1fr] gap-8 mb-10">
-            <div className="border border-line bg-panel rounded-xl p-6 flex flex-col items-center justify-center gap-2">
+            <div className="ui-card p-6 flex flex-col items-center justify-center gap-2">
               <ScoreDial score={view.overallScore} size={172} />
             </div>
             <div className="grid sm:grid-cols-2 gap-6">
-              <div className="border border-line bg-panel rounded-xl p-6">
+              <div className="ui-card p-6">
                 <div className="text-xs uppercase tracking-widest text-mist mb-4">Coverage</div>
                 <CoverageBars coverage={view.coverage} />
               </div>
-              <div className="border border-line bg-panel rounded-xl p-6">
+              <div className="ui-card p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="text-xs uppercase tracking-widest text-mist">Test execution</div>
-                  <span className="text-[11px] font-mono text-mist">{passRate}% pass rate</span>
+                  <span className="text-[11px] text-mist">{passRate}% pass rate</span>
                 </div>
                 <div className="grid grid-cols-2 gap-y-3 text-sm font-mono">
                   <span className="text-mist">Total</span>
@@ -193,7 +191,7 @@ export default function ReportView({
       )}
 
       {tab === "payload" && (
-        <section className="border border-line bg-panel rounded-xl overflow-hidden">
+        <section className="ui-card overflow-hidden">
           <div className="flex items-center justify-between px-5 py-2.5 border-b border-line bg-panel2/40">
             <span className="text-xs uppercase tracking-widest text-mist">reportJson</span>
             <CopyTextButton value={jsonText} label="Copy JSON" />

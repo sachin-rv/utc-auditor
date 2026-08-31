@@ -18,7 +18,7 @@ export default function CopyLinkButton() {
   return (
     <button
       onClick={copy}
-      className="h-7 w-7 shrink-0 rounded-md border border-line hover:border-mist text-mist hover:text-chalk flex items-center justify-center transition-colors"
+      className="ui-icon-btn h-7 w-7"
       aria-label="Copy report link"
       title="Copy report link"
     >

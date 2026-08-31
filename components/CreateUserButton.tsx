@@ -6,8 +6,7 @@ import Modal from "@/components/Modal";
 import { createUserAction } from "@/app/dashboard/actions";
 import type { UserRole } from "@/lib/api-types";
 
-const inputClass =
-  "w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors";
+const inputClass = "ui-input";
 
 export default function CreateUserButton({
   clients = [],
@@ -69,7 +68,7 @@ export default function CreateUserButton({
           reset();
           setOpen(true);
         }}
-        className="text-xs font-medium border border-line hover:border-mist rounded-md px-3 py-2 text-mist hover:text-chalk transition-colors"
+        className="ui-btn-secondary"
       >
         Create user
       </button>
@@ -101,7 +100,7 @@ export default function CreateUserButton({
                   setOpen(false);
                   reset();
                 }}
-                className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-1.5"
+                className="ui-btn-primary"
               >
                 Done
               </button>
@@ -196,14 +195,14 @@ export default function CreateUserButton({
                   setOpen(false);
                   reset();
                 }}
-                className="text-xs border border-line rounded-md px-3 py-1.5 text-mist"
+                className="ui-btn-secondary"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-1.5 disabled:opacity-60"
+                className="ui-btn-primary"
               >
                 {loading ? "Creating…" : "Create user"}
               </button>

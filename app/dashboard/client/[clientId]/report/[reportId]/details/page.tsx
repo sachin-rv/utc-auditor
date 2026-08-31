@@ -34,14 +34,14 @@ export default async function ReportDetailedQualityPage({
     <div>
       <Link
         href={`/dashboard/client/${params.clientId}/report/${report.id}`}
-        className="text-xs text-mist hover:text-chalk font-mono mb-4 inline-block"
+        className="ui-back"
       >
         ← Back to audit report
       </Link>
 
       <div className="flex flex-wrap items-start justify-between gap-4 mb-8">
         <div>
-          <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">
+          <div className="ui-kicker">
             Detailed test-quality breakdown
           </div>
           <div className="flex items-center gap-3">

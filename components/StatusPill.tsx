@@ -12,7 +12,7 @@ const STYLES: Record<string, { dot: string; text: string; label: string }> = {
 export default function StatusPill({ status }: { status: string }) {
   const s = STYLES[status] ?? STYLES.no_reports;
   return (
-    <span className={`inline-flex items-center gap-1.5 text-xs font-medium ${s.text}`}>
+    <span className={`inline-flex items-center gap-1.5 text-xs font-medium rounded-full px-2.5 py-1 bg-panel2 border border-line ${s.text}`}>
       <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />
       {s.label}
     </span>
