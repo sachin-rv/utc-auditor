@@ -2,7 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import SeverityBadge from "@/components/SeverityBadge";
+import StatusPill from "@/components/StatusPill";
+
+import type { CoverageMetrics } from "@/lib/types";
 
 export interface ReportRow {
   id: string;
@@ -11,10 +13,13 @@ export interface ReportRow {
   overallScore: number;
   passed: number;
   total: number;
-  criticalCount: number;
-  highCount: number;
-  hasDetailed?: boolean;
-  grade?: string;
+  failed?: number;
+  coverage?: CoverageMetrics;
+  coveragePercent?: number | null;
+  status?: string;
+  qualityGrade?: string;
+  completenessScore?: number;
+  findingsCount?: number;
 }
 
 function fmtDateTime(iso: string) {
@@ -33,27 +38,7 @@ function scoreColor(score: number) {
   return "text-signal-pass";
 }
 
-function gradeColor(grade?: string) {
-  switch (grade?.[0]) {
-    case "A":
-      return "text-signal-pass border-signal-pass/30 bg-signal-pass/10";
-    case "B":
-      return "text-signal-info border-signal-info/30 bg-signal-info/10";
-    case "C":
-      return "text-signal-warn border-signal-warn/30 bg-signal-warn/10";
-    case "D":
-      return "text-signal-high border-signal-high/30 bg-signal-high/10";
-    default:
-      return "text-signal-fail border-signal-fail/30 bg-signal-fail/10";
-  }
-}
-
-const TRIGGER_FILTERS = [
-  { key: "all", label: "All" },
-  { key: "production_build", label: "Build" },
-  { key: "scheduled", label: "Scheduled" },
-  { key: "manual", label: "Manual" },
-];
+type SortKey = "date" | "score";
 
 export default function ReportHistoryList({
   clientId,
@@ -62,51 +47,88 @@ export default function ReportHistoryList({
   clientId: string;
   reports: ReportRow[];
 }) {
-  const [trigger, setTrigger] = useState("all");
-  const [onlyFindings, setOnlyFindings] = useState(false);
+  const [sortKey, setSortKey] = useState<SortKey>("date");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
+  const [trigger, setTrigger] = useState("all");
+  const [failingOnly, setFailingOnly] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const triggers = useMemo(() => {
+    return Array.from(new Set(reports.map((r) => r.trigger))).sort();
+  }, [reports]);
 
   const filtered = useMemo(() => {
-    let rows = reports;
-    if (trigger !== "all") rows = rows.filter((r) => r.trigger === trigger);
-    if (onlyFindings) rows = rows.filter((r) => r.criticalCount > 0 || r.highCount > 0);
+    const q = query.trim().toLowerCase();
     const dir = sortDir === "asc" ? 1 : -1;
-    return [...rows].sort(
-      (a, b) => (new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()) * dir
-    );
-  }, [reports, trigger, onlyFindings, sortDir]);
+    return [...reports]
+      .filter((r) => trigger === "all" || r.trigger === trigger)
+      .filter((r) => !failingOnly || r.status === "failed" || r.status === "fail")
+      .filter(
+        (r) =>
+          !q ||
+          r.trigger.toLowerCase().includes(q) ||
+          r.id.toLowerCase().includes(q) ||
+          String(r.overallScore).includes(q)
+      )
+      .sort((a, b) => {
+        if (sortKey === "score") return (a.overallScore - b.overallScore) * dir;
+        return (new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()) * dir;
+      });
+  }, [reports, sortDir, sortKey, trigger, failingOnly, query]);
+
+  function toggleSort(key: SortKey) {
+    if (sortKey === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    else {
+      setSortKey(key);
+      setSortDir("desc");
+    }
+  }
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-1.5 mb-3">
-        {TRIGGER_FILTERS.map((f) => (
-          <button
-            key={f.key}
-            onClick={() => setTrigger(f.key)}
-            className={`text-[11px] font-mono uppercase tracking-wider px-2 py-1 rounded border transition-colors ${
-              trigger === f.key
-                ? "border-signal-pass/40 text-signal-pass bg-signal-pass/10"
-                : "border-line text-mist hover:text-chalk hover:border-mist"
-            }`}
-          >
-            {f.label}
-          </button>
-        ))}
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search reports…"
+          className="bg-panel2 border border-line rounded-md px-2.5 py-1.5 text-xs outline-none focus:border-signal-pass/60 min-w-[10rem] flex-1"
+        />
+        <select
+          value={trigger}
+          onChange={(e) => setTrigger(e.target.value)}
+          className="bg-panel2 border border-line rounded-md px-2 py-1.5 text-[11px] font-mono text-mist outline-none"
+        >
+          <option value="all">All triggers</option>
+          {triggers.map((t) => (
+            <option key={t} value={t}>
+              {t.replace(/_/g, " ")}
+            </option>
+          ))}
+        </select>
         <button
-          onClick={() => setOnlyFindings((v) => !v)}
-          className={`text-[11px] font-mono uppercase tracking-wider px-2 py-1 rounded border transition-colors ${
-            onlyFindings
+          type="button"
+          onClick={() => setFailingOnly((v) => !v)}
+          className={`text-[11px] font-mono uppercase tracking-wider px-2 py-1.5 rounded border transition-colors ${
+            failingOnly
               ? "border-signal-fail/40 text-signal-fail bg-signal-fail/10"
-              : "border-line text-mist hover:text-chalk hover:border-mist"
+              : "border-line text-mist hover:text-chalk"
           }`}
         >
-          critical/high only
+          Failing
         </button>
         <button
-          onClick={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))}
-          className="text-[11px] font-mono text-mist hover:text-chalk ml-auto flex items-center gap-1"
+          type="button"
+          onClick={() => toggleSort("date")}
+          className="text-[11px] font-mono text-mist hover:text-chalk"
         >
-          date {sortDir === "asc" ? "↑" : "↓"}
+          date {sortKey === "date" ? (sortDir === "asc" ? "↑" : "↓") : ""}
+        </button>
+        <button
+          type="button"
+          onClick={() => toggleSort("score")}
+          className="text-[11px] font-mono text-mist hover:text-chalk"
+        >
+          score {sortKey === "score" ? (sortDir === "asc" ? "↑" : "↓") : ""}
         </button>
       </div>
 
@@ -117,39 +139,21 @@ export default function ReportHistoryList({
           {filtered.map((r) => (
             <Link
               key={r.id}
-              href={
-                r.hasDetailed
-                  ? `/dashboard/client/${clientId}/report/${r.id}/details`
-                  : `/dashboard/client/${clientId}/report/${r.id}`
-              }
+              href={`/dashboard/client/${clientId}/report/${r.id}`}
               className="flex items-center justify-between py-3 group hover:bg-panel2/40 -mx-2 px-2 rounded-lg transition-colors"
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 min-w-0">
                 <span className="font-mono text-xs text-mist w-32 shrink-0">{fmtDateTime(r.timestamp)}</span>
-                <span className="text-xs px-2 py-0.5 rounded border border-line text-mist font-mono uppercase tracking-wider">
-                  {r.trigger.replace("_", " ")}
+                <span className="text-xs px-2 py-0.5 rounded border border-line text-mist font-mono uppercase tracking-wider truncate">
+                  {r.trigger.replace(/_/g, " ")}
                 </span>
-                <div className="flex gap-1.5">
-                  {r.criticalCount > 0 && <SeverityBadge severity="critical" />}
-                  {r.highCount > 0 && <SeverityBadge severity="high" />}
-                  {r.criticalCount === 0 && r.highCount === 0 && (
-                    <span className="text-[10px] font-mono text-signal-pass uppercase tracking-wider">clean</span>
-                  )}
-                </div>
+                {r.status && <StatusPill status={r.status} />}
               </div>
-              <div className="flex items-center gap-6">
-                {r.hasDetailed && r.grade && (
-                  <span
-                    className={`text-[10px] font-mono font-bold uppercase tracking-wider border rounded px-1.5 py-0.5 ${gradeColor(
-                      r.grade
-                    )}`}
-                    title="View detailed test-quality breakdown"
-                  >
-                    {r.grade}
-                  </span>
-                )}
-                <span className="font-mono text-xs text-mist">
+              <div className="flex items-center gap-6 shrink-0">
+                <span className="font-mono text-xs text-mist hidden sm:inline">
                   {r.passed}/{r.total} passed
+                  {r.findingsCount ? ` · ${r.findingsCount} findings` : ""}
+                  {r.coveragePercent != null ? ` · ${Math.round(r.coveragePercent)}% cov` : ""}
                 </span>
                 <span className={`font-mono text-sm font-bold w-8 text-right ${scoreColor(r.overallScore)}`}>
                   {r.overallScore}

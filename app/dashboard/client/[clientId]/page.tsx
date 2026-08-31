@@ -1,136 +1,77 @@
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
-import { getClient, listProjectsForClient, listReportsForClient } from "@/lib/db";
-import ScoreDial from "@/components/ScoreDial";
-import CoverageBars from "@/components/CoverageBars";
-import TrendChart, { TrendPoint } from "@/components/TrendChart";
-import StatusPill from "@/components/StatusPill";
-import ReportHistoryList, { ReportRow } from "@/components/ReportHistoryList";
-import RunAuditButton from "@/components/RunAuditButton";
+import { apiGet } from "@/lib/backend";
+import { normalizeClient, normalizeProjects } from "@/lib/api-normalize";
+import { loadProjectBoardItems } from "@/lib/load-project-reports";
+import CreateProjectButton from "@/components/CreateProjectButton";
+import CreateUserButton from "@/components/CreateUserButton";
+import ProjectsBoard from "@/components/ProjectsBoard";
 
-function fmtDate(iso: string) {
-  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" });
-}
-function fmtDateTime(iso: string) {
-  return new Date(iso).toLocaleString(undefined, {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  });
-}
-
-export default function ClientHistoryPage({ params }: { params: { clientId: string } }) {
+export default async function ClientProjectsPage({ params }: { params: { clientId: string } }) {
   const session = getSession();
   if (!session) redirect("/login");
   if (session.role !== "admin" && session.clientId !== params.clientId) redirect("/dashboard");
 
-  const client = getClient(params.clientId);
-  if (!client) notFound();
+  const isAdmin = session.role === "admin";
+  const [clientRaw, projectsRaw] = await Promise.all([
+    isAdmin ? apiGet<unknown>(`/clients/${params.clientId}`) : Promise.resolve(null),
+    isAdmin ? apiGet<unknown>(`/clients/${params.clientId}/projects`) : apiGet<unknown>("/projects"),
+  ]);
 
-  const projects = listProjectsForClient(params.clientId);
-  const allReports = listReportsForClient(params.clientId);
+  const client = clientRaw ? normalizeClient(clientRaw) : null;
+  if (isAdmin && !client) notFound();
+
+  const projects = normalizeProjects(projectsRaw);
+  const items = await loadProjectBoardItems(projects);
+  const title = client?.name ?? session.name ?? "Projects";
+  const reportCount = items.reduce((n, item) => n + item.total, 0);
+  const latestScore = items
+    .map((item) => item.reports[0]?.overallScore)
+    .filter((n): n is number => typeof n === "number" && n > 0)
+    .sort((a, b) => b - a)[0];
 
   return (
     <div>
-      {session.role === "admin" && (
+      {isAdmin && (
         <Link href="/dashboard" className="text-xs text-mist hover:text-chalk font-mono mb-4 inline-block">
           ← All clients
         </Link>
       )}
-      <div className="mb-8">
-        <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">Client</div>
-        <h1 className="font-display text-3xl font-bold">{client.name}</h1>
+      <div className="flex items-end justify-between gap-4 mb-8">
+        <div>
+          <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">
+            {isAdmin ? "Client" : "Your projects"}
+          </div>
+          <h1 className="font-display text-3xl font-bold">{title}</h1>
+          {client && (
+            <div className="text-xs text-mist font-mono mt-1">
+              {client.slug}
+              {client.contactEmail ? ` · ${client.contactEmail}` : ""}
+              {client.status ? ` · ${client.status}` : ""}
+            </div>
+          )}
+          <div className="text-xs text-mist font-mono mt-1">
+            {projects.length} project{projects.length === 1 ? "" : "s"} · {reportCount} report
+            {reportCount === 1 ? "" : "s"}
+            {latestScore != null ? ` · latest score ${latestScore}` : ""}
+          </div>
+        </div>
+        {isAdmin && (
+          <div className="flex items-center gap-2">
+            <CreateUserButton defaultClientId={params.clientId} />
+            <CreateProjectButton clientId={params.clientId} />
+          </div>
+        )}
       </div>
 
-      <div className="space-y-10">
-        {projects.map((project) => {
-          const reports = allReports
-            .filter((r) => r.projectId === project.id)
-            .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-          const latest = reports[0];
-          const trend: TrendPoint[] = [...reports]
-            .reverse()
-            .map((r) => ({
-              date: fmtDate(r.timestamp),
-              score: r.overallScore,
-              statements: r.coverage.statements,
-              branches: r.coverage.branches,
-            }));
-
-          return (
-            <section key={project.id} className="border border-line bg-panel rounded-xl overflow-hidden">
-              <div className="flex items-center justify-between px-6 py-4 border-b border-line bg-panel2/40">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h2 className="font-display font-bold text-lg">{project.name}</h2>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-mist border border-line rounded px-1.5 py-0.5">
-                      {project.appType}
-                    </span>
-                  </div>
-                  <div className="text-xs text-mist font-mono mt-0.5">{project.repo}</div>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  {latest && <StatusPill status={latest.executionStatus} />}
-                  {/* <RunAuditButton projectId={project.id} /> */}
-                </div>
-              </div>
-
-              {!latest ? (
-                <div className="px-6 py-10 text-center text-mist text-sm">
-                  No audit reports submitted for this project yet.
-                </div>
-              ) : (
-                <>
-                  <div className="grid md:grid-cols-[auto_1fr_1fr] gap-8 px-6 py-6 border-b border-line">
-                    <ScoreDial score={latest.overallScore} />
-                    <div>
-                      <div className="text-xs uppercase tracking-widest text-mist mb-3">Latest coverage</div>
-                      <CoverageBars coverage={latest.coverage} />
-                    </div>
-                    <div>
-                      <div className="text-xs uppercase tracking-widest text-mist mb-3">
-                        Score &amp; coverage trend
-                      </div>
-                      {trend.length > 1 ? (
-                        <TrendChart data={trend} />
-                      ) : (
-                        <div className="text-sm text-mist py-8 text-center">
-                          Need more than one report to chart a trend.
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="px-6 py-4">
-                    <div className="text-xs uppercase tracking-widest text-mist mb-3">
-                      Report history ({reports.length})
-                    </div>
-                    <ReportHistoryList
-                      clientId={client.id}
-                      reports={reports.map(
-                        (r): ReportRow => ({
-                          id: r.id,
-                          timestamp: r.timestamp,
-                          trigger: r.trigger,
-                          overallScore: r.overallScore,
-                          passed: r.testExecution.passed,
-                          total: r.testExecution.total,
-                          criticalCount: r.findings.filter((f) => f.severity === "critical").length,
-                          highCount: r.findings.filter((f) => f.severity === "high").length,
-                          hasDetailed: !!r.detailed,
-                          grade: r.detailed?.grade,
-                        })
-                      )}
-                    />
-                  </div>
-                </>
-              )}
-            </section>
-          );
-        })}
-      </div>
+      {projects.length === 0 ? (
+        <div className="border border-line bg-panel rounded-xl px-6 py-12 text-center text-sm text-mist">
+          No projects yet{isAdmin ? " — add one to start collecting reports." : "."}
+        </div>
+      ) : (
+        <ProjectsBoard clientId={params.clientId} isAdmin={isAdmin} items={items} />
+      )}
     </div>
   );
 }

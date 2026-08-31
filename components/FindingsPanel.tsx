@@ -144,9 +144,11 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
                             <span className="font-mono text-[11px] text-mist">{f.ruleId}</span>
                             <SeverityBadge severity={f.severity} />
                           </div>
-                          <div className="text-sm">{f.detail}</div>
+                          <div className="text-sm">{f.detail || f.title}</div>
                           {f.file && <div className="font-mono text-xs text-mist mt-1">{f.file}</div>}
-                          <div className="text-xs text-signal-info mt-1.5">→ {f.recommendation}</div>
+                          {f.recommendation ? (
+                            <div className="text-xs text-signal-info mt-1.5">→ {f.recommendation}</div>
+                          ) : null}
                         </div>
                       </button>
                     ))}
@@ -166,15 +168,17 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
               <span className="text-xs text-mist uppercase tracking-wider">{selected.category}</span>
               <span className="text-[10px] font-mono text-mist ml-auto">rule v{selected.ruleVersion}</span>
             </div>
-            <div className="text-sm mb-3">{selected.detail}</div>
+            <div className="text-sm mb-3">{selected.detail || selected.title}</div>
             {selected.file && (
               <div className="font-mono text-xs text-mist bg-panel2 border border-line rounded-md px-3 py-2 mb-3">
                 {selected.file}
               </div>
             )}
-            <div className="border-l-2 border-signal-info/40 pl-3 text-sm text-signal-info mb-4">
-              {selected.recommendation}
-            </div>
+            {selected.recommendation ? (
+              <div className="border-l-2 border-signal-info/40 pl-3 text-sm text-signal-info mb-4">
+                {selected.recommendation}
+              </div>
+            ) : null}
             <button
               onClick={() => copyFinding(selected)}
               className="text-xs font-medium text-mist hover:text-chalk border border-line hover:border-mist rounded-md px-3 py-1.5 transition-colors"

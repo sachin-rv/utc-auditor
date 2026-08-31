@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: { ignoreDuringBuilds: true }
+  eslint: { ignoreDuringBuilds: true },
+  transpilePackages: ["recharts"],
 };
 export default nextConfig;

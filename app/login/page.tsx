@@ -1,38 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
+
+const inputClass =
+  "w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors";
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [setupRequired, setSetupRequired] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/setup-status")
+      .then((r) => r.json())
+      .then((d) => setSetupRequired(!!d.setupRequired))
+      .catch(() => setSetupRequired(false));
+  }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const res = await fetch("/api/auth/login", {
+    const url = setupRequired ? "/api/auth/setup" : "/api/auth/login";
+    const body = setupRequired ? { email, password, name } : { email, password };
+    const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(body),
     });
     setLoading(false);
     if (!res.ok) {
-      const body = await res.json().catch(() => ({}));
-      setError(body.error ?? "Sign in failed.");
+      const data = await res.json().catch(() => ({}));
+      setError(data.error ?? "Sign in failed.");
       return;
     }
     router.push("/");
     router.refresh();
-  }
-
-  function fill(demoEmail: string, demoPassword: string) {
-    setEmail(demoEmail);
-    setPassword(demoPassword);
   }
 
   return (
@@ -56,11 +65,28 @@ export default function LoginPage() {
 
         <div className="border border-line bg-panel rounded-xl p-7">
           <div className="text-xs font-mono uppercase tracking-widest text-mist mb-1">
-            Authenticated access
+            {setupRequired ? "First-run setup" : "Authenticated access"}
           </div>
-          <h1 className="font-display text-xl font-bold mb-6">Sign in to the console</h1>
+          <h1 className="font-display text-xl font-bold mb-6">
+            {setupRequired ? "Create the first admin" : "Sign in to the console"}
+          </h1>
 
           <form onSubmit={onSubmit} className="space-y-4">
+            {setupRequired && (
+              <div>
+                <label className="block text-xs text-mist mb-1.5" htmlFor="name">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={inputClass}
+                  placeholder="Admin User"
+                />
+              </div>
+            )}
             <div>
               <label className="block text-xs text-mist mb-1.5" htmlFor="email">
                 Email
@@ -71,7 +97,7 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors"
+                className={inputClass}
                 placeholder="you@company.com"
               />
             </div>
@@ -85,7 +111,7 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors"
+                className={inputClass}
                 placeholder="••••••••"
               />
             </div>
@@ -97,26 +123,9 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full bg-signal-pass text-onaccent font-semibold text-sm rounded-md py-2.5 hover:brightness-110 transition disabled:opacity-60"
             >
-              {loading ? "Signing in…" : "Sign in"}
+              {loading ? (setupRequired ? "Creating…" : "Signing in…") : setupRequired ? "Create admin" : "Sign in"}
             </button>
           </form>
-        </div>
-
-        <div className="mt-5 border border-line/60 rounded-lg p-4">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-mist mb-2">
-            Demo credentials
-          </div>
-          <div className="space-y-1.5 text-xs font-mono">
-            <button onClick={() => fill("admin@example.com", "Admin@123")} className="block text-left text-mist hover:text-signal-pass transition-colors">
-              admin@example.com / Admin@123 <span className="text-mist/60">— administrator</span>
-            </button>
-            <button onClick={() => fill("dana@northwind.example", "demo123")} className="block text-left text-mist hover:text-signal-pass transition-colors">
-              dana@northwind.example / demo123 <span className="text-mist/60">— Northwind Retail</span>
-            </button>
-            <button onClick={() => fill("sam@horizon.example", "demo123")} className="block text-left text-mist hover:text-signal-pass transition-colors">
-              sam@horizon.example / demo123 <span className="text-mist/60">— Horizon Media</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
