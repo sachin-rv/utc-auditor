@@ -91,12 +91,12 @@ export default function ReportHistoryList({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search reports…"
-          className="bg-panel2 border border-line rounded-md px-2.5 py-1.5 text-xs outline-none focus:border-signal-pass/60 min-w-[10rem] flex-1"
+          className="ui-input py-1.5 text-xs min-w-[10rem] flex-1"
         />
         <select
           value={trigger}
           onChange={(e) => setTrigger(e.target.value)}
-          className="bg-panel2 border border-line rounded-md px-2 py-1.5 text-[11px] font-mono text-mist outline-none"
+          className="ui-select"
         >
           <option value="all">All triggers</option>
           {triggers.map((t) => (
@@ -108,10 +108,10 @@ export default function ReportHistoryList({
         <button
           type="button"
           onClick={() => setFailingOnly((v) => !v)}
-          className={`text-[11px] font-mono uppercase tracking-wider px-2 py-1.5 rounded border transition-colors ${
+          className={`ui-chip ${
             failingOnly
               ? "border-signal-fail/40 text-signal-fail bg-signal-fail/10"
-              : "border-line text-mist hover:text-chalk"
+              : "ui-chip-off"
           }`}
         >
           Failing
@@ -119,14 +119,14 @@ export default function ReportHistoryList({
         <button
           type="button"
           onClick={() => toggleSort("date")}
-          className="text-[11px] font-mono text-mist hover:text-chalk"
+          className="text-[11px] text-mist hover:text-chalk"
         >
           date {sortKey === "date" ? (sortDir === "asc" ? "↑" : "↓") : ""}
         </button>
         <button
           type="button"
           onClick={() => toggleSort("score")}
-          className="text-[11px] font-mono text-mist hover:text-chalk"
+          className="text-[11px] text-mist hover:text-chalk"
         >
           score {sortKey === "score" ? (sortDir === "asc" ? "↑" : "↓") : ""}
         </button>
@@ -144,7 +144,7 @@ export default function ReportHistoryList({
             >
               <div className="flex items-center gap-4 min-w-0">
                 <span className="font-mono text-xs text-mist w-32 shrink-0">{fmtDateTime(r.timestamp)}</span>
-                <span className="text-xs px-2 py-0.5 rounded border border-line text-mist font-mono uppercase tracking-wider truncate">
+                <span className="ui-badge truncate">
                   {r.trigger.replace(/_/g, " ")}
                 </span>
                 {r.status && <StatusPill status={r.status} />}

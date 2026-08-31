@@ -4,8 +4,7 @@ import { useState } from "react";
 import Modal from "@/components/Modal";
 import { createApiKeyAction } from "@/app/dashboard/actions";
 
-const inputClass =
-  "w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors";
+const inputClass = "ui-input";
 
 export default function CreateApiKeyButton({ projectId, projectName }: { projectId: string; projectName: string }) {
   const [open, setOpen] = useState(false);
@@ -49,7 +48,7 @@ export default function CreateApiKeyButton({ projectId, projectName }: { project
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-xs font-medium border border-line hover:border-mist rounded-md px-2.5 py-1.5 text-mist hover:text-chalk transition-colors"
+        className="ui-btn-secondary"
       >
         Add API key
       </button>
@@ -57,12 +56,12 @@ export default function CreateApiKeyButton({ projectId, projectName }: { project
         {created ? (
           <div className="space-y-3">
             <p className="text-sm text-signal-warn">{created.message}</p>
-            <div className="bg-panel2 border border-line rounded-md px-3 py-2 font-mono text-xs break-all">{created.plainKey}</div>
+            <div className="bg-panel2 border border-line rounded-xl px-3 py-2 font-mono text-xs break-all">{created.plainKey}</div>
             <div className="flex justify-end gap-2">
-              <button onClick={copy} className="text-xs border border-line rounded-md px-3 py-1.5">
+              <button onClick={copy} className="ui-btn-secondary">
                 {copied ? "Copied" : "Copy key"}
               </button>
-              <button onClick={close} className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-1.5">
+              <button onClick={close} className="ui-btn-primary">
                 Done
               </button>
             </div>
@@ -75,13 +74,13 @@ export default function CreateApiKeyButton({ projectId, projectName }: { project
             </div>
             {error && <div className="text-xs text-signal-fail">{error}</div>}
             <div className="flex justify-end gap-2 pt-2">
-              <button type="button" onClick={close} className="text-xs border border-line rounded-md px-3 py-1.5 text-mist">
+              <button type="button" onClick={close} className="ui-btn-secondary">
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-1.5 disabled:opacity-60"
+                className="ui-btn-primary"
               >
                 {loading ? "Generating…" : "Generate key"}
               </button>

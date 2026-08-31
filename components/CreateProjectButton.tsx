@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import Modal from "@/components/Modal";
 import { createProjectAction } from "@/app/dashboard/actions";
 
-const inputClass =
-  "w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors";
+const inputClass = "ui-input";
 
 function slugify(value: string) {
   return value
@@ -59,7 +58,7 @@ export default function CreateProjectButton({ clientId }: { clientId: string }) 
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-2 hover:brightness-110 transition"
+        className="ui-btn-primary"
       >
         Add project
       </button>
@@ -125,13 +124,13 @@ export default function CreateProjectButton({ clientId }: { clientId: string }) 
           </div>
           {error && <div className="text-xs text-signal-fail">{error}</div>}
           <div className="flex justify-end gap-2 pt-2">
-            <button type="button" onClick={() => setOpen(false)} className="text-xs border border-line rounded-md px-3 py-1.5 text-mist">
+            <button type="button" onClick={() => setOpen(false)} className="ui-btn-secondary">
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-1.5 disabled:opacity-60"
+              className="ui-btn-primary"
             >
               {loading ? "Adding…" : "Add project"}
             </button>

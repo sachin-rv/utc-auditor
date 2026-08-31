@@ -20,7 +20,7 @@ export default function LogoutButton() {
     <>
       <button
         onClick={() => setConfirming(true)}
-        className="text-xs font-medium text-mist hover:text-chalk border border-line hover:border-mist rounded-md px-3 py-1.5 transition-colors"
+        className="ui-btn-secondary"
       >
         Sign out
       </button>
@@ -30,14 +30,14 @@ export default function LogoutButton() {
         <div className="flex gap-2 justify-end">
           <button
             onClick={() => setConfirming(false)}
-            className="text-xs font-medium text-mist hover:text-chalk border border-line hover:border-mist rounded-md px-3 py-1.5 transition-colors"
+            className="ui-btn-secondary"
           >
             Cancel
           </button>
           <button
             onClick={doLogout}
             disabled={loading}
-            className="text-xs font-semibold bg-signal-fail text-onaccent rounded-md px-3 py-1.5 hover:brightness-110 transition disabled:opacity-60"
+            className="ui-btn-danger"
           >
             {loading ? "Signing out…" : "Sign out"}
           </button>

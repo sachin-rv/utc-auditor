@@ -64,7 +64,7 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
 
   if (findings.length === 0) {
     return (
-      <div className="border border-line bg-panel rounded-xl px-6 py-8 text-center text-sm text-signal-pass">
+      <div className="ui-empty text-signal-pass">
         No rule violations detected in this audit.
       </div>
     );
@@ -79,10 +79,8 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
             <button
               key={s}
               onClick={() => toggleSeverity(s)}
-              className={`text-[11px] font-mono uppercase tracking-wider px-2 py-1 rounded border transition-colors ${
-                active
-                  ? "border-signal-pass/40 text-signal-pass bg-signal-pass/10"
-                  : "border-line text-mist hover:text-chalk hover:border-mist"
+              className={`ui-chip ${
+                active ? "ui-chip-on" : "ui-chip-off"
               }`}
             >
               {s} · {counts[s]}
@@ -92,18 +90,18 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
         {activeSeverities.size > 0 && (
           <button
             onClick={() => setActiveSeverities(new Set())}
-            className="text-[11px] font-mono text-mist hover:text-chalk underline underline-offset-2 ml-1"
+            className="text-[11px] text-mist hover:text-chalk underline underline-offset-2 ml-1"
           >
             clear
           </button>
         )}
-        <span className="text-[11px] font-mono text-mist ml-auto">
+        <span className="text-[11px] text-mist ml-auto">
           {visible.length} of {findings.length} shown
         </span>
       </div>
 
       {visible.length === 0 ? (
-        <div className="border border-line bg-panel rounded-xl px-6 py-8 text-center text-sm text-mist">
+        <div className="ui-empty">
           No findings match the selected severity filter.
         </div>
       ) : (
@@ -111,7 +109,7 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
           {Object.entries(byCategory).map(([category, categoryFindings]) => {
             const isCollapsed = collapsed.has(category);
             return (
-              <div key={category} className="border border-line bg-panel rounded-xl overflow-hidden">
+              <div key={category} className="ui-card overflow-hidden">
                 <button
                   onClick={() => toggleCollapsed(category)}
                   className="w-full px-5 py-2.5 bg-panel2/40 border-b border-line text-sm font-medium flex items-center justify-between hover:bg-panel2/70 transition-colors"
@@ -170,7 +168,7 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
             </div>
             <div className="text-sm mb-3">{selected.detail || selected.title}</div>
             {selected.file && (
-              <div className="font-mono text-xs text-mist bg-panel2 border border-line rounded-md px-3 py-2 mb-3">
+              <div className="font-mono text-xs text-mist bg-panel2 border border-line rounded-xl px-3 py-2 mb-3">
                 {selected.file}
               </div>
             )}
@@ -181,7 +179,7 @@ export default function FindingsPanel({ findings }: { findings: Finding[] }) {
             ) : null}
             <button
               onClick={() => copyFinding(selected)}
-              className="text-xs font-medium text-mist hover:text-chalk border border-line hover:border-mist rounded-md px-3 py-1.5 transition-colors"
+              className="ui-btn-secondary"
             >
               {copied ? "Copied" : "Copy finding"}
             </button>

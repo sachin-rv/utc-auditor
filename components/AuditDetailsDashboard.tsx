@@ -157,7 +157,7 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
             key={m.label}
             type="button"
             onClick={() => go(m.section)}
-            className={`text-left border ${TONE_BORDER[m.tone]} bg-panel rounded-xl p-3 hover:brightness-110 transition`}
+            className={`text-left border ${TONE_BORDER[m.tone]} bg-panel rounded-2xl p-3 hover:brightness-110 transition`}
             title={m.hint}
           >
             <div className="flex items-start justify-between gap-2 mb-2">
@@ -172,13 +172,13 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
 
       {data.quality.byStrategy.length > 0 && (
         <div className="pt-4">
-          <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-mist mb-3">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-mist mb-3">
             Strategies deck · {data.quality.byStrategy.length} checks · {strategyErrors} errors · {strategyWarnings}{" "}
             warnings
           </div>
           <div className="grid sm:grid-cols-2 gap-3">
             {data.quality.byStrategy.map((s) => (
-              <div key={s.strategy} className="border border-line bg-panel rounded-xl p-4">
+              <div key={s.strategy} className="ui-card p-4">
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <div className="text-sm font-medium">{s.title}</div>
                   <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full ${TONE_BG[countTone(s.warnings + s.errors)]}`}>
@@ -293,19 +293,19 @@ function HeroRow({
   const gTone = gradeTone(grade);
   return (
     <div className="grid md:grid-cols-[minmax(0,11rem)_minmax(0,11rem)_1fr] gap-3">
-      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-xl p-4`}>
+      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-2xl p-4`}>
         <div className="text-[10px] uppercase tracking-widest text-mist mb-1">{kicker}</div>
         <div className={`font-display text-3xl font-bold ${TONE_TEXT[sTone]}`}>
           {score}
           <span className="text-lg text-mist font-medium">/100</span>
         </div>
       </div>
-      <div className={`border ${TONE_BORDER[gTone]} bg-panel rounded-xl p-4`}>
+      <div className={`border ${TONE_BORDER[gTone]} bg-panel rounded-2xl p-4`}>
         <div className="text-[10px] uppercase tracking-widest text-mist mb-1">Grade</div>
         <div className={`font-display text-3xl font-bold ${TONE_TEXT[gTone]}`}>{grade}</div>
         <div className={`text-xs mt-0.5 ${TONE_TEXT[gTone]}`}>{label}</div>
       </div>
-      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-xl p-4 flex flex-col justify-center`}>
+      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-2xl p-4 flex flex-col justify-center`}>
         {children}
       </div>
     </div>
@@ -352,7 +352,7 @@ function Accordion({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border border-line bg-panel rounded-xl overflow-hidden">
+    <section className="ui-card overflow-hidden">
       <button
         type="button"
         onClick={onToggle}
@@ -435,12 +435,12 @@ function IssuesTable({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search file, rule, strategy, message…"
-          className="flex-1 min-w-[12rem] bg-panel2 border border-line rounded-md px-3 py-1.5 text-xs outline-none focus:border-signal-pass/60"
+          className="flex-1 min-w-[12rem] ui-input py-1.5 text-xs"
         />
         <select
           value={severity}
           onChange={(e) => setSeverity(e.target.value)}
-          className="bg-panel2 border border-line rounded-md px-2 py-1.5 text-[11px] font-mono text-mist"
+          className="ui-select"
         >
           <option value="all">All severities</option>
           <option value="error">Error</option>
@@ -450,7 +450,7 @@ function IssuesTable({
         <select
           value={strategy}
           onChange={(e) => setStrategy(e.target.value)}
-          className="bg-panel2 border border-line rounded-md px-2 py-1.5 text-[11px] font-mono text-mist"
+          className="ui-select"
         >
           <option value="all">All strategies</option>
           {strategies.map((s) => (
@@ -501,7 +501,7 @@ function IssuesTable({
             type="button"
             disabled={page <= 1}
             onClick={() => setPage((p) => p - 1)}
-            className="border border-line rounded px-2 py-1 disabled:opacity-40"
+            className="ui-btn-secondary px-3 py-1 disabled:opacity-40"
           >
             Prev
           </button>
@@ -509,7 +509,7 @@ function IssuesTable({
             type="button"
             disabled={page >= pages}
             onClick={() => setPage((p) => p + 1)}
-            className="border border-line rounded px-2 py-1 disabled:opacity-40"
+            className="ui-btn-secondary px-3 py-1 disabled:opacity-40"
           >
             Next
           </button>
@@ -568,7 +568,7 @@ function RecommendationsList({ items }: { items: CompletenessRec[] }) {
   return (
     <div className="space-y-3">
       {items.map((item) => (
-        <div key={item.source} className="border border-line rounded-lg p-3">
+        <div key={item.source} className="border border-line rounded-2xl p-3">
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="font-mono text-xs">{item.sourceShort}</span>
             <Chip tone={item.priority === "high" ? "fail" : "warn"}>{item.priority}</Chip>
@@ -608,7 +608,7 @@ function CoverageTable({ files }: { files: CoverageFileRow[] }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Filter files…"
-        className="w-full mb-3 bg-panel2 border border-line rounded-md px-3 py-1.5 text-xs outline-none focus:border-signal-pass/60"
+        className="w-full mb-3 ui-input py-1.5 text-xs"
       />
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs">

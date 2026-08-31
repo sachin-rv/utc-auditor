@@ -4,49 +4,51 @@
 
 :root {
   color-scheme: light;
-  --c-ink: 246 247 249;
+  --c-ink: 243 248 247;
   --c-panel: 255 255 255;
-  --c-panel2: 241 242 245;
-  --c-line: 226 229 234;
-  --c-mist: 100 106 119;
-  --c-chalk: 20 22 26;
-  --c-onaccent: 20 22 26;
-  --c-pass: 15 155 108;
+  --c-panel2: 238 245 243;
+  --c-line: 215 228 225;
+  --c-mist: 92 106 104;
+  --c-chalk: 44 50 49;
+  --c-onaccent: 255 255 255;
+  --c-pass: 13 143 127;
   --c-fail: 214 62 50;
   --c-warn: 178 122 15;
-  --c-info: 37 108 199;
+  --c-info: 26 143 158;
   --c-high: 194 99 43;
 }
 
 html.dark {
   color-scheme: dark;
-  --c-ink: 14 16 19;
-  --c-panel: 21 24 29;
-  --c-panel2: 27 31 38;
-  --c-line: 39 44 52;
-  --c-mist: 138 147 163;
-  --c-chalk: 237 239 243;
-  --c-onaccent: 14 16 19;
-  --c-pass: 62 213 152;
+  --c-ink: 7 17 16;
+  --c-panel: 14 24 23;
+  --c-panel2: 20 34 33;
+  --c-line: 30 50 47;
+  --c-mist: 138 160 156;
+  --c-chalk: 232 242 240;
+  --c-onaccent: 7 17 16;
+  --c-pass: 62 217 196;
   --c-fail: 255 107 94;
   --c-warn: 245 185 66;
-  --c-info: 95 168 255;
+  --c-info: 94 200 212;
   --c-high: 255 155 110;
 }
 
 body {
   background-color: rgb(var(--c-ink));
   background-image:
-    radial-gradient(1200px 600px at 100% -10%, rgb(var(--c-info) / 0.05), transparent),
-    radial-gradient(900px 500px at -10% 110%, rgb(var(--c-pass) / 0.04), transparent);
+    radial-gradient(1200px 700px at 50% -20%, rgb(var(--c-pass) / 0.14), transparent 60%),
+    radial-gradient(900px 500px at 110% 110%, rgb(var(--c-info) / 0.08), transparent 55%),
+    radial-gradient(800px 480px at -10% 120%, rgb(var(--c-pass) / 0.06), transparent 50%);
   background-attachment: fixed;
   transition: background-color 200ms ease, color 200ms ease;
 }
 
 html.dark body {
   background-image:
-    radial-gradient(1200px 600px at 100% -10%, rgb(var(--c-info) / 0.08), transparent),
-    radial-gradient(900px 500px at -10% 110%, rgb(var(--c-pass) / 0.06), transparent);
+    radial-gradient(1200px 700px at 50% -20%, rgb(var(--c-pass) / 0.12), transparent 60%),
+    radial-gradient(900px 500px at 110% 110%, rgb(var(--c-info) / 0.08), transparent 55%),
+    radial-gradient(800px 480px at -10% 120%, rgb(var(--c-pass) / 0.07), transparent 50%);
 }
 
 ::selection {
@@ -66,4 +68,52 @@ html.dark body {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-scan { animation: none; }
+}
+
+@layer components {
+  .ui-kicker {
+    @apply text-xs font-medium uppercase tracking-[0.16em] text-signal-pass mb-1;
+  }
+  .ui-back {
+    @apply text-xs text-mist hover:text-chalk mb-4 inline-flex items-center gap-1 transition-colors;
+  }
+  .ui-card {
+    @apply border border-line bg-panel rounded-2xl shadow-sm shadow-black/[0.03] dark:shadow-black/20;
+  }
+  .ui-card-hover {
+    @apply border border-line bg-panel rounded-2xl shadow-sm shadow-black/[0.03] dark:shadow-black/20 hover:border-signal-pass/40 hover:shadow-md transition-all;
+  }
+  .ui-empty {
+    @apply border border-line bg-panel rounded-2xl px-6 py-12 text-center text-sm text-mist;
+  }
+  .ui-input {
+    @apply w-full bg-panel2 border border-line rounded-xl px-3.5 py-2.5 text-sm text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition;
+  }
+  .ui-select {
+    @apply bg-panel2 border border-line rounded-xl px-2.5 py-1.5 text-[11px] text-mist outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition;
+  }
+  .ui-btn-primary {
+    @apply text-xs font-semibold bg-chalk dark:bg-signal-pass text-panel dark:text-onaccent rounded-full px-4 py-2 hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+  .ui-btn-secondary {
+    @apply text-xs font-medium border border-line hover:border-mist rounded-full px-4 py-2 text-mist hover:text-chalk transition-colors;
+  }
+  .ui-btn-danger {
+    @apply text-xs font-semibold bg-signal-fail text-white rounded-full px-4 py-2 hover:brightness-110 transition disabled:opacity-60;
+  }
+  .ui-chip {
+    @apply text-[11px] font-medium px-2.5 py-1.5 rounded-full border transition-colors;
+  }
+  .ui-chip-on {
+    @apply border-signal-pass/40 text-signal-pass bg-signal-pass/10;
+  }
+  .ui-chip-off {
+    @apply border-line text-mist hover:text-chalk hover:border-mist;
+  }
+  .ui-icon-btn {
+    @apply h-8 w-8 shrink-0 rounded-full border border-line hover:border-mist text-mist hover:text-chalk flex items-center justify-center transition-colors;
+  }
+  .ui-badge {
+    @apply inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-mist border-line;
+  }
 }
