@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
+import InteractivePreview from "@/components/login-preview/InteractivePreview";
 
 function Logo() {
   return (
@@ -34,109 +35,6 @@ function EyeIcon({ open }: { open: boolean }) {
       <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
       <line x1="1" y1="1" x2="23" y2="23" />
     </svg>
-  );
-}
-
-function CoverageRow({ label, value }: { label: string; value: number }) {
-  return (
-    <div>
-      <div className="flex items-center justify-between text-[11px] mb-1">
-        <span className="text-white/70 font-medium">{label}</span>
-        <span className="text-white font-semibold tabular-nums">{value}%</span>
-      </div>
-      <div className="h-1.5 rounded-full bg-white/15 overflow-hidden">
-        <div
-          className="h-full rounded-full bg-white/90"
-          style={{ width: `${value}%` }}
-        />
-      </div>
-    </div>
-  );
-}
-
-function AuditPreview() {
-  const findings = [
-    { name: "Auth session expiry", sev: "High", tone: "fail" },
-    { name: "Uncovered branch in billing", sev: "Med", tone: "warn" },
-    { name: "Jest snapshot drift", sev: "Low", tone: "info" },
-  ];
-
-  return (
-    <div className="relative mt-8 flex-1 min-h-[300px]">
-      <div className="absolute inset-0 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl p-5 overflow-hidden">
-        <div className="flex items-start justify-between mb-5">
-          <div>
-            <p className="text-white/60 text-[11px] font-medium uppercase tracking-wider">
-              Quality score
-            </p>
-            <p className="text-white text-3xl font-bold tracking-tight font-display">86</p>
-            <p className="text-emerald-100 text-xs font-medium mt-0.5">Grade B · last audit 2h ago</p>
-          </div>
-          <div className="relative w-[72px] h-[72px] shrink-0">
-            <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-              <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="9" />
-              <circle
-                cx="50"
-                cy="50"
-                r="38"
-                fill="none"
-                stroke="white"
-                strokeWidth="9"
-                strokeLinecap="round"
-                strokeDasharray="206 239"
-              />
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-sm font-bold text-white">86</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-2.5 mb-5">
-          <CoverageRow label="Statements" value={92} />
-          <CoverageRow label="Branches" value={78} />
-          <CoverageRow label="Functions" value={85} />
-          <CoverageRow label="Lines" value={90} />
-        </div>
-
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between text-[10px] text-white/50 font-medium uppercase tracking-wide px-0.5">
-            <span>Open findings</span>
-            <span>3</span>
-          </div>
-          {findings.map((row) => (
-            <div
-              key={row.name}
-              className="flex items-center justify-between text-xs text-white/90 bg-white/10 rounded-lg px-2.5 py-1.5 gap-2"
-            >
-              <span className="truncate">{row.name}</span>
-              <span
-                className={`shrink-0 text-[10px] font-semibold uppercase tracking-wide rounded px-1.5 py-0.5 ${
-                  row.tone === "fail"
-                    ? "bg-red-400/25 text-red-100"
-                    : row.tone === "warn"
-                      ? "bg-amber-300/25 text-amber-100"
-                      : "bg-white/15 text-white/80"
-                }`}
-              >
-                {row.sev}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="absolute -bottom-3 -right-1 sm:-right-2 w-40 rounded-2xl bg-panel shadow-2xl p-3.5 border border-line">
-        <p className="text-[10px] text-mist font-medium uppercase tracking-wide mb-2">
-          Test run
-        </p>
-        <p className="font-display text-xl font-bold text-chalk leading-none">248<span className="text-sm font-medium text-mist"> / 256</span></p>
-        <p className="text-[11px] text-signal-pass font-medium mt-1.5">97% passing</p>
-        <div className="mt-2 h-1.5 rounded-full bg-panel2 overflow-hidden">
-          <div className="h-full w-[97%] rounded-full bg-signal-pass" />
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -313,18 +211,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="flex-1 relative overflow-hidden p-8 sm:p-10 md:p-12 flex flex-col rounded-t-2xl md:rounded-t-none md:rounded-r-3xl bg-gradient-to-br from-[#12b8a8] via-[#0d8f7f] to-[#0a6b62] dark:from-[#0d8f7f] dark:via-[#0a4f48] dark:to-[#071110]">
-          <div className="pointer-events-none absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.35),transparent_45%)]" />
-          <div className="relative max-w-md mx-auto w-full flex flex-col flex-1">
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight">
-              Coverage, quality, and migration — in one console.
-            </h2>
-            <p className="text-white/75 text-sm sm:text-base mt-3 leading-relaxed">
-              Sign in to review Jest audits, findings, and recommendations for your React and Next.js suites.
-            </p>
-            <AuditPreview />
-          </div>
-        </div>
+        <InteractivePreview />
       </div>
     </div>
   );
