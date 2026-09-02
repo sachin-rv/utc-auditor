@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <span className="h-2 w-2 rounded-full bg-signal-pass animate-pulse" />
             </span>
             <span className="font-display font-bold tracking-tight text-lg">
-              UTC<span className="text-signal-pass">/</span>Auditor
+              UTC Auditor
             </span>
           </Link>
           <div className="flex items-center gap-4">

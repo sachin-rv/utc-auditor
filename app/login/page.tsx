@@ -88,7 +88,7 @@ export default function LoginPage() {
             <div className="flex items-center gap-2.5">
               <Logo />
               <span className="font-display font-bold text-lg text-chalk tracking-tight">
-                UTC<span className="text-signal-pass">/</span>Auditor
+                UTC Auditor
               </span>
             </div>
             <ThemeToggle />
