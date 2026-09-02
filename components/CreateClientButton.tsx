@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/Modal";
 import { createClientAction } from "@/app/dashboard/actions";
+import { btnPrimaryClass, btnSecondaryClass, errorBoxClass, fieldClass } from "@/lib/ui";
 
-const inputClass =
-  "w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors";
+const inputClass = fieldClass;
 
 function slugify(value: string) {
   return value
@@ -66,7 +66,7 @@ export default function CreateClientButton() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-2 hover:brightness-110 transition"
+        className={btnPrimaryClass}
       >
         Create client
       </button>
@@ -113,7 +113,7 @@ export default function CreateClientButton() {
           </label>
 
           {withUser && (
-            <div className="grid sm:grid-cols-2 gap-3 border border-line rounded-lg p-3">
+            <div className="grid sm:grid-cols-2 gap-3 border border-line rounded-2xl p-3">
               <Field label="User name">
                 <input required={withUser} value={userName} onChange={(e) => setUserName(e.target.value)} className={inputClass} />
               </Field>
@@ -138,16 +138,12 @@ export default function CreateClientButton() {
             </div>
           )}
 
-          {error && <div className="text-xs text-signal-fail">{error}</div>}
+          {error && <div className={errorBoxClass}>{error}</div>}
           <div className="flex justify-end gap-2 pt-2">
-            <button type="button" onClick={() => setOpen(false)} className="text-xs border border-line rounded-md px-3 py-1.5 text-mist">
+            <button type="button" onClick={() => setOpen(false)} className={btnSecondaryClass}>
               Cancel
             </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-1.5 disabled:opacity-60"
-            >
+            <button type="submit" disabled={loading} className={btnPrimaryClass}>
               {loading ? "Creating…" : "Create"}
             </button>
           </div>
@@ -160,7 +156,7 @@ export default function CreateClientButton() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs text-mist mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-chalk mb-1.5">{label}</label>
       {children}
     </div>
   );

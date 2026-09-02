@@ -2,8 +2,9 @@
 
 import { useTheme } from "@/lib/useTheme";
 import { THEME_COLORS } from "@/lib/theme-colors";
+import { motion, useReducedMotion } from "framer-motion";
 
-function bandColor(score: number, c: typeof THEME_COLORS["dark"]) {
+function bandColor(score: number, c: { fail: string; warn: string; info: string; pass: string }) {
   if (score < 60) return c.fail;
   if (score < 80) return c.warn;
   if (score < 90) return c.info;
@@ -34,22 +35,24 @@ export default function ScoreDial({
   const pct = Math.max(0, Math.min(100, score)) / 100;
   const dash = circumference * pct;
   const color = bandColor(score, c);
+  const reduced = useReducedMotion();
 
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
           <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={c.line} strokeWidth={stroke} />
-          <circle
+          <motion.circle
             cx={size / 2}
             cy={size / 2}
             r={r}
             fill="none"
             stroke={color}
             strokeWidth={stroke}
-            strokeDasharray={`${dash} ${circumference - dash}`}
             strokeLinecap="round"
-            style={{ transition: "stroke-dasharray 700ms ease" }}
+            initial={reduced ? false : { strokeDasharray: `0 ${circumference}` }}
+            animate={{ strokeDasharray: `${dash} ${circumference - dash}` }}
+            transition={{ duration: reduced ? 0 : 0.9, ease: [0.22, 1, 0.36, 1] }}
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">

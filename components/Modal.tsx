@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 export default function Modal({
   open,
@@ -15,6 +16,8 @@ export default function Modal({
   children: React.ReactNode;
   widthClass?: string;
 }) {
+  const reduced = useReducedMotion();
+
   useEffect(() => {
     if (!open) return;
     function onKey(e: KeyboardEvent) {
@@ -29,30 +32,43 @@ export default function Modal({
     };
   }, [open, onClose]);
 
-  if (!open) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
-      <div className="absolute inset-0 bg-ink/70 backdrop-blur-sm" onClick={onClose} />
-      <div
-        className={`relative w-full ${widthClass} bg-panel border border-line rounded-xl shadow-2xl max-h-[85vh] overflow-y-auto`}
-      >
-        {title && (
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-line sticky top-0 bg-panel z-10">
-            <h2 className="text-sm font-semibold pr-4">{title}</h2>
-            <button
-              onClick={onClose}
-              aria-label="Close"
-              className="shrink-0 h-6 w-6 rounded-md flex items-center justify-center text-mist hover:text-chalk hover:bg-panel2 transition-colors"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 6L6 18M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        )}
-        <div className="p-5">{children}</div>
-      </div>
-    </div>
+    <AnimatePresence>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
+          <motion.div
+            className="absolute inset-0 bg-ink/70 backdrop-blur-sm"
+            onClick={onClose}
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduced ? 0 : 0.2 }}
+          />
+          <motion.div
+            className={`relative w-full ${widthClass} bg-panel border border-line rounded-2xl md:rounded-3xl shadow-xl shadow-black/5 dark:shadow-black/40 max-h-[85vh] overflow-y-auto`}
+            initial={reduced ? false : { opacity: 0, y: 16, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduced ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.98 }}
+            transition={{ duration: reduced ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {title && (
+              <div className="flex items-center justify-between px-5 py-3.5 border-b border-line sticky top-0 bg-panel z-10 rounded-t-2xl md:rounded-t-3xl">
+                <h2 className="text-sm font-semibold pr-4">{title}</h2>
+                <button
+                  onClick={onClose}
+                  aria-label="Close"
+                  className="shrink-0 h-8 w-8 rounded-full flex items-center justify-center text-mist hover:text-chalk hover:bg-panel2 transition-colors"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            )}
+            <div className="p-5">{children}</div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }

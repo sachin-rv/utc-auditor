@@ -3,22 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
+import Logo from "@/components/Logo";
 import InteractivePreview from "@/components/login-preview/InteractivePreview";
-
-function Logo() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
-      <rect width="28" height="28" rx="8" className="fill-signal-pass" />
-      <path
-        d="M8 10.5h12M8 14h12M8 17.5h8"
-        stroke="white"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-      />
-      <circle cx="19" cy="17.5" r="2" fill="white" />
-    </svg>
-  );
-}
+import { fieldClass } from "@/lib/ui";
 
 function EyeIcon({ open }: { open: boolean }) {
   if (open) {
@@ -37,9 +24,6 @@ function EyeIcon({ open }: { open: boolean }) {
     </svg>
   );
 }
-
-const fieldClass =
-  "w-full bg-panel2 border border-line rounded-xl px-3.5 py-2.5 text-sm text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition";
 
 export default function LoginPage() {
   const router = useRouter();

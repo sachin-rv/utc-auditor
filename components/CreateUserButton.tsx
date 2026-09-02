@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import Modal from "@/components/Modal";
 import { createUserAction } from "@/app/dashboard/actions";
 import type { UserRole } from "@/lib/api-types";
+import { btnPrimaryClass, btnSecondaryClass, errorBoxClass, fieldClass } from "@/lib/ui";
 
-const inputClass =
-  "w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors";
+const inputClass = fieldClass;
 
 export default function CreateUserButton({
   clients = [],
@@ -69,7 +69,7 @@ export default function CreateUserButton({
           reset();
           setOpen(true);
         }}
-        className="text-xs font-medium border border-line hover:border-mist rounded-md px-3 py-2 text-mist hover:text-chalk transition-colors"
+        className={btnSecondaryClass}
       >
         Create user
       </button>
@@ -101,7 +101,7 @@ export default function CreateUserButton({
                   setOpen(false);
                   reset();
                 }}
-                className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-1.5"
+                className={btnPrimaryClass}
               >
                 Done
               </button>
@@ -111,7 +111,7 @@ export default function CreateUserButton({
           <form onSubmit={onSubmit} className="space-y-3">
             {!lockedToClient && (
               <div>
-                <label className="block text-xs text-mist mb-1.5">Role</label>
+                <label className="block text-sm font-medium text-chalk mb-1.5">Role</label>
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as UserRole)}
@@ -123,11 +123,11 @@ export default function CreateUserButton({
               </div>
             )}
             <div>
-              <label className="block text-xs text-mist mb-1.5">Name</label>
+              <label className="block text-sm font-medium text-chalk mb-1.5">Name</label>
               <input required value={name} onChange={(e) => setName(e.target.value)} className={inputClass} placeholder="Ipsy User" />
             </div>
             <div>
-              <label className="block text-xs text-mist mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-chalk mb-1.5">Email</label>
               <input
                 type="email"
                 required
@@ -138,7 +138,7 @@ export default function CreateUserButton({
               />
             </div>
             <div>
-              <label className="block text-xs text-mist mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-chalk mb-1.5">Password</label>
               <input
                 type="password"
                 required
@@ -161,7 +161,7 @@ export default function CreateUserButton({
                 </label>
                 {linkExisting ? (
                   <div>
-                    <label className="block text-xs text-mist mb-1.5">Client</label>
+                    <label className="block text-sm font-medium text-chalk mb-1.5">Client</label>
                     <select
                       required
                       value={clientId}
@@ -188,7 +188,7 @@ export default function CreateUserButton({
               <p className="text-xs text-mist">This user will be linked to the current client.</p>
             )}
 
-            {error && <div className="text-xs text-signal-fail">{error}</div>}
+            {error && <div className={errorBoxClass}>{error}</div>}
             <div className="flex justify-end gap-2 pt-2">
               <button
                 type="button"
@@ -196,15 +196,11 @@ export default function CreateUserButton({
                   setOpen(false);
                   reset();
                 }}
-                className="text-xs border border-line rounded-md px-3 py-1.5 text-mist"
+                className={btnSecondaryClass}
               >
                 Cancel
               </button>
-              <button
-                type="submit"
-                disabled={loading}
-                className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-1.5 disabled:opacity-60"
-              >
+              <button type="submit" disabled={loading} className={btnPrimaryClass}>
                 {loading ? "Creating…" : "Create user"}
               </button>
             </div>

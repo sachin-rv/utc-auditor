@@ -122,7 +122,7 @@ export default function TrendChart({ points }: { points: TrendPoint[] }) {
               dot={false}
               activeDot={{ r: 4, fill: c.info, stroke: c.panel, strokeWidth: 1.5 }}
               hide={!showCoverage}
-              isAnimationActive={false}
+              isAnimationActive
             />
             <Line
               type="monotone"
@@ -133,7 +133,7 @@ export default function TrendChart({ points }: { points: TrendPoint[] }) {
               dot={false}
               activeDot={{ r: 4, fill: c.pass, stroke: c.panel, strokeWidth: 1.5 }}
               hide={!showScore}
-              isAnimationActive={false}
+              isAnimationActive
             />
           </LineChart>
         </ResponsiveContainer>
@@ -158,7 +158,7 @@ function TrendTooltip({
   const point = payload?.[0]?.payload;
   if (!active || !point) return null;
   return (
-    <div className="border border-line bg-panel2 rounded-md px-2.5 py-1.5 text-[11px] font-mono shadow-lg">
+    <div className="border border-line bg-panel2 rounded-xl px-2.5 py-1.5 text-[11px] font-mono shadow-xl shadow-black/5 dark:shadow-black/40">
       <div className="text-mist mb-0.5">{fmtFull(point.timestamp)}</div>
       <div className="flex gap-3">
         {showScore && <span style={{ color: colors.pass }}>Score {Math.round(point.score)}</span>}

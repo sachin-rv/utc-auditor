@@ -11,6 +11,9 @@ import type {
   UserReportView,
 } from "@/lib/user-report";
 import { countTone, gradeTone, scoreTone } from "@/lib/user-report";
+import { motion, useReducedMotion } from "framer-motion";
+import { fieldCompactClass } from "@/lib/ui";
+import { listContainer, listItem } from "@/components/PageEnter";
 
 type SectionId = "static" | "failed" | "files" | "cms" | "missing" | "coverage";
 
@@ -84,6 +87,7 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
   const strategyErrors = data.quality.byStrategy.reduce((n, s) => n + s.errors, 0);
   const strategyWarnings = data.quality.byStrategy.reduce((n, s) => n + s.warnings, 0);
   const strategyTitles = Object.fromEntries(data.quality.byStrategy.map((s) => [s.strategy, s.title]));
+  const reduced = useReducedMotion();
   const metrics: {
     label: string;
     value: number;
@@ -151,13 +155,21 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
         <p className="text-sm leading-relaxed">{data.completeness.summary}</p>
       </HeroRow>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 pt-2">
+      <motion.div
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 pt-2"
+        variants={reduced ? undefined : listContainer}
+        initial={reduced ? false : "hidden"}
+        animate="show"
+      >
         {metrics.map((m) => (
-          <button
+          <motion.button
             key={m.label}
             type="button"
             onClick={() => go(m.section)}
-            className={`text-left border ${TONE_BORDER[m.tone]} bg-panel rounded-xl p-3 hover:brightness-110 transition`}
+            variants={reduced ? undefined : listItem}
+            whileHover={reduced ? undefined : { y: -3 }}
+            whileTap={reduced ? undefined : { scale: 0.98 }}
+            className={`text-left border ${TONE_BORDER[m.tone]} bg-panel rounded-2xl p-3 shadow-xl shadow-black/5 dark:shadow-black/40 hover:border-signal-pass/40 transition`}
             title={m.hint}
           >
             <div className="flex items-start justify-between gap-2 mb-2">
@@ -166,9 +178,9 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
             </div>
             <div className={`font-display text-2xl font-bold ${TONE_TEXT[m.tone]}`}>{m.value}</div>
             <div className="text-[11px] text-mist mt-2">View details →</div>
-          </button>
+          </motion.button>
         ))}
-      </div>
+      </motion.div>
 
       {data.quality.byStrategy.length > 0 && (
         <div className="pt-4">
@@ -178,7 +190,7 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
           </div>
           <div className="grid sm:grid-cols-2 gap-3">
             {data.quality.byStrategy.map((s) => (
-              <div key={s.strategy} className="border border-line bg-panel rounded-xl p-4">
+              <div key={s.strategy} className="border border-line bg-panel rounded-2xl p-4 shadow-xl shadow-black/5 dark:shadow-black/40">
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <div className="text-sm font-medium">{s.title}</div>
                   <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full ${TONE_BG[countTone(s.warnings + s.errors)]}`}>
@@ -293,19 +305,19 @@ function HeroRow({
   const gTone = gradeTone(grade);
   return (
     <div className="grid md:grid-cols-[minmax(0,11rem)_minmax(0,11rem)_1fr] gap-3">
-      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-xl p-4`}>
+      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-2xl p-4 shadow-xl shadow-black/5 dark:shadow-black/40`}>
         <div className="text-[10px] uppercase tracking-widest text-mist mb-1">{kicker}</div>
         <div className={`font-display text-3xl font-bold ${TONE_TEXT[sTone]}`}>
           {score}
           <span className="text-lg text-mist font-medium">/100</span>
         </div>
       </div>
-      <div className={`border ${TONE_BORDER[gTone]} bg-panel rounded-xl p-4`}>
+      <div className={`border ${TONE_BORDER[gTone]} bg-panel rounded-2xl p-4 shadow-xl shadow-black/5 dark:shadow-black/40`}>
         <div className="text-[10px] uppercase tracking-widest text-mist mb-1">Grade</div>
         <div className={`font-display text-3xl font-bold ${TONE_TEXT[gTone]}`}>{grade}</div>
         <div className={`text-xs mt-0.5 ${TONE_TEXT[gTone]}`}>{label}</div>
       </div>
-      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-xl p-4 flex flex-col justify-center`}>
+      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-2xl p-4 flex flex-col justify-center shadow-xl shadow-black/5 dark:shadow-black/40`}>
         {children}
       </div>
     </div>
@@ -352,7 +364,7 @@ function Accordion({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border border-line bg-panel rounded-xl overflow-hidden">
+    <section className="border border-line bg-panel rounded-2xl overflow-hidden shadow-xl shadow-black/5 dark:shadow-black/40">
       <button
         type="button"
         onClick={onToggle}
@@ -435,12 +447,12 @@ function IssuesTable({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search file, rule, strategy, message…"
-          className="flex-1 min-w-[12rem] bg-panel2 border border-line rounded-md px-3 py-1.5 text-xs outline-none focus:border-signal-pass/60"
+          className={`flex-1 min-w-[12rem] ${fieldCompactClass}`}
         />
         <select
           value={severity}
           onChange={(e) => setSeverity(e.target.value)}
-          className="bg-panel2 border border-line rounded-md px-2 py-1.5 text-[11px] font-mono text-mist"
+          className={`${fieldCompactClass} w-auto text-[11px] font-mono text-mist`}
         >
           <option value="all">All severities</option>
           <option value="error">Error</option>
@@ -450,7 +462,7 @@ function IssuesTable({
         <select
           value={strategy}
           onChange={(e) => setStrategy(e.target.value)}
-          className="bg-panel2 border border-line rounded-md px-2 py-1.5 text-[11px] font-mono text-mist"
+          className={`${fieldCompactClass} w-auto text-[11px] font-mono text-mist`}
         >
           <option value="all">All strategies</option>
           {strategies.map((s) => (
@@ -501,7 +513,7 @@ function IssuesTable({
             type="button"
             disabled={page <= 1}
             onClick={() => setPage((p) => p - 1)}
-            className="border border-line rounded px-2 py-1 disabled:opacity-40"
+            className="border border-line rounded-full px-3 py-1 disabled:opacity-40 hover:border-mist transition"
           >
             Prev
           </button>
@@ -509,7 +521,7 @@ function IssuesTable({
             type="button"
             disabled={page >= pages}
             onClick={() => setPage((p) => p + 1)}
-            className="border border-line rounded px-2 py-1 disabled:opacity-40"
+            className="border border-line rounded-full px-3 py-1 disabled:opacity-40 hover:border-mist transition"
           >
             Next
           </button>
@@ -568,7 +580,7 @@ function RecommendationsList({ items }: { items: CompletenessRec[] }) {
   return (
     <div className="space-y-3">
       {items.map((item) => (
-        <div key={item.source} className="border border-line rounded-lg p-3">
+        <div key={item.source} className="border border-line rounded-2xl p-3">
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="font-mono text-xs">{item.sourceShort}</span>
             <Chip tone={item.priority === "high" ? "fail" : "warn"}>{item.priority}</Chip>
@@ -608,7 +620,7 @@ function CoverageTable({ files }: { files: CoverageFileRow[] }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Filter files…"
-        className="w-full mb-3 bg-panel2 border border-line rounded-md px-3 py-1.5 text-xs outline-none focus:border-signal-pass/60"
+        className={`w-full mb-3 ${fieldCompactClass}`}
       />
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs">

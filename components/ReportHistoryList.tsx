@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import StatusPill from "@/components/StatusPill";
+import { chipClass, chipIdleClass, fieldCompactClass } from "@/lib/ui";
 
 import type { CoverageMetrics } from "@/lib/types";
 
@@ -91,12 +92,12 @@ export default function ReportHistoryList({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search reports…"
-          className="bg-panel2 border border-line rounded-md px-2.5 py-1.5 text-xs outline-none focus:border-signal-pass/60 min-w-[10rem] flex-1"
+          className={`${fieldCompactClass} min-w-[10rem] flex-1`}
         />
         <select
           value={trigger}
           onChange={(e) => setTrigger(e.target.value)}
-          className="bg-panel2 border border-line rounded-md px-2 py-1.5 text-[11px] font-mono text-mist outline-none"
+          className={`${fieldCompactClass} w-auto text-[11px] font-mono text-mist`}
         >
           <option value="all">All triggers</option>
           {triggers.map((t) => (
@@ -108,10 +109,10 @@ export default function ReportHistoryList({
         <button
           type="button"
           onClick={() => setFailingOnly((v) => !v)}
-          className={`text-[11px] font-mono uppercase tracking-wider px-2 py-1.5 rounded border transition-colors ${
+          className={`${chipClass} ${
             failingOnly
               ? "border-signal-fail/40 text-signal-fail bg-signal-fail/10"
-              : "border-line text-mist hover:text-chalk"
+              : chipIdleClass
           }`}
         >
           Failing
@@ -140,11 +141,11 @@ export default function ReportHistoryList({
             <Link
               key={r.id}
               href={`/dashboard/client/${clientId}/report/${r.id}`}
-              className="flex items-center justify-between py-3 group hover:bg-panel2/40 -mx-2 px-2 rounded-lg transition-colors"
+              className="flex items-center justify-between py-3 group hover:bg-panel2/40 -mx-2 px-3 rounded-xl transition-colors"
             >
               <div className="flex items-center gap-4 min-w-0">
                 <span className="font-mono text-xs text-mist w-32 shrink-0">{fmtDateTime(r.timestamp)}</span>
-                <span className="text-xs px-2 py-0.5 rounded border border-line text-mist font-mono uppercase tracking-wider truncate">
+                <span className="text-xs px-2 py-0.5 rounded-full border border-line text-mist font-mono uppercase tracking-wider truncate">
                   {r.trigger.replace(/_/g, " ")}
                 </span>
                 {r.status && <StatusPill status={r.status} />}
