@@ -4,6 +4,7 @@ import { useState } from "react";
 import StatusPill from "@/components/StatusPill";
 import ScoreDial from "@/components/ScoreDial";
 import CoverageBars from "@/components/CoverageBars";
+import TrendChart from "@/components/TrendChart";
 import ReportHistoryList, { ReportRow } from "@/components/ReportHistoryList";
 import CreateApiKeyButton from "@/components/CreateApiKeyButton";
 import CopyTextButton from "@/components/CopyTextButton";
@@ -87,7 +88,7 @@ export default function ProjectCard({
             <div className="px-6 py-10 text-center text-mist text-sm">No audit reports submitted for this project yet.</div>
           ) : (
             <>
-              <div className="grid md:grid-cols-[auto_1fr] gap-8 px-6 py-6 border-b border-line">
+              <div className="grid lg:grid-cols-[auto_minmax(12rem,0.9fr)_minmax(16rem,1.35fr)] gap-8 px-6 py-6 border-b border-line">
                 <ScoreDial
                   score={latest?.overallScore ?? 0}
                   label={latest?.qualityGrade ? `Grade ${latest.qualityGrade}` : "Quality score"}
@@ -116,6 +117,13 @@ export default function ProjectCard({
                     ) : null}
                   </div>
                 </div>
+                <TrendChart
+                  points={reports.map((r) => ({
+                    timestamp: r.timestamp,
+                    score: r.overallScore,
+                    coverage: r.coverage?.lines ?? r.coveragePercent ?? 0,
+                  }))}
+                />
               </div>
               <div className="px-6 py-4">
                 <div className="text-xs uppercase tracking-widest text-mist mb-3">
