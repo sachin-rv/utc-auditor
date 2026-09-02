@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/Modal";
 import { createClientAction } from "@/app/dashboard/actions";
+import PasswordField from "@/components/PasswordField";
 import { btnPrimaryClass, btnSecondaryClass, errorBoxClass, fieldClass } from "@/lib/ui";
 
 const inputClass = fieldClass;
@@ -27,6 +28,7 @@ export default function CreateClientButton() {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -39,6 +41,7 @@ export default function CreateClientButton() {
     setUserName("");
     setUserEmail("");
     setUserPassword("");
+    setShowPassword(false);
     setError(null);
   }
 
@@ -128,12 +131,12 @@ export default function CreateClientButton() {
               </Field>
               <div className="sm:col-span-2">
                 <Field label="Password">
-                  <input
-                    type="password"
+                  <PasswordField
                     required={withUser}
                     value={userPassword}
-                    onChange={(e) => setUserPassword(e.target.value)}
-                    className={inputClass}
+                    onChange={setUserPassword}
+                    show={showPassword}
+                    onToggleShow={() => setShowPassword((v) => !v)}
                   />
                 </Field>
               </div>

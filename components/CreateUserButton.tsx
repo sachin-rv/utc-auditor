@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/Modal";
 import { createUserAction } from "@/app/dashboard/actions";
+import PasswordField from "@/components/PasswordField";
 import type { UserRole } from "@/lib/api-types";
 import { btnPrimaryClass, btnSecondaryClass, errorBoxClass, fieldClass } from "@/lib/ui";
 
@@ -21,6 +22,7 @@ export default function CreateUserButton({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState<UserRole>("client");
   const [linkExisting, setLinkExisting] = useState(!!defaultClientId);
   const [clientId, setClientId] = useState(defaultClientId ?? "");
@@ -34,6 +36,7 @@ export default function CreateUserButton({
     setName("");
     setEmail("");
     setPassword("");
+    setShowPassword(false);
     setRole("client");
     setLinkExisting(!!defaultClientId);
     setClientId(defaultClientId ?? "");
@@ -139,13 +142,13 @@ export default function CreateUserButton({
             </div>
             <div>
               <label className="block text-sm font-medium text-chalk mb-1">Password</label>
-              <input
-                type="password"
+              <PasswordField
                 required
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={inputClass}
+                onChange={setPassword}
                 placeholder="Client@123"
+                show={showPassword}
+                onToggleShow={() => setShowPassword((v) => !v)}
               />
             </div>
 
