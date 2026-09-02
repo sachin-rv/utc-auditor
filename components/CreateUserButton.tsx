@@ -108,10 +108,10 @@ export default function CreateUserButton({
             </div>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="space-y-3">
+          <form onSubmit={onSubmit} className="space-y-3.5">
             {!lockedToClient && (
               <div>
-                <label className="block text-sm font-medium text-chalk mb-1.5">Role</label>
+                <label className="block text-sm font-medium text-chalk mb-1">Role</label>
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as UserRole)}
@@ -123,11 +123,11 @@ export default function CreateUserButton({
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-chalk mb-1.5">Name</label>
+              <label className="block text-sm font-medium text-chalk mb-1">Name</label>
               <input required value={name} onChange={(e) => setName(e.target.value)} className={inputClass} placeholder="Ipsy User" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-chalk mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-chalk mb-1">Email</label>
               <input
                 type="email"
                 required
@@ -138,7 +138,7 @@ export default function CreateUserButton({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-chalk mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-chalk mb-1">Password</label>
               <input
                 type="password"
                 required
@@ -161,7 +161,7 @@ export default function CreateUserButton({
                 </label>
                 {linkExisting ? (
                   <div>
-                    <label className="block text-sm font-medium text-chalk mb-1.5">Client</label>
+                    <label className="block text-sm font-medium text-chalk mb-1">Client</label>
                     <select
                       required
                       value={clientId}

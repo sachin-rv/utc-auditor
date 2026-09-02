@@ -71,7 +71,7 @@ export default function CreateClientButton() {
         Create client
       </button>
       <Modal open={open} onClose={() => setOpen(false)} title="Create client" widthClass="max-w-lg">
-        <form onSubmit={onSubmit} className="space-y-3">
+        <form onSubmit={onSubmit} className="space-y-3.5">
           <Field label="Organization name">
             <input
               required
@@ -113,7 +113,7 @@ export default function CreateClientButton() {
           </label>
 
           {withUser && (
-            <div className="grid sm:grid-cols-2 gap-3 border border-line rounded-2xl p-3">
+            <div className="grid sm:grid-cols-2 gap-x-3 gap-y-3.5 border border-line rounded-2xl p-3.5">
               <Field label="User name">
                 <input required={withUser} value={userName} onChange={(e) => setUserName(e.target.value)} className={inputClass} />
               </Field>
@@ -126,15 +126,17 @@ export default function CreateClientButton() {
                   className={inputClass}
                 />
               </Field>
-              <Field label="Password">
-                <input
-                  type="password"
-                  required={withUser}
-                  value={userPassword}
-                  onChange={(e) => setUserPassword(e.target.value)}
-                  className={inputClass}
-                />
-              </Field>
+              <div className="sm:col-span-2">
+                <Field label="Password">
+                  <input
+                    type="password"
+                    required={withUser}
+                    value={userPassword}
+                    onChange={(e) => setUserPassword(e.target.value)}
+                    className={inputClass}
+                  />
+                </Field>
+              </div>
             </div>
           )}
 
@@ -156,7 +158,7 @@ export default function CreateClientButton() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-chalk mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-chalk mb-1">{label}</label>
       {children}
     </div>
   );

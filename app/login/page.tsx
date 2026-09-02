@@ -79,8 +79,8 @@ export default function LoginPage() {
           </div>
 
           <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
-            <div className="text-center mb-8">
-              <h1 className="font-display text-2xl sm:text-3xl font-bold text-chalk mb-2">
+            <div className="text-center mb-6">
+              <h1 className="font-display text-2xl sm:text-3xl font-bold text-chalk mb-1.5">
                 {setupRequired ? "Create Your Account" : "Welcome Back"}
               </h1>
               <p className="text-sm text-mist leading-relaxed">
@@ -90,10 +90,10 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <form onSubmit={onSubmit} className="space-y-5">
+            <form onSubmit={onSubmit} className="space-y-3.5">
               {setupRequired && (
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-chalk mb-1.5">
+                  <label htmlFor="name" className="block text-sm font-medium text-chalk mb-1">
                     Name
                   </label>
                   <input
@@ -108,7 +108,7 @@ export default function LoginPage() {
               )}
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-chalk mb-1.5">
+                <label htmlFor="email" className="block text-sm font-medium text-chalk mb-1">
                   Email
                 </label>
                 <input
@@ -123,7 +123,7 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-chalk mb-1.5">
+                <label htmlFor="password" className="block text-sm font-medium text-chalk mb-1">
                   Password
                 </label>
                 <div className="relative">

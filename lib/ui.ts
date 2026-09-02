@@ -1,8 +1,8 @@
 export const fieldClass =
-  "w-full bg-panel2 border border-line rounded-xl px-3.5 py-2.5 text-sm text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition";
+  "w-full box-border bg-panel2 border border-line rounded-xl px-3 py-2 text-sm leading-5 text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-inset focus:ring-signal-pass/20 transition";
 
 export const fieldCompactClass =
-  "w-full bg-panel2 border border-line rounded-xl px-3 py-2 text-sm text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition";
+  "w-full box-border bg-panel2 border border-line rounded-xl px-3 py-1.5 text-sm leading-5 text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-inset focus:ring-signal-pass/20 transition";
 
 export const cardClass =
   "border border-line bg-panel rounded-2xl shadow-xl shadow-black/5 dark:shadow-black/40";
