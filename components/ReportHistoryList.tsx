@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import StatusPill from "@/components/StatusPill";
-import { chipClass, chipIdleClass, fieldCompactClass } from "@/lib/ui";
+import { chipClass, chipIdleClass, fieldInlineClass } from "@/lib/ui";
 
 import type { CoverageMetrics } from "@/lib/types";
 
@@ -87,17 +87,17 @@ export default function ReportHistoryList({
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-2 mb-3">
+      <div className="flex items-center gap-2 mb-3 min-w-0">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search reports…"
-          className={`${fieldCompactClass} min-w-[10rem] flex-1`}
+          className={`${fieldInlineClass} min-w-0 flex-1`}
         />
         <select
           value={trigger}
           onChange={(e) => setTrigger(e.target.value)}
-          className={`${fieldCompactClass} w-auto text-[11px] font-mono text-mist`}
+          className={`${fieldInlineClass} shrink-0 w-auto text-[11px] font-mono text-mist`}
         >
           <option value="all">All triggers</option>
           {triggers.map((t) => (
@@ -109,7 +109,7 @@ export default function ReportHistoryList({
         <button
           type="button"
           onClick={() => setFailingOnly((v) => !v)}
-          className={`${chipClass} ${
+          className={`${chipClass} shrink-0 ${
             failingOnly
               ? "border-signal-fail/40 text-signal-fail bg-signal-fail/10"
               : chipIdleClass
@@ -117,24 +117,30 @@ export default function ReportHistoryList({
         >
           Failing
         </button>
-        <button
-          type="button"
-          onClick={() => toggleSort("date")}
-          className="text-[11px] font-mono text-mist hover:text-chalk"
-        >
-          date {sortKey === "date" ? (sortDir === "asc" ? "↑" : "↓") : ""}
-        </button>
-        <button
-          type="button"
-          onClick={() => toggleSort("score")}
-          className="text-[11px] font-mono text-mist hover:text-chalk"
-        >
-          score {sortKey === "score" ? (sortDir === "asc" ? "↑" : "↓") : ""}
-        </button>
+        <div className="flex items-center gap-2 shrink-0 ml-auto">
+          <button
+            type="button"
+            onClick={() => toggleSort("date")}
+            className={`text-[11px] font-mono px-2 py-1.5 rounded-full border transition-colors ${
+              sortKey === "date" ? "border-signal-pass/40 text-signal-pass bg-signal-pass/10" : chipIdleClass
+            }`}
+          >
+            date {sortKey === "date" ? (sortDir === "asc" ? "↑" : "↓") : ""}
+          </button>
+          <button
+            type="button"
+            onClick={() => toggleSort("score")}
+            className={`text-[11px] font-mono px-2 py-1.5 rounded-full border transition-colors ${
+              sortKey === "score" ? "border-signal-pass/40 text-signal-pass bg-signal-pass/10" : chipIdleClass
+            }`}
+          >
+            score {sortKey === "score" ? (sortDir === "asc" ? "↑" : "↓") : ""}
+          </button>
+        </div>
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-sm text-mist text-center py-6">No reports match the current filters.</div>
+        <div className="text-sm text-mist text-center px-8 py-16">No reports match the current filters.</div>
       ) : (
         <div className="divide-y divide-line">
           {filtered.map((r) => (

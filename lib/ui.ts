@@ -4,6 +4,9 @@ export const fieldClass =
 export const fieldCompactClass =
   "w-full box-border bg-panel2 border border-line rounded-xl px-3 py-1.5 text-sm leading-5 text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-inset focus:ring-signal-pass/20 transition";
 
+export const fieldInlineClass =
+  "box-border bg-panel2 border border-line rounded-xl px-3 py-1.5 text-sm leading-5 text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-inset focus:ring-signal-pass/20 transition";
+
 export const cardClass =
   "border border-line bg-panel rounded-2xl shadow-xl shadow-black/5 dark:shadow-black/40";
 
@@ -31,4 +34,4 @@ export const errorBoxClass =
   "text-sm text-signal-fail bg-signal-fail/10 border border-signal-fail/20 rounded-xl px-3 py-2";
 
 export const emptyStateClass =
-  "border border-line bg-panel rounded-2xl shadow-xl shadow-black/5 dark:shadow-black/40 px-6 py-12 text-center text-sm text-mist";
+  "border border-line bg-panel rounded-2xl shadow-xl shadow-black/5 dark:shadow-black/40 px-8 py-16 text-center text-sm text-mist";

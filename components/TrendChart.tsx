@@ -51,7 +51,7 @@ export default function TrendChart({ points }: { points: TrendPoint[] }) {
 
   if (series.length === 0) {
     return (
-      <div className="h-full min-h-[10rem] flex items-center justify-center text-xs text-mist">
+      <div className="h-full min-h-[12rem] flex items-center justify-center text-xs text-mist px-8 py-16 text-center">
         No trend data yet
       </div>
     );

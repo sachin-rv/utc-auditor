@@ -398,7 +398,7 @@ function Accordion({
 }
 
 function Empty({ children }: { children: React.ReactNode }) {
-  return <div className="text-sm text-mist text-center py-6">{children}</div>;
+  return <div className="text-sm text-mist text-center px-8 py-16">{children}</div>;
 }
 
 function IssuesTable({

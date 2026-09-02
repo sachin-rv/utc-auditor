@@ -96,7 +96,7 @@ export default function ProjectCard({
               <div className="px-6 py-3 border-b border-line text-sm text-mist">{project.description}</div>
             )}
             {reports.length === 0 ? (
-              <div className="px-6 py-10 text-center text-mist text-sm">No audit reports submitted for this project yet.</div>
+              <div className="px-8 py-16 text-center text-mist text-sm">No audit reports submitted for this project yet.</div>
             ) : (
               <>
                 <div className="grid lg:grid-cols-[auto_minmax(12rem,0.9fr)_minmax(16rem,1.35fr)] gap-8 px-6 py-6 border-b border-line">
