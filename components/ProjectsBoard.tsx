@@ -1,9 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
 import type { ReportRow } from "@/components/ReportHistoryList";
 import type { ApiProject } from "@/lib/api-types";
+import { listContainer, listItem } from "@/components/PageEnter";
+import { chipActiveClass, chipClass, chipIdleClass, emptyStateClass, fieldCompactClass } from "@/lib/ui";
 
 export interface ProjectBoardItem {
   project: ApiProject;
@@ -29,6 +32,7 @@ export default function ProjectsBoard({
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
   const [expandAll, setExpandAll] = useState(true);
+  const reduced = useReducedMotion();
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -61,7 +65,7 @@ export default function ProjectsBoard({
       <div className="flex flex-wrap items-center gap-2 mb-5">
         <div className="relative flex-1 min-w-[14rem]">
           <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-mist"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-mist"
             width="14"
             height="14"
             viewBox="0 0 24 24"
@@ -76,7 +80,7 @@ export default function ProjectsBoard({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search projects, slugs, repos…"
-            className="w-full bg-panel border border-line rounded-md pl-9 pr-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors"
+            className={`${fieldCompactClass} pl-10`}
           />
         </div>
         {chips.map((c) => (
@@ -84,11 +88,7 @@ export default function ProjectsBoard({
             key={c.id}
             type="button"
             onClick={() => setStatus(c.id)}
-            className={`text-[11px] font-mono uppercase tracking-wider px-2.5 py-1.5 rounded border transition-colors ${
-              status === c.id
-                ? "border-signal-pass/40 text-signal-pass bg-signal-pass/10"
-                : "border-line text-mist hover:text-chalk"
-            }`}
+            className={`${chipClass} ${status === c.id ? chipActiveClass : chipIdleClass}`}
           >
             {c.label}
           </button>
@@ -96,30 +96,36 @@ export default function ProjectsBoard({
         <button
           type="button"
           onClick={() => setExpandAll((v) => !v)}
-          className="text-[11px] font-mono text-mist hover:text-chalk ml-auto"
+          className="text-[11px] font-mono text-mist hover:text-chalk ml-auto rounded-full px-3 py-1.5 hover:bg-panel2 transition"
         >
           {expandAll ? "Collapse all" : "Expand all"}
         </button>
       </div>
 
       {filtered.length === 0 ? (
-        <div className="border border-line bg-panel rounded-xl px-6 py-12 text-center text-sm text-mist">
+        <div className={emptyStateClass}>
           {items.length === 0 ? "No projects yet." : "No projects match the current filters."}
         </div>
       ) : (
-        <div className="space-y-6">
+        <motion.div
+          className="space-y-6"
+          variants={reduced ? undefined : listContainer}
+          initial={reduced ? false : "hidden"}
+          animate="show"
+        >
           {filtered.map((item) => (
-            <ProjectCard
-              key={`${item.project.id}-${expandAll ? "open" : "shut"}`}
-              clientId={clientId}
-              project={item.project}
-              isAdmin={isAdmin}
-              reports={item.reports}
-              total={item.total}
-              defaultOpen={expandAll}
-            />
+            <motion.div key={`${item.project.id}-${expandAll ? "open" : "shut"}`} variants={reduced ? undefined : listItem}>
+              <ProjectCard
+                clientId={clientId}
+                project={item.project}
+                isAdmin={isAdmin}
+                reports={item.reports}
+                total={item.total}
+                defaultOpen={expandAll}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );

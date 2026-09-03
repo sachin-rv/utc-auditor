@@ -9,6 +9,7 @@ export interface StaticIssue {
   strategy: string;
   message: string;
   severity: IssueSeverity;
+  category?: string;
 }
 
 export interface FailedCase {
@@ -16,6 +17,7 @@ export interface FailedCase {
   fileShort: string;
   name: string;
   status: string;
+  failureMessages: string[];
 }
 
 export interface QualityStrategy {
@@ -55,6 +57,8 @@ export interface CompletenessRec {
   why: string;
   suggest: string;
   exports: string[];
+  coverageLines: number | null;
+  matchedTests: string[];
 }
 
 export interface ScoreBlock {
@@ -62,6 +66,13 @@ export interface ScoreBlock {
   grade: string;
   label: string;
   summary: string;
+}
+
+export interface TestCaseRow {
+  file: string;
+  fileShort: string;
+  name: string;
+  status: string;
 }
 
 export interface UserReportView {
@@ -76,6 +87,7 @@ export interface UserReportView {
       gapIssues: number;
       progressSignals: number;
     };
+    byCategory: { category: string; count: number }[];
     issues: StaticIssue[];
   };
   completeness: ScoreBlock & {
@@ -91,12 +103,14 @@ export interface UserReportView {
     recommendations: CompletenessRec[];
   };
   run: {
+    success: boolean;
     total: number;
     passed: number;
     failed: number;
     pending: number;
     todo: number;
     failedCases: FailedCase[];
+    testCases: TestCaseRow[];
     testFiles: TestFileResult[];
   };
   staticIssues: StaticIssue[];
@@ -116,17 +130,29 @@ function str(v: unknown, fallback = "") {
   return typeof v === "string" ? v : fallback;
 }
 
+export function stripAnsi(text: string) {
+  return text.replace(/\u001B\[[0-9;]*m/g, "").replace(/\x1B\[[0-9;]*m/g, "");
+}
+
 export function shortPath(file: string) {
   const n = file.replace(/\\/g, "/");
-  const markers = ["/nextjs-sample-app/", "/__tests__/", "/app/", "/components/", "/utils/"];
+  const markers = ["/nextjs-sample-app/", "/apps/web/", "/apps/", "/src/"];
   for (const m of markers) {
     const i = n.lastIndexOf(m);
-    if (i >= 0) {
-      if (m === "/nextjs-sample-app/") return n.slice(i + m.length);
-      return n.slice(i + 1);
-    }
+    if (i >= 0) return n.slice(i + m.length);
   }
-  return n.split("/").slice(-3).join("/");
+  const parts = n.split("/").filter(Boolean);
+  return parts.slice(-4).join("/");
+}
+
+export function failureHeadline(message: string) {
+  const clean = stripAnsi(message).trim();
+  const line =
+    clean.split("\n").find((l) => {
+      const t = l.trim();
+      return t && !t.startsWith("at ") && !t.startsWith("Ignored nodes");
+    }) ?? clean.split("\n")[0] ?? "";
+  return line.replace(/^Error:\s*/, "").slice(0, 220);
 }
 
 export function unwrapReportJson(json: Record<string, unknown> | undefined | null): Record<string, unknown> | null {
@@ -153,14 +179,16 @@ export function isUserReport(json: Record<string, unknown> | undefined | null): 
 
 function asIssue(row: Record<string, unknown>): StaticIssue {
   const sev = str(row.severity, "info");
+  const category = str(row.category) || undefined;
   return {
     file: str(row.file),
     fileShort: shortPath(str(row.file)),
     line: typeof row.line === "number" ? row.line : null,
     rule: str(row.rule),
-    strategy: str(row.strategy),
+    strategy: str(row.strategy || row.category),
     message: str(row.message),
     severity: sev === "error" || sev === "warning" ? sev : "info",
+    category,
   };
 }
 
@@ -188,7 +216,25 @@ export function parseUserReport(json: Record<string, unknown> | undefined | null
   const staticIssues = (Array.isArray(j.staticIssues) ? j.staticIssues : []).map((r) => asIssue(rec(r)));
   const cmsIssues = (Array.isArray(cmsRoot.issues) ? cmsRoot.issues : []).map((r) => asIssue(rec(r)));
 
+  const testFiles: TestFileResult[] = (Array.isArray(run.testResults) ? run.testResults : []).map((r) => {
+    const row = rec(r);
+    const file = str(row.testFilePath ?? row.file);
+    return {
+      file,
+      fileShort: shortPath(file),
+      passing: num(row.numPassingTests),
+      failing: num(row.numFailingTests),
+      duration: num(row.duration),
+      failureMessages: Array.isArray(row.failureMessages)
+        ? row.failureMessages.map((m) => stripAnsi(String(m)))
+        : [],
+    };
+  });
+
+  const messagesByFile = new Map(testFiles.map((f) => [f.file, f.failureMessages]));
+
   const failedCases: FailedCase[] = [];
+  const testCases: TestCaseRow[] = [];
   const cases = Array.isArray(run.failedCases)
     ? run.failedCases
     : Array.isArray(run.testCases)
@@ -197,12 +243,23 @@ export function parseUserReport(json: Record<string, unknown> | undefined | null
   for (const c of cases) {
     const row = rec(c);
     const status = str(row.status, "passed");
-    if (status === "passed") continue;
-    failedCases.push({
-      file: str(row.file),
-      fileShort: shortPath(str(row.file)),
-      name: str(row.name),
+    const file = str(row.file);
+    const name = str(row.name);
+    testCases.push({
+      file,
+      fileShort: shortPath(file),
+      name,
       status,
+    });
+    if (status === "passed") continue;
+    const fileMsgs = messagesByFile.get(file) ?? [];
+    const matched = fileMsgs.filter((m) => m.includes(name));
+    failedCases.push({
+      file,
+      fileShort: shortPath(file),
+      name,
+      status,
+      failureMessages: matched.length ? matched : fileMsgs,
     });
   }
 
@@ -216,19 +273,6 @@ export function parseUserReport(json: Record<string, unknown> | undefined | null
       branches: num(row.branches),
       functions: num(row.functions),
       lines: num(row.lines),
-    };
-  });
-
-  const testFiles: TestFileResult[] = (Array.isArray(run.testResults) ? run.testResults : []).map((r) => {
-    const row = rec(r);
-    const file = str(row.testFilePath ?? row.file);
-    return {
-      file,
-      fileShort: shortPath(file),
-      passing: num(row.numPassingTests),
-      failing: num(row.numFailingTests),
-      duration: num(row.duration),
-      failureMessages: Array.isArray(row.failureMessages) ? row.failureMessages.map(String) : [],
     };
   });
 
@@ -250,6 +294,7 @@ export function parseUserReport(json: Record<string, unknown> | undefined | null
   ).map((r) => {
     const row = rec(r);
     const source = str(row.source);
+    const coverageLines = row.coverageLines;
     return {
       source,
       sourceShort: shortPath(source),
@@ -259,7 +304,14 @@ export function parseUserReport(json: Record<string, unknown> | undefined | null
       why: str(row.why),
       suggest: str(row.suggest),
       exports: Array.isArray(row.exports) ? row.exports.map(String) : [],
+      coverageLines: typeof coverageLines === "number" ? coverageLines : null,
+      matchedTests: Array.isArray(row.matchedTests) ? row.matchedTests.map(String) : [],
     };
+  });
+
+  const byCategory = (Array.isArray(readiness.byCategory) ? readiness.byCategory : []).map((r) => {
+    const row = rec(r);
+    return { category: str(row.category), count: num(row.count) };
   });
 
   return {
@@ -284,6 +336,7 @@ export function parseUserReport(json: Record<string, unknown> | undefined | null
         gapIssues: num(cmsStats.gapIssues),
         progressSignals: num(cmsStats.progressSignals),
       },
+      byCategory,
       issues: cmsIssues,
     },
     completeness: {
@@ -303,12 +356,14 @@ export function parseUserReport(json: Record<string, unknown> | undefined | null
       recommendations,
     },
     run: {
+      success: typeof run.success === "boolean" ? Boolean(run.success) : num(run.numFailedTests) === 0,
       total: num(run.numTotalTests),
       passed: num(run.numPassedTests),
       failed: num(run.numFailedTests),
       pending: num(run.numPendingTests),
       todo: num(run.numTodoTests),
       failedCases,
+      testCases,
       testFiles,
     },
     staticIssues,

@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
-
-const inputClass =
-  "w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors";
+import Logo from "@/components/Logo";
+import InteractivePreview from "@/components/login-preview/InteractivePreview";
+import PasswordField from "@/components/PasswordField";
+import { fieldClass } from "@/lib/ui";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -45,37 +46,54 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.06]">
-        <div className="h-40 w-full bg-signal-pass animate-scan blur-2xl" />
-      </div>
-
-      <div className="w-full max-w-sm relative">
-        <div className="flex items-center justify-center gap-2.5 mb-8 relative">
-          <span className="h-8 w-8 rounded-md bg-signal-pass/15 border border-signal-pass/30 flex items-center justify-center">
-            <span className="h-2 w-2 rounded-full bg-signal-pass animate-pulse" />
-          </span>
-          <span className="font-display font-bold tracking-tight text-xl">
-            UTC<span className="text-signal-pass">/</span>Auditor
-          </span>
-          <div className="absolute right-0">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
+      <div className="w-full max-w-5xl bg-panel rounded-2xl md:rounded-3xl border border-line shadow-xl shadow-black/5 dark:shadow-black/40 overflow-hidden flex flex-col md:flex-row md:min-h-[640px]">
+        <div className="flex-1 flex flex-col p-8 sm:p-10 md:p-12 relative">
+          <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center gap-2.5">
+              <Logo />
+              <span className="font-display font-bold text-lg text-chalk tracking-tight">
+                UTC Auditor
+              </span>
+            </div>
             <ThemeToggle />
           </div>
         </div>
 
-        <div className="border border-line bg-panel rounded-xl p-7">
-          <div className="text-xs font-mono uppercase tracking-widest text-mist mb-1">
-            {setupRequired ? "First-run setup" : "Authenticated access"}
-          </div>
-          <h1 className="font-display text-xl font-bold mb-6">
-            {setupRequired ? "Create the first admin" : "Sign in to the console"}
-          </h1>
+          <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
+            <div className="text-center mb-6">
+              <h1 className="font-display text-2xl sm:text-3xl font-bold text-chalk mb-1.5">
+                {setupRequired ? "Create Your Account" : "Welcome Back"}
+              </h1>
+              <p className="text-sm text-mist leading-relaxed">
+                {setupRequired
+                  ? "Set up the first admin account to get started."
+                  : "Enter your email and password to access your account."}
+              </p>
+            </div>
+
+            <form onSubmit={onSubmit} className="space-y-3.5">
+              {setupRequired && (
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-chalk mb-1">
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className={fieldClass}
+                    placeholder="Admin User"
+                  />
+                </div>
+              )}
 
           <form onSubmit={onSubmit} className="space-y-4">
             {setupRequired && (
               <div>
-                <label className="block text-xs text-mist mb-1.5" htmlFor="name">
-                  Name
+                <label htmlFor="email" className="block text-sm font-medium text-chalk mb-1">
+                  Email
                 </label>
                 <input
                   id="name"
@@ -116,17 +134,69 @@ export default function LoginPage() {
               />
             </div>
 
-            {error && <div className="text-xs text-signal-fail">{error}</div>}
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-chalk mb-1">
+                  Password
+                </label>
+                <PasswordField
+                  id="password"
+                  required
+                  value={password}
+                  onChange={setPassword}
+                  show={showPassword}
+                  onToggleShow={() => setShowPassword((v) => !v)}
+                />
+              </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-signal-pass text-onaccent font-semibold text-sm rounded-md py-2.5 hover:brightness-110 transition disabled:opacity-60"
-            >
-              {loading ? (setupRequired ? "Creating…" : "Signing in…") : setupRequired ? "Create admin" : "Sign in"}
-            </button>
-          </form>
+              {!setupRequired && (
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-2 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      className="h-4 w-4 rounded border-line text-signal-pass focus:ring-signal-pass/30"
+                    />
+                    <span className="text-sm text-mist">Remember Me</span>
+                  </label>
+                  <a
+                    href="#"
+                    className="text-sm font-medium text-signal-pass hover:brightness-110 transition"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    Forgot Your Password?
+                  </a>
+                </div>
+              )}
+
+              {error && (
+                <div className="text-sm text-signal-fail bg-signal-fail/10 border border-signal-fail/20 rounded-xl px-3 py-2">
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-chalk dark:bg-signal-pass text-panel dark:text-onaccent hover:opacity-90 font-semibold text-sm rounded-full py-2.5 transition disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {loading
+                  ? setupRequired
+                    ? "Creating…"
+                    : "Signing in…"
+                  : setupRequired
+                    ? "Create admin"
+                    : "Log in"}
+              </button>
+            </form>
+          </div>
+
+          <p className="text-[11px] text-mist mt-8 md:mt-0 md:absolute md:bottom-8 md:left-10 lg:left-12">
+            Copyright © 2026 UTC Auditor. All rights reserved.
+          </p>
         </div>
+
+        <InteractivePreview />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import ClientListPanel, { ClientRow } from "@/components/ClientListPanel";
 import CreateClientButton from "@/components/CreateClientButton";
 import CreateUserButton from "@/components/CreateUserButton";
 import ProjectsBoard from "@/components/ProjectsBoard";
+import PageEnter from "@/components/PageEnter";
 
 export default async function DashboardPage() {
   const session = getSession();
@@ -18,13 +19,15 @@ export default async function DashboardPage() {
     const items = await loadProjectBoardItems(projects);
 
     return (
-      <div>
-        <div className="mb-8">
-          <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">Your projects</div>
-          <h1 className="font-display text-3xl font-bold">Audit Console</h1>
+      <PageEnter>
+        <div>
+          <div className="mb-8">
+            <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">Your projects</div>
+            <h1 className="font-display text-3xl font-bold">Audit Console</h1>
+          </div>
+          <ProjectsBoard clientId={projects[0]?.clientId ?? ""} isAdmin={false} items={items} />
         </div>
-        <ProjectsBoard clientId={projects[0]?.clientId ?? ""} isAdmin={false} items={items} />
-      </div>
+      </PageEnter>
     );
   }
 
@@ -39,22 +42,24 @@ export default async function DashboardPage() {
   }));
 
   return (
-    <div>
-      <div className="flex items-end justify-between mb-8 gap-4">
-        <div>
-          <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">Registered clients</div>
-          <h1 className="font-display text-3xl font-bold">Audit Console</h1>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="text-xs text-mist font-mono">
-            {rows.length} client{rows.length === 1 ? "" : "s"}
+    <PageEnter>
+      <div>
+        <div className="flex items-end justify-between mb-8 gap-4">
+          <div>
+            <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">Registered clients</div>
+            <h1 className="font-display text-3xl font-bold">Audit Console</h1>
           </div>
-          <CreateClientButton />
-          <CreateUserButton clients={rows.map((c) => ({ id: c.id, name: c.name }))} />
+          <div className="flex items-center gap-3">
+            <div className="text-xs text-mist font-mono">
+              {rows.length} client{rows.length === 1 ? "" : "s"}
+            </div>
+            <CreateClientButton />
+            <CreateUserButton clients={rows.map((c) => ({ id: c.id, name: c.name }))} />
+          </div>
         </div>
-      </div>
 
-      <ClientListPanel clients={rows} />
-    </div>
+        <ClientListPanel clients={rows} />
+      </div>
+    </PageEnter>
   );
 }
