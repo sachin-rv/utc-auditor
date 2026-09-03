@@ -11,7 +11,7 @@ import StatusPill from "@/components/StatusPill";
 import type { CoverageMetrics, Finding } from "@/lib/types";
 import type { ReportPipeline } from "@/lib/api-types";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import PageEnter from "@/components/PageEnter";
+import PageEnter, { listContainer, listItem } from "@/components/PageEnter";
 import { cardClass, cardInteractiveClass, chipActiveClass, chipClass, chipIdleClass } from "@/lib/ui";
 
 export interface ReportViewModel {
@@ -38,11 +38,34 @@ function fmtDateTime(iso: string) {
   });
 }
 
+function scoreTone(score: number) {
+  if (score < 60) return "fail" as const;
+  if (score < 80) return "warn" as const;
+  if (score < 90) return "info" as const;
+  return "pass" as const;
+}
+
 function scoreColor(score: number) {
-  if (score < 60) return "text-signal-fail";
-  if (score < 80) return "text-signal-warn";
-  if (score < 90) return "text-signal-info";
+  const t = scoreTone(score);
+  if (t === "fail") return "text-signal-fail";
+  if (t === "warn") return "text-signal-warn";
+  if (t === "info") return "text-signal-info";
   return "text-signal-pass";
+}
+
+function scoreLabel(score: number) {
+  if (score < 60) return "Critical";
+  if (score < 80) return "Needs work";
+  if (score < 90) return "Good";
+  return "Strong";
+}
+
+function scoreBadgeClass(score: number) {
+  const t = scoreTone(score);
+  if (t === "fail") return "bg-signal-fail/10 border-signal-fail/30";
+  if (t === "warn") return "bg-signal-warn/10 border-signal-warn/30";
+  if (t === "info") return "bg-signal-info/10 border-signal-info/30";
+  return "bg-signal-pass/10 border-signal-pass/30";
 }
 
 export default function ReportView({
@@ -88,9 +111,23 @@ export default function ReportView({
           </div>
           <div className="text-sm text-mist mt-1">{fmtDateTime(view.timestamp)}</div>
         </div>
-        <div className="flex items-center gap-3">
-          <span className={`font-display text-4xl font-bold ${scoreColor(view.overallScore)}`}>{view.overallScore}</span>
-        </div>
+        <button
+          type="button"
+          onClick={() => {
+            setTab("overview");
+            requestAnimationFrame(() => {
+              document.getElementById("overview-metrics")?.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+          }}
+          className={`text-right rounded-2xl border px-4 py-2.5 min-w-[9.5rem] shadow-xl shadow-black/5 dark:shadow-black/40 hover:brightness-105 transition ${scoreBadgeClass(view.overallScore)}`}
+        >
+          <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-mist">Overall score</div>
+          <div className={`font-display text-4xl font-bold tabular-nums leading-none mt-1 ${scoreColor(view.overallScore)}`}>
+            {view.overallScore}
+            <span className="text-base font-medium text-mist"> /100</span>
+          </div>
+          <div className={`text-[11px] font-medium mt-1 ${scoreColor(view.overallScore)}`}>{scoreLabel(view.overallScore)}</div>
+        </button>
       </div>
 
       <div className="flex flex-wrap items-center gap-2 mb-6 border-b border-line pb-3">
@@ -117,7 +154,88 @@ export default function ReportView({
             exit={reduced ? undefined : { opacity: 0, y: -6 }}
             transition={{ duration: reduced ? 0 : 0.25 }}
           >
-          <div className={`w-full mb-6 ${cardClass} overflow-hidden`}>
+          <motion.div
+            id="overview-metrics"
+            className="grid md:grid-cols-[auto_1fr] gap-6 mb-6"
+            variants={reduced ? undefined : listContainer}
+            initial={reduced ? false : "hidden"}
+            animate="show"
+          >
+            {view.hasDetailed ? (
+              <motion.div variants={reduced ? undefined : listItem} whileHover={reduced ? undefined : { y: -2 }}>
+                <Link
+                  href={`/dashboard/client/${view.clientId}/report/${view.id}/details`}
+                  className={`${cardInteractiveClass} p-6 flex flex-col items-center justify-center gap-2 h-full`}
+                >
+                  <ScoreDial score={view.overallScore} size={172} />
+                  <span className="text-[11px] text-signal-pass">Open detailed breakdown →</span>
+                </Link>
+              </motion.div>
+            ) : (
+              <motion.div variants={reduced ? undefined : listItem} className={`${cardClass} p-6 flex flex-col items-center justify-center gap-2`}>
+                <ScoreDial score={view.overallScore} size={172} />
+              </motion.div>
+            )}
+            <motion.div className="grid sm:grid-cols-2 gap-6" variants={reduced ? undefined : listItem}>
+              <motion.button
+                type="button"
+                variants={reduced ? undefined : listItem}
+                whileHover={reduced ? undefined : { y: -2 }}
+                onClick={() => setTab("findings")}
+                className={`text-left ${cardInteractiveClass} p-6`}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-xs uppercase tracking-widest text-mist">Coverage</div>
+                  <span className="text-[11px] text-signal-pass">Findings →</span>
+                </div>
+                <CoverageBars coverage={view.coverage} />
+              </motion.button>
+              <motion.button
+                type="button"
+                variants={reduced ? undefined : listItem}
+                whileHover={reduced ? undefined : { y: -2 }}
+                onClick={() => setTab("findings")}
+                className={`text-left ${cardInteractiveClass} p-6`}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-xs uppercase tracking-widest text-mist">Test execution</div>
+                  <span className="text-[11px] font-mono text-mist">{passRate}% pass rate</span>
+                </div>
+                <div className="grid grid-cols-2 gap-y-3 text-sm font-mono">
+                  <span className="text-mist">Total</span>
+                  <span className="text-right">{view.testExecution.total.toLocaleString()}</span>
+                  <span className="text-signal-pass">Passed</span>
+                  <span className="text-right text-signal-pass">{view.testExecution.passed.toLocaleString()}</span>
+                  <span className="text-signal-fail">Failed</span>
+                  <span className="text-right text-signal-fail">{view.testExecution.failed.toLocaleString()}</span>
+                </div>
+                <div className="mt-4 h-1.5 rounded-full bg-panel2 overflow-hidden">
+                  <motion.div
+                    className="h-full bg-signal-pass"
+                    initial={reduced ? false : { width: 0 }}
+                    animate={{ width: `${Math.min(100, passRate)}%` }}
+                    transition={{ duration: reduced ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                </div>
+                <div className="text-[11px] text-signal-pass mt-3">View findings →</div>
+              </motion.button>
+            </motion.div>
+          </motion.div>
+
+          {view.hasDetailed && (
+            <Link
+              href={`/dashboard/client/${view.clientId}/report/${view.id}/details`}
+              className={`group mb-6 flex items-center justify-between ${cardInteractiveClass} px-5 py-3.5`}
+            >
+              <div>
+                <div className="text-sm font-medium">Detailed test-quality breakdown</div>
+                <div className="text-xs text-mist mt-0.5">Per-file coverage, quality findings, and sub-scores</div>
+              </div>
+              <span className="text-mist group-hover:text-signal-pass group-hover:translate-x-0.5 transition-all">→</span>
+            </Link>
+          )}
+
+          <div className={`w-full ${cardClass} overflow-hidden`}>
             <button
               type="button"
               onClick={() => setPipelineOpen((v) => !v)}
@@ -147,53 +265,6 @@ export default function ReportView({
                 <MetaRow label="Run id" value={view.pipeline?.runId ?? "—"} />
               </dl>
             )}
-          </div>
-
-          {view.hasDetailed && (
-            <Link
-              href={`/dashboard/client/${view.clientId}/report/${view.id}/details`}
-              className={`group mb-6 flex items-center justify-between ${cardInteractiveClass} px-5 py-3.5`}
-            >
-              <div>
-                <div className="text-sm font-medium">Detailed test-quality breakdown</div>
-                <div className="text-xs text-mist mt-0.5">Per-file coverage, quality findings, and sub-scores</div>
-              </div>
-              <span className="text-mist group-hover:text-signal-pass transition-colors">→</span>
-            </Link>
-          )}
-
-          <div className="grid md:grid-cols-[auto_1fr] gap-8 mb-10">
-            <div className={`${cardClass} p-6 flex flex-col items-center justify-center gap-2`}>
-              <ScoreDial score={view.overallScore} size={172} />
-            </div>
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className={`${cardClass} p-6`}>
-                <div className="text-xs uppercase tracking-widest text-mist mb-4">Coverage</div>
-                <CoverageBars coverage={view.coverage} />
-              </div>
-              <div className={`${cardClass} p-6`}>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="text-xs uppercase tracking-widest text-mist">Test execution</div>
-                  <span className="text-[11px] font-mono text-mist">{passRate}% pass rate</span>
-                </div>
-                <div className="grid grid-cols-2 gap-y-3 text-sm font-mono">
-                  <span className="text-mist">Total</span>
-                  <span className="text-right">{view.testExecution.total}</span>
-                  <span className="text-signal-pass">Passed</span>
-                  <span className="text-right text-signal-pass">{view.testExecution.passed}</span>
-                  <span className="text-signal-fail">Failed</span>
-                  <span className="text-right text-signal-fail">{view.testExecution.failed}</span>
-                </div>
-                <div className="mt-4 h-1.5 rounded-full bg-panel2 overflow-hidden">
-                  <motion.div
-                    className="h-full bg-signal-pass"
-                    initial={reduced ? false : { width: 0 }}
-                    animate={{ width: `${Math.min(100, passRate)}%` }}
-                    transition={{ duration: reduced ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                </div>
-              </div>
-            </div>
           </div>
           </motion.div>
         )}
