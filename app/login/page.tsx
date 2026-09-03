@@ -3,43 +3,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
+import Logo from "@/components/Logo";
 import InteractivePreview from "@/components/login-preview/InteractivePreview";
-
-function Logo() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
-      <rect width="28" height="28" rx="8" className="fill-signal-pass" />
-      <path
-        d="M8 10.5h12M8 14h12M8 17.5h8"
-        stroke="white"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-      />
-      <circle cx="19" cy="17.5" r="2" fill="white" />
-    </svg>
-  );
-}
-
-function EyeIcon({ open }: { open: boolean }) {
-  if (open) {
-    return (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    );
-  }
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-      <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-      <line x1="1" y1="1" x2="23" y2="23" />
-    </svg>
-  );
-}
-
-const fieldClass =
-  "w-full bg-panel2 border border-line rounded-xl px-3.5 py-2.5 text-sm text-chalk placeholder:text-mist/70 outline-none focus:border-signal-pass focus:ring-2 focus:ring-signal-pass/20 transition";
+import PasswordField from "@/components/PasswordField";
+import { fieldClass } from "@/lib/ui";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -95,8 +62,8 @@ export default function LoginPage() {
           </div>
 
           <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
-            <div className="text-center mb-8">
-              <h1 className="font-display text-2xl sm:text-3xl font-bold text-chalk mb-2">
+            <div className="text-center mb-6">
+              <h1 className="font-display text-2xl sm:text-3xl font-bold text-chalk mb-1.5">
                 {setupRequired ? "Create Your Account" : "Welcome Back"}
               </h1>
               <p className="text-sm text-mist leading-relaxed">
@@ -106,10 +73,10 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <form onSubmit={onSubmit} className="space-y-5">
+            <form onSubmit={onSubmit} className="space-y-3.5">
               {setupRequired && (
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-chalk mb-1.5">
+                  <label htmlFor="name" className="block text-sm font-medium text-chalk mb-1">
                     Name
                   </label>
                   <input
@@ -124,7 +91,7 @@ export default function LoginPage() {
               )}
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-chalk mb-1.5">
+                <label htmlFor="email" className="block text-sm font-medium text-chalk mb-1">
                   Email
                 </label>
                 <input
@@ -139,28 +106,17 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-chalk mb-1.5">
+                <label htmlFor="password" className="block text-sm font-medium text-chalk mb-1">
                   Password
                 </label>
-                <div className="relative">
-                  <input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className={`${fieldClass} pr-11`}
-                    placeholder="••••••••"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-mist hover:text-chalk transition"
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                  >
-                    <EyeIcon open={showPassword} />
-                  </button>
-                </div>
+                <PasswordField
+                  id="password"
+                  required
+                  value={password}
+                  onChange={setPassword}
+                  show={showPassword}
+                  onToggleShow={() => setShowPassword((v) => !v)}
+                />
               </div>
 
               {!setupRequired && (

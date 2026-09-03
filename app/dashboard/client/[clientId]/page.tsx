@@ -7,6 +7,8 @@ import { loadProjectBoardItems } from "@/lib/load-project-reports";
 import CreateProjectButton from "@/components/CreateProjectButton";
 import CreateUserButton from "@/components/CreateUserButton";
 import ProjectsBoard from "@/components/ProjectsBoard";
+import PageEnter from "@/components/PageEnter";
+import { emptyStateClass } from "@/lib/ui";
 
 export default async function ClientProjectsPage({ params }: { params: { clientId: string } }) {
   const session = getSession();
@@ -32,9 +34,10 @@ export default async function ClientProjectsPage({ params }: { params: { clientI
     .sort((a, b) => b - a)[0];
 
   return (
+    <PageEnter>
     <div>
       {isAdmin && (
-        <Link href="/dashboard" className="text-xs text-mist hover:text-chalk font-mono mb-4 inline-block">
+        <Link href="/dashboard" className="text-xs text-mist hover:text-chalk font-mono mb-4 inline-block hover:-translate-x-0.5 transition-transform">
           ← All clients
         </Link>
       )}
@@ -66,12 +69,13 @@ export default async function ClientProjectsPage({ params }: { params: { clientI
       </div>
 
       {projects.length === 0 ? (
-        <div className="border border-line bg-panel rounded-xl px-6 py-12 text-center text-sm text-mist">
+        <div className={emptyStateClass}>
           No projects yet{isAdmin ? " — add one to start collecting reports." : "."}
         </div>
       ) : (
         <ProjectsBoard clientId={params.clientId} isAdmin={isAdmin} items={items} />
       )}
     </div>
+    </PageEnter>
   );
 }

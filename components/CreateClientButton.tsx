@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/Modal";
 import { createClientAction } from "@/app/dashboard/actions";
+import PasswordField from "@/components/PasswordField";
+import { btnPrimaryClass, btnSecondaryClass, errorBoxClass, fieldClass } from "@/lib/ui";
 
-const inputClass =
-  "w-full bg-panel2 border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-signal-pass/60 transition-colors";
+const inputClass = fieldClass;
 
 function slugify(value: string) {
   return value
@@ -27,6 +28,7 @@ export default function CreateClientButton() {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -39,6 +41,7 @@ export default function CreateClientButton() {
     setUserName("");
     setUserEmail("");
     setUserPassword("");
+    setShowPassword(false);
     setError(null);
   }
 
@@ -66,12 +69,12 @@ export default function CreateClientButton() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-2 hover:brightness-110 transition"
+        className={btnPrimaryClass}
       >
         Create client
       </button>
       <Modal open={open} onClose={() => setOpen(false)} title="Create client" widthClass="max-w-lg">
-        <form onSubmit={onSubmit} className="space-y-3">
+        <form onSubmit={onSubmit} className="space-y-3.5">
           <Field label="Organization name">
             <input
               required
@@ -113,7 +116,7 @@ export default function CreateClientButton() {
           </label>
 
           {withUser && (
-            <div className="grid sm:grid-cols-2 gap-3 border border-line rounded-lg p-3">
+            <div className="grid sm:grid-cols-2 gap-x-3 gap-y-3.5 border border-line rounded-2xl p-3.5">
               <Field label="User name">
                 <input required={withUser} value={userName} onChange={(e) => setUserName(e.target.value)} className={inputClass} />
               </Field>
@@ -126,28 +129,26 @@ export default function CreateClientButton() {
                   className={inputClass}
                 />
               </Field>
-              <Field label="Password">
-                <input
-                  type="password"
-                  required={withUser}
-                  value={userPassword}
-                  onChange={(e) => setUserPassword(e.target.value)}
-                  className={inputClass}
-                />
-              </Field>
+              <div className="sm:col-span-2">
+                <Field label="Password">
+                  <PasswordField
+                    required={withUser}
+                    value={userPassword}
+                    onChange={setUserPassword}
+                    show={showPassword}
+                    onToggleShow={() => setShowPassword((v) => !v)}
+                  />
+                </Field>
+              </div>
             </div>
           )}
 
-          {error && <div className="text-xs text-signal-fail">{error}</div>}
+          {error && <div className={errorBoxClass}>{error}</div>}
           <div className="flex justify-end gap-2 pt-2">
-            <button type="button" onClick={() => setOpen(false)} className="text-xs border border-line rounded-md px-3 py-1.5 text-mist">
+            <button type="button" onClick={() => setOpen(false)} className={btnSecondaryClass}>
               Cancel
             </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="text-xs font-semibold bg-signal-pass text-onaccent rounded-md px-3 py-1.5 disabled:opacity-60"
-            >
+            <button type="submit" disabled={loading} className={btnPrimaryClass}>
               {loading ? "Creating…" : "Create"}
             </button>
           </div>
@@ -160,7 +161,7 @@ export default function CreateClientButton() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs text-mist mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-chalk mb-1">{label}</label>
       {children}
     </div>
   );
