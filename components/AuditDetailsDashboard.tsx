@@ -911,28 +911,26 @@ function Pager({
   onNext: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between mt-3 text-[11px] font-mono text-mist">
-      <span>
-        {total.toLocaleString()} shown · page {page} / {pages}
+    <div className="mt-3 flex items-center justify-end gap-2 text-[11px] font-mono text-mist">
+      <button
+        type="button"
+        disabled={page <= 1}
+        onClick={onPrev}
+        className="inline-flex min-w-[72px] items-center justify-center rounded-full border border-line bg-panel2/70 px-3 py-1.5 font-medium text-mist transition-all hover:border-signal-pass/40 hover:text-signal-pass hover:bg-signal-pass/5 disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-line disabled:hover:text-mist disabled:hover:bg-panel2/70"
+      >
+        Prev
+      </button>
+      <span className="inline-flex min-w-[52px] justify-center rounded-full border border-signal-pass/35 bg-signal-pass/10 px-2.5 py-1.5 text-signal-pass">
+        {page}/{pages}
       </span>
-      <div className="flex gap-2">
-        <button
-          type="button"
-          disabled={page <= 1}
-          onClick={onPrev}
-          className="border border-line rounded-full px-3 py-1 disabled:opacity-40 hover:border-mist transition"
-        >
-          Prev
-        </button>
-        <button
-          type="button"
-          disabled={page >= pages}
-          onClick={onNext}
-          className="border border-line rounded-full px-3 py-1 disabled:opacity-40 hover:border-mist transition"
-        >
-          Next
-        </button>
-      </div>
+      <button
+        type="button"
+        disabled={page >= pages}
+        onClick={onNext}
+        className="inline-flex min-w-[72px] items-center justify-center rounded-full border border-line bg-panel2/70 px-3 py-1.5 font-medium text-mist transition-all hover:border-signal-pass/40 hover:text-signal-pass hover:bg-signal-pass/5 disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-line disabled:hover:text-mist disabled:hover:bg-panel2/70"
+      >
+        Next
+      </button>
     </div>
   );
 }
