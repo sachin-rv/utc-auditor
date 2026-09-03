@@ -12,7 +12,7 @@ import type {
 } from "@/lib/user-report";
 import { countTone, gradeTone, scoreTone } from "@/lib/user-report";
 import { motion, useReducedMotion } from "framer-motion";
-import { fieldCompactClass } from "@/lib/ui";
+import { fieldCompactClass, fieldInlineClass } from "@/lib/ui";
 import { listContainer, listItem } from "@/components/PageEnter";
 
 type SectionId = "static" | "failed" | "files" | "cms" | "missing" | "coverage";
@@ -401,6 +401,46 @@ function Empty({ children }: { children: React.ReactNode }) {
   return <div className="text-sm text-mist text-center px-8 py-16">{children}</div>;
 }
 
+function Pager({
+  total,
+  page,
+  pages,
+  onPrev,
+  onNext,
+}: {
+  total: number;
+  page: number;
+  pages: number;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  return (
+    <div className="flex items-center justify-between mt-3 text-[11px] font-mono text-mist">
+      <span>
+        {total} shown · page {page} / {pages}
+      </span>
+      <div className="flex gap-2">
+        <button
+          type="button"
+          disabled={page <= 1}
+          onClick={onPrev}
+          className="border border-line rounded-full px-3 py-1 disabled:opacity-40 hover:border-mist transition"
+        >
+          Prev
+        </button>
+        <button
+          type="button"
+          disabled={page >= pages}
+          onClick={onNext}
+          className="border border-line rounded-full px-3 py-1 disabled:opacity-40 hover:border-mist transition"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function IssuesTable({
   issues,
   strategyTitles = {},
@@ -442,17 +482,17 @@ function IssuesTable({
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2 mb-3">
+      <div className="flex items-center gap-2 mb-3 min-w-0">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search file, rule, strategy, message…"
-          className={`flex-1 min-w-[12rem] ${fieldCompactClass}`}
+          className={`${fieldInlineClass} min-w-0 flex-1`}
         />
         <select
           value={severity}
           onChange={(e) => setSeverity(e.target.value)}
-          className={`${fieldCompactClass} w-auto text-[11px] font-mono text-mist`}
+          className={`${fieldInlineClass} shrink-0 w-auto text-[11px] font-mono text-mist`}
         >
           <option value="all">All severities</option>
           <option value="error">Error</option>
@@ -462,7 +502,7 @@ function IssuesTable({
         <select
           value={strategy}
           onChange={(e) => setStrategy(e.target.value)}
-          className={`${fieldCompactClass} w-auto text-[11px] font-mono text-mist`}
+          className={`${fieldInlineClass} shrink-0 w-auto text-[11px] font-mono text-mist`}
         >
           <option value="all">All strategies</option>
           {strategies.map((s) => (
@@ -504,59 +544,57 @@ function IssuesTable({
           </tbody>
         </table>
       </div>
-      <div className="flex items-center justify-between mt-3 text-[11px] font-mono text-mist">
-        <span>
-          {filtered.length} shown · page {page} / {pages}
-        </span>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            disabled={page <= 1}
-            onClick={() => setPage((p) => p - 1)}
-            className="border border-line rounded-full px-3 py-1 disabled:opacity-40 hover:border-mist transition"
-          >
-            Prev
-          </button>
-          <button
-            type="button"
-            disabled={page >= pages}
-            onClick={() => setPage((p) => p + 1)}
-            className="border border-line rounded-full px-3 py-1 disabled:opacity-40 hover:border-mist transition"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+      <Pager
+        total={filtered.length}
+        page={page}
+        pages={pages}
+        onPrev={() => setPage((p) => p - 1)}
+        onNext={() => setPage((p) => p + 1)}
+      />
     </div>
   );
 }
 
 function TestFilesTable({ files }: { files: TestFileResult[] }) {
+  const [page, setPage] = useState(1);
+  const pages = Math.max(1, Math.ceil(files.length / PAGE_SIZE));
+  const slice = files.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   if (files.length === 0) return <Empty>No test file results in this run.</Empty>;
+
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-left text-xs">
-        <thead className="text-[10px] uppercase tracking-widest text-mist">
-          <tr className="border-b border-line">
-            <th className="py-2 pr-3 font-medium">File</th>
-            <th className="py-2 pr-3 font-medium">Passed</th>
-            <th className="py-2 pr-3 font-medium">Failed</th>
-            <th className="py-2 font-medium">Duration</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-line">
-          {files.map((f) => (
-            <tr key={f.file}>
-              <td className="py-2.5 pr-3 font-mono" title={f.file}>
-                {f.fileShort}
-              </td>
-              <td className="py-2.5 pr-3 font-mono text-signal-pass">{f.passing}</td>
-              <td className={`py-2.5 pr-3 font-mono ${f.failing ? "text-signal-fail" : "text-mist"}`}>{f.failing}</td>
-              <td className="py-2.5 font-mono text-mist">{f.duration}ms</td>
+    <div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-left text-xs">
+          <thead className="text-[10px] uppercase tracking-widest text-mist">
+            <tr className="border-b border-line">
+              <th className="py-2 pr-3 font-medium">File</th>
+              <th className="py-2 pr-3 font-medium">Passed</th>
+              <th className="py-2 pr-3 font-medium">Failed</th>
+              <th className="py-2 font-medium">Duration</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-y divide-line">
+            {slice.map((f) => (
+              <tr key={f.file}>
+                <td className="py-2.5 pr-3 font-mono" title={f.file}>
+                  {f.fileShort}
+                </td>
+                <td className="py-2.5 pr-3 font-mono text-signal-pass">{f.passing}</td>
+                <td className={`py-2.5 pr-3 font-mono ${f.failing ? "text-signal-fail" : "text-mist"}`}>{f.failing}</td>
+                <td className="py-2.5 font-mono text-mist">{f.duration}ms</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <Pager
+        total={files.length}
+        page={page}
+        pages={pages}
+        onPrev={() => setPage((p) => Math.max(1, p - 1))}
+        onNext={() => setPage((p) => Math.min(pages, p + 1))}
+      />
     </div>
   );
 }
@@ -576,30 +614,116 @@ function FailedTable({ cases }: { cases: FailedCase[] }) {
 }
 
 function RecommendationsList({ items }: { items: CompletenessRec[] }) {
+  const [query, setQuery] = useState("");
+  const [priority, setPriority] = useState("all");
+  const [kind, setKind] = useState("all");
+  const [page, setPage] = useState(1);
+
+  const priorities = useMemo(
+    () => Array.from(new Set(items.map((i) => i.priority).filter(Boolean))).sort(),
+    [items]
+  );
+  const kinds = useMemo(
+    () => Array.from(new Set(items.map((i) => i.kind).filter(Boolean))).sort(),
+    [items]
+  );
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return items.filter((item) => {
+      if (priority !== "all" && item.priority !== priority) return false;
+      if (kind !== "all" && item.kind !== kind) return false;
+      if (!q) return true;
+      return (
+        item.sourceShort.toLowerCase().includes(q) ||
+        item.source.toLowerCase().includes(q) ||
+        item.why.toLowerCase().includes(q) ||
+        item.suggest.toLowerCase().includes(q) ||
+        item.tag.toLowerCase().includes(q) ||
+        item.kind.toLowerCase().includes(q) ||
+        item.exports.some((e) => e.toLowerCase().includes(q))
+      );
+    });
+  }, [items, query, priority, kind]);
+
+  useEffect(() => setPage(1), [query, priority, kind]);
+
+  const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const slice = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   if (items.length === 0) return <Empty>No missing-test recommendations.</Empty>;
+
   return (
-    <div className="space-y-3">
-      {items.map((item) => (
-        <div key={item.source} className="border border-line rounded-2xl p-3">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="font-mono text-xs">{item.sourceShort}</span>
-            <Chip tone={item.priority === "high" ? "fail" : "warn"}>{item.priority}</Chip>
-            <Chip>{item.tag}</Chip>
-            <Chip>{item.kind}</Chip>
+    <div>
+      <div className="flex items-center gap-2 mb-3 min-w-0">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search file, reason, suggestion…"
+          className={`${fieldInlineClass} min-w-0 flex-1`}
+        />
+        <select
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+          className={`${fieldInlineClass} shrink-0 w-auto text-[11px] font-mono text-mist`}
+        >
+          <option value="all">All priorities</option>
+          {priorities.map((p) => (
+            <option key={p} value={p}>
+              {p}
+            </option>
+          ))}
+        </select>
+        <select
+          value={kind}
+          onChange={(e) => setKind(e.target.value)}
+          className={`${fieldInlineClass} shrink-0 w-auto text-[11px] font-mono text-mist`}
+        >
+          <option value="all">All kinds</option>
+          {kinds.map((k) => (
+            <option key={k} value={k}>
+              {k}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {filtered.length === 0 ? (
+        <Empty>No recommendations match the current filters.</Empty>
+      ) : (
+        <>
+          <div className="space-y-3">
+            {slice.map((item) => (
+              <div key={item.source} className="border border-line rounded-2xl p-3">
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <span className="font-mono text-xs">{item.sourceShort}</span>
+                  <Chip tone={item.priority === "high" ? "fail" : "warn"}>{item.priority}</Chip>
+                  <Chip>{item.tag}</Chip>
+                  <Chip>{item.kind}</Chip>
+                </div>
+                <p className="text-sm mt-1">{item.why}</p>
+                <p className="text-xs text-mist mt-1.5">{item.suggest}</p>
+                {item.exports.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {item.exports.map((e) => (
+                      <span key={e} className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-line text-mist">
+                        {e}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-          <p className="text-sm mt-1">{item.why}</p>
-          <p className="text-xs text-mist mt-1.5">{item.suggest}</p>
-          {item.exports.length > 0 && (
-            <div className="flex flex-wrap gap-1 mt-2">
-              {item.exports.map((e) => (
-                <span key={e} className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-line text-mist">
-                  {e}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+          <Pager
+            total={filtered.length}
+            page={page}
+            pages={pages}
+            onPrev={() => setPage((p) => Math.max(1, p - 1))}
+            onNext={() => setPage((p) => Math.min(pages, p + 1))}
+          />
+        </>
+      )}
     </div>
   );
 }
