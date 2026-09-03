@@ -172,14 +172,6 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-end gap-2">
-        <button type="button" className={btnGhostClass} onClick={expandAll}>
-          Expand all
-        </button>
-        <button type="button" className={btnGhostClass} onClick={collapseAll}>
-          Collapse all
-        </button>
-      </div>
 
       <HeroRow
         kicker="Quality score"
@@ -305,6 +297,15 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
           </motion.div>
         </div>
       )}
+
+      <div className="flex flex-wrap items-center justify-end gap-2">
+        <button type="button" className={btnGhostClass} onClick={expandAll}>
+          Expand all
+        </button>
+        <button type="button" className={btnGhostClass} onClick={collapseAll}>
+          Collapse all
+        </button>
+      </div>
 
       <div className="space-y-3 pt-4">
         <div ref={refs.static}>
