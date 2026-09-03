@@ -23,9 +23,14 @@ export default function LogoutButton() {
         Sign out
       </button>
 
-      <Modal open={confirming} onClose={() => setConfirming(false)} title="Sign out?" widthClass="max-w-xs">
-        <p className="text-sm text-mist mb-5">You'll need to sign back in to view the audit console.</p>
-        <div className="flex gap-2 justify-end">
+      <Modal
+        open={confirming}
+        onClose={() => setConfirming(false)}
+        title="Sign out"
+        subtitle="You’ll need to sign back in to access the audit console."
+        widthClass="max-w-sm"
+      >
+        <div className="flex gap-2 justify-end pt-1">
           <button onClick={() => setConfirming(false)} className={btnSecondaryClass}>
             Cancel
           </button>
