@@ -70,21 +70,21 @@ export default function ClientListPanel({ clients }: { clients: ClientRow[] }) {
             >
               <Link
                 href={`/dashboard/client/${c.id}`}
-                className={`group ${cardInteractiveClass} p-5 flex items-center justify-between`}
+                className={`group ${cardInteractiveClass} p-5 flex items-center justify-between hover:border-signal-pass transition-colors`}
               >
-                <div className="flex items-center gap-4">
-                  <div className="h-11 w-11 rounded-xl bg-panel2 border border-line flex items-center justify-center font-display font-bold text-mist group-hover:text-signal-pass group-hover:border-signal-pass/30 group-hover:scale-105 transition-all">
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="h-11 w-11 rounded-xl bg-panel2 border border-line flex items-center justify-center font-display font-bold text-mist group-hover:text-signal-pass group-hover:border-signal-pass group-hover:scale-105 transition-all">
                     {c.name.slice(0, 2).toUpperCase()}
                   </div>
-                  <div>
-                    <div className="font-medium">{c.name}</div>
-                    <div className="text-xs text-mist mt-0.5">
+                  <div className="min-w-0">
+                    <div className="font-medium text-chalk group-hover:text-signal-pass transition-colors">{c.name}</div>
+                    <div className="text-xs text-mist mt-0.5 truncate group-hover:text-signal-pass transition-colors">
                       {c.slug} · {c.contactEmail} · {c.projectCount} project{c.projectCount === 1 ? "" : "s"}
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <StatusPill status={c.status} />
+                <div className="flex items-center gap-4 shrink-0">
+                  <StatusPill status={c.status} className="group-hover:!text-signal-pass transition-colors" />
                   <span className="text-mist group-hover:text-signal-pass group-hover:translate-x-0.5 inline-block transition-all">
                     →
                   </span>

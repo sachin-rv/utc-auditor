@@ -4,6 +4,7 @@ import { dashboardHome, getSession } from "@/lib/auth";
 import LogoutButton from "@/components/LogoutButton";
 import ThemeToggle from "@/components/ThemeToggle";
 import Logo from "@/components/Logo";
+import { layoutShellClass } from "@/lib/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +15,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-20 p-4 pb-0">
-        <div className="max-w-6xl mx-auto bg-panel/80 backdrop-blur-xl rounded-2xl border border-line shadow-xl shadow-black/5 dark:shadow-black/40">
+        <div className={`max-w-6xl mx-auto ${layoutShellClass} rounded-2xl`}>
           <div className="px-5 sm:px-6 h-16 flex items-center justify-between">
             <Link href={dashboardHome(session)} className="flex items-center gap-2.5 group">
               <span className="transition-transform duration-300 group-hover:scale-105 group-hover:rotate-[-4deg]">
@@ -37,9 +38,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
         </div>
       </header>
-      <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-8">{children}</main>
-      <footer className="py-6">
-        <div className="max-w-6xl mx-auto px-6 text-[11px] text-mist">
+      <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-8">
+        <div className={`${layoutShellClass} rounded-3xl px-5 sm:px-6 py-6`}>{children}</div>
+      </main>
+      <footer className="px-4 pb-4">
+        <div className={`max-w-6xl mx-auto px-6 py-3 rounded-2xl ${layoutShellClass} text-[11px] text-mist`}>
           Copyright © 2026 UTC Auditor. All rights reserved.
         </div>
       </footer>

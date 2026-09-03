@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import PageBackdrop from "@/components/PageBackdrop";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -44,8 +45,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-body bg-ink text-chalk antialiased grain min-h-screen" suppressHydrationWarning>
-        {children}
+      <body className="font-body text-chalk antialiased min-h-screen relative" suppressHydrationWarning>
+        <PageBackdrop />
+        <div className="relative z-10 min-h-screen">{children}</div>
       </body>
     </html>
   );

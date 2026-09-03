@@ -49,7 +49,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
-      <div className="w-full max-w-5xl bg-panel rounded-2xl md:rounded-3xl border border-line shadow-xl shadow-black/5 dark:shadow-black/40 overflow-hidden flex flex-col md:flex-row md:min-h-[640px]">
+      <div className="w-full max-w-5xl bg-panel/90 dark:bg-panel/85 backdrop-blur-xl rounded-2xl md:rounded-3xl border border-white/70 dark:border-white/[0.08] shadow-xl shadow-black/5 dark:shadow-black/40 overflow-hidden flex flex-col md:flex-row md:min-h-[640px]">
         <div className="flex-1 flex flex-col p-8 sm:p-10 md:p-12 relative">
           <div className="flex items-center justify-between mb-10">
             <div className="flex items-center gap-2.5">
