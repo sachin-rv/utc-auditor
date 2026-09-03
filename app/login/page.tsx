@@ -13,8 +13,6 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [setupRequired, setSetupRequired] = useState(false);
@@ -60,6 +58,7 @@ export default function LoginPage() {
             </div>
             <ThemeToggle />
           </div>
+        </div>
 
           <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
             <div className="text-center mb-6">
@@ -90,20 +89,50 @@ export default function LoginPage() {
                 </div>
               )}
 
+          <form onSubmit={onSubmit} className="space-y-4">
+            {setupRequired && (
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-chalk mb-1">
                   Email
                 </label>
                 <input
-                  id="email"
-                  type="email"
+                  id="name"
                   required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={fieldClass}
-                  placeholder="email@company.com"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={inputClass}
+                  placeholder="Admin User"
                 />
               </div>
+            )}
+            <div>
+              <label className="block text-xs text-mist mb-1.5" htmlFor="email">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={inputClass}
+                placeholder="you@company.com"
+              />
+            </div>
+            <div>
+              <label className="block text-xs text-mist mb-1.5" htmlFor="password">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={inputClass}
+                placeholder="••••••••"
+              />
+            </div>
 
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-chalk mb-1">
