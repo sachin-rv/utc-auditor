@@ -59,11 +59,11 @@ export default function ScoreDial({
           <span className="font-display text-4xl font-bold tabular-nums" style={{ color }}>
             {Math.round(score)}
           </span>
-          <span className="text-[10px] uppercase tracking-widest text-mist mt-0.5">/ 100</span>
+          <span className="text-[10px] uppercase tracking-wider text-chalk/80 mt-0.5">/ 100</span>
         </div>
       </div>
       <div className="text-center">
-        <div className="text-xs uppercase tracking-widest text-mist">{label}</div>
+        <div className="text-xs uppercase tracking-wider text-chalk/80">{label}</div>
         <div className="text-sm font-medium mt-0.5" style={{ color }}>
           {bandLabel(score)}
         </div>

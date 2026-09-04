@@ -249,7 +249,7 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
             variants={reduced ? undefined : listItem}
             whileHover={reduced ? undefined : { y: -3 }}
             whileTap={reduced ? undefined : { scale: 0.98 }}
-            className={`text-left border ${TONE_BORDER[m.tone]} bg-panel rounded-2xl p-3 shadow-xl shadow-black/5 dark:shadow-black/40 hover:border-signal-pass/40 transition`}
+            className="text-left border border-white/10 bg-[linear-gradient(180deg,rgba(12,34,34,0.28),rgba(8,22,22,0.34))] backdrop-blur-md rounded-2xl p-3 shadow-[0_18px_40px_rgba(1,13,14,0.22)] ring-1 ring-white/5 hover:border-emerald-300/40 transition"
           >
             <div className="flex items-start justify-between gap-2 mb-2">
               <div className="text-[10px] uppercase tracking-widest text-mist leading-tight">{m.label}</div>
@@ -282,7 +282,7 @@ export default function AuditDetailsDashboard({ data }: { data: UserReportView }
                 onClick={() => openStrategy(s)}
                 variants={reduced ? undefined : listItem}
                 whileHover={reduced ? undefined : { y: -2 }}
-                className="text-left border border-line bg-panel rounded-2xl p-4 shadow-xl shadow-black/5 dark:shadow-black/40 hover:border-signal-pass/40 transition"
+                className="text-left border border-white/10 bg-[linear-gradient(180deg,rgba(12,34,34,0.24),rgba(8,22,22,0.32))] backdrop-blur-md rounded-2xl p-4 shadow-[0_18px_40px_rgba(1,13,14,0.2)] ring-1 ring-white/5 hover:border-emerald-300/40 transition"
               >
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <div className="text-sm font-medium">{s.title}</div>
@@ -789,7 +789,7 @@ function HeroRow({
       whileHover={reduced ? undefined : { y: -2 }}
       className="w-full text-left grid md:grid-cols-[minmax(0,11rem)_minmax(0,11rem)_1fr] gap-3 cursor-pointer"
     >
-      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-2xl p-4 shadow-xl shadow-black/5 dark:shadow-black/40`}>
+      <div className="border border-white/10 bg-[linear-gradient(180deg,rgba(12,34,34,0.28),rgba(8,22,22,0.34))] backdrop-blur-md rounded-2xl p-4 shadow-[0_18px_40px_rgba(1,13,14,0.2)] ring-1 ring-white/5">
         <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-mist mb-1">
           {kicker}
           <InfoTip label={scoreHelpKey} text={METRIC_HELP[scoreHelpKey] ?? ""} />
@@ -799,7 +799,7 @@ function HeroRow({
           <span className="text-lg text-mist font-medium">/100</span>
         </div>
       </div>
-      <div className={`border ${TONE_BORDER[gTone]} bg-panel rounded-2xl p-4 shadow-xl shadow-black/5 dark:shadow-black/40`}>
+      <div className="border border-white/10 bg-[linear-gradient(180deg,rgba(12,34,34,0.28),rgba(8,22,22,0.34))] backdrop-blur-md rounded-2xl p-4 shadow-[0_18px_40px_rgba(1,13,14,0.2)] ring-1 ring-white/5">
         <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-mist mb-1">
           Grade
           <InfoTip label="Grade" text={METRIC_HELP.Grade} />
@@ -807,7 +807,7 @@ function HeroRow({
         <div className={`font-display text-3xl font-bold ${TONE_TEXT[gTone]}`}>{grade}</div>
         <div className={`text-xs mt-0.5 ${TONE_TEXT[gTone]}`}>{label}</div>
       </div>
-      <div className={`border ${TONE_BORDER[sTone]} bg-panel rounded-2xl p-4 flex flex-col justify-center shadow-xl shadow-black/5 dark:shadow-black/40`}>
+      <div className="border border-white/10 bg-[linear-gradient(180deg,rgba(12,34,34,0.28),rgba(8,22,22,0.34))] backdrop-blur-md rounded-2xl p-4 flex flex-col justify-center shadow-[0_18px_40px_rgba(1,13,14,0.2)] ring-1 ring-white/5">
         {children}
         <p className="text-[11px] text-mist mt-2 leading-relaxed">{note}</p>
         <div className="text-[11px] text-signal-pass mt-2">More detail →</div>
@@ -846,7 +846,7 @@ function Accordion({
 }) {
   const reduced = useReducedMotion();
   return (
-    <section className="border border-line bg-panel rounded-2xl overflow-hidden shadow-xl shadow-black/5 dark:shadow-black/40">
+    <section className="border border-white/10 bg-[linear-gradient(180deg,rgba(12,34,34,0.24),rgba(8,22,22,0.32))] backdrop-blur-md rounded-2xl overflow-hidden shadow-[0_18px_40px_rgba(1,13,14,0.22)] ring-1 ring-white/5">
       <button
         type="button"
         onClick={onToggle}
@@ -885,7 +885,7 @@ function Accordion({
             transition={{ duration: reduced ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="border-t border-line px-5 py-4">{children}</div>
+            <div className="border-t border-white/10 px-5 py-4">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

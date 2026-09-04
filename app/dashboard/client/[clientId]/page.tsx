@@ -37,18 +37,18 @@ export default async function ClientProjectsPage({ params }: { params: { clientI
     <PageEnter>
     <div>
       {isAdmin && (
-        <Link href="/dashboard" className="text-xs text-mist hover:text-chalk font-mono mb-4 inline-block hover:-translate-x-0.5 transition-transform">
+        <Link href="/dashboard" className="text-xs text-chalk/80 hover:text-chalk font-mono mb-4 inline-block hover:-translate-x-0.5 transition-transform">
           ← All clients
         </Link>
       )}
       <div className="flex items-end justify-between gap-4 mb-8">
         <div>
-          <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">
+          <div className="text-xs font-mono uppercase tracking-wider text-signal-pass mb-1">
             {isAdmin ? "Client" : "Your projects"}
           </div>
-          <h1 className="font-display text-3xl font-bold">{title}</h1>
+          <h1 className="font-display text-3xl font-bold text-white">{title}</h1>
           {client && (
-            <div className="text-xs text-mist font-mono mt-1">
+            <div className="text-xs text-mist font-mono mt-1 leading-relaxed">
               {client.slug}
               {client.contactEmail ? ` · ${client.contactEmail}` : ""}
               {client.status ? ` · ${client.status}` : ""}

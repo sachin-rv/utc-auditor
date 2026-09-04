@@ -4,49 +4,45 @@
 
 :root {
   color-scheme: light;
-  --c-ink: 246 247 249;
+  --c-ink: 235 243 241;
   --c-panel: 255 255 255;
-  --c-panel2: 241 242 245;
-  --c-line: 226 229 234;
-  --c-mist: 100 106 119;
-  --c-chalk: 20 22 26;
-  --c-onaccent: 20 22 26;
-  --c-pass: 15 155 108;
+  --c-panel2: 241 246 245;
+  --c-line: 204 221 216;
+  --c-mist: 55 75 71;
+  --c-chalk: 8 22 20;
+  --c-onaccent: 8 18 17;
+  --c-pass: 14 164 121;
   --c-fail: 214 62 50;
   --c-warn: 178 122 15;
-  --c-info: 37 108 199;
+  --c-info: 40 110 200;
   --c-high: 194 99 43;
 }
 
 html.dark {
   color-scheme: dark;
-  --c-ink: 14 16 19;
-  --c-panel: 21 24 29;
-  --c-panel2: 27 31 38;
-  --c-line: 39 44 52;
-  --c-mist: 138 147 163;
-  --c-chalk: 237 239 243;
-  --c-onaccent: 14 16 19;
-  --c-pass: 62 213 152;
-  --c-fail: 255 107 94;
+  --c-ink: 7 16 17;
+  --c-panel: 13 28 31;
+  --c-panel2: 17 38 39;
+  --c-line: 50 78 80;
+  --c-mist: 210 224 221;
+  --c-chalk: 247 252 251;
+  --c-onaccent: 7 16 17;
+  --c-pass: 67 213 158;
+  --c-fail: 255 117 105;
   --c-warn: 245 185 66;
-  --c-info: 95 168 255;
-  --c-high: 255 155 110;
+  --c-info: 108 176 255;
+  --c-high: 255 160 118;
 }
 
 body {
   background-color: rgb(var(--c-ink));
-  background-image:
-    radial-gradient(1200px 600px at 100% -10%, rgb(var(--c-info) / 0.05), transparent),
-    radial-gradient(900px 500px at -10% 110%, rgb(var(--c-pass) / 0.04), transparent);
+  background-image: none;
   background-attachment: fixed;
   transition: background-color 200ms ease, color 200ms ease;
 }
 
 html.dark body {
-  background-image:
-    radial-gradient(1200px 600px at 100% -10%, rgb(var(--c-info) / 0.08), transparent),
-    radial-gradient(900px 500px at -10% 110%, rgb(var(--c-pass) / 0.06), transparent);
+  background-image: none;
 }
 
 ::selection {

@@ -50,14 +50,14 @@ export default function Modal({
             transition={{ duration: reduced ? 0 : 0.2 }}
           />
           <motion.div
-            className={`relative w-full ${widthClass} min-w-0 bg-panel border border-line rounded-2xl md:rounded-3xl shadow-xl shadow-black/5 dark:shadow-black/40 max-h-[85vh] overflow-y-auto overflow-x-hidden`}
+            className={`relative w-full ${widthClass} min-w-0 border border-white/10 bg-[linear-gradient(180deg,rgba(12,34,34,0.72),rgba(8,22,22,0.84))] backdrop-blur-2xl rounded-2xl md:rounded-3xl shadow-[0_30px_80px_rgba(1,13,14,0.38)] ring-1 ring-white/5 max-h-[85vh] overflow-y-auto overflow-x-hidden`}
             initial={reduced ? false : { opacity: 0, y: 16, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.98 }}
             transition={{ duration: reduced ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
           >
             {(title || subtitle) && (
-              <div className="flex items-center justify-between px-5 py-3.5 border-b border-line sticky top-0 bg-panel z-10 rounded-t-2xl md:rounded-t-3xl">
+              <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 sticky top-0 bg-white/5 backdrop-blur-md z-10 rounded-t-2xl md:rounded-t-3xl">
                 <div className="pr-4 min-w-0">
                   {title ? <h2 className="text-sm font-semibold">{title}</h2> : null}
                   {subtitle ? <p className="text-xs text-mist mt-0.5">{subtitle}</p> : null}

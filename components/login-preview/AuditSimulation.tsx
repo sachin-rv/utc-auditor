@@ -59,7 +59,7 @@ export default function AuditSimulation({ onComplete }: { onComplete: () => void
               animate={{ opacity: 1, y: 0 }}
               exit={reducedMotion ? undefined : { opacity: 0, y: -8 }}
               transition={{ duration: reducedMotion ? 0 : 0.25 }}
-              className="text-sm font-medium text-white/90"
+              className="text-sm font-medium text-white"
             >
               {STAGES[stage]}
             </motion.p>
