@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   return (
     <div
-      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-[#0f8a7f] via-[#0d6e66] to-[#071110] text-white"
+      className="min-h-screen relative overflow-hidden bg-[#0d6e66] text-white"
       style={
         {
           "--c-chalk": "247 252 251",
@@ -23,7 +23,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         } as CSSProperties
       }
     >
-      <div className="pointer-events-none absolute inset-0 opacity-100 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.28),transparent_100%),radial-gradient(circle_at_bottom_left,rgba(27,180,155,0.38),transparent_100%)]" />
       <div className="relative z-10 flex min-h-screen flex-col">
         <header className="sticky top-0 z-20 p-4 pb-0">
           <div className="mx-auto max-w-6xl overflow-hidden rounded-[22px] border border-white/10 bg-[#0a2f2f]/45 shadow-[0_22px_50px_rgba(2,10,11,0.35)] backdrop-blur-2xl">

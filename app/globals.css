@@ -36,19 +36,13 @@ html.dark {
 
 body {
   background-color: rgb(var(--c-ink));
-  background-image:
-    radial-gradient(1200px 600px at 100% -10%, rgb(var(--c-info) / 0.08), transparent),
-    radial-gradient(900px 500px at -10% 110%, rgb(var(--c-pass) / 0.09), transparent),
-    linear-gradient(180deg, rgb(var(--c-ink)) 0%, rgb(var(--c-panel2)) 100%);
+  background-image: none;
   background-attachment: fixed;
   transition: background-color 200ms ease, color 200ms ease;
 }
 
 html.dark body {
-  background-image:
-    radial-gradient(1100px 560px at 100% -10%, rgb(var(--c-info) / 0.09), transparent),
-    radial-gradient(900px 500px at -10% 110%, rgb(var(--c-pass) / 0.14), transparent),
-    linear-gradient(180deg, rgb(var(--c-ink)) 0%, rgb(var(--c-panel)) 100%);
+  background-image: none;
 }
 
 ::selection {
