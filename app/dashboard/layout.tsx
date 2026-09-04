@@ -23,7 +23,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         } as CSSProperties
       }
     >
-      <div className="pointer-events-none absolute inset-0 opacity-90 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(27,180,155,0.18),transparent_30%)]" />
+      <div className="pointer-events-none absolute inset-0 opacity-100 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.28),transparent_100%),radial-gradient(circle_at_bottom_left,rgba(27,180,155,0.38),transparent_100%)]" />
       <div className="relative z-10 flex min-h-screen flex-col">
         <header className="sticky top-0 z-20 p-4 pb-0">
           <div className="mx-auto max-w-6xl overflow-hidden rounded-[22px] border border-white/10 bg-[#0a2f2f]/45 shadow-[0_22px_50px_rgba(2,10,11,0.35)] backdrop-blur-2xl">
