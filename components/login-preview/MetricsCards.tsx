@@ -103,7 +103,7 @@ export default function MetricsCards({ auditCycle }: { auditCycle: number }) {
           >
             <div className="mb-1.5 flex items-center gap-1.5">
               <Icon className={`h-3.5 w-3.5 ${metric.color}`} aria-hidden />
-              <span className="text-[11px] font-medium text-white/60">
+              <span className="text-[11px] font-medium text-white/85">
                 {metric.label}
               </span>
             </div>

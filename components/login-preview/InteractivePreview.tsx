@@ -75,7 +75,7 @@ export default function InteractivePreview() {
               <h2 className="font-display text-xl font-bold leading-tight text-white sm:text-2xl">
                 Coverage, quality, and migration — in one console.
               </h2>
-              <p className="mt-1.5 text-sm leading-relaxed text-white/75">
+              <p className="mt-1.5 text-sm leading-relaxed text-white/90">
                 Sign in to review Jest audits, findings, and recommendations for your
                 React and Next.js suites.
               </p>

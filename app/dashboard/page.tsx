@@ -22,8 +22,8 @@ export default async function DashboardPage() {
       <PageEnter>
         <div>
           <div className="mb-8">
-            <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">Your projects</div>
-            <h1 className="font-display text-3xl font-bold">Audit Console</h1>
+            <div className="text-xs font-mono uppercase tracking-wider text-signal-pass mb-1">Your projects</div>
+            <h1 className="font-display text-3xl font-bold text-white">Audit Console</h1>
           </div>
           <ProjectsBoard clientId={projects[0]?.clientId ?? ""} isAdmin={false} items={items} />
         </div>
@@ -46,11 +46,11 @@ export default async function DashboardPage() {
       <div>
         <div className="flex items-end justify-between mb-8 gap-4">
           <div>
-            <div className="text-xs font-mono uppercase tracking-widest text-signal-pass mb-1">Registered clients</div>
-            <h1 className="font-display text-3xl font-bold">Audit Console</h1>
+            <div className="text-xs font-mono uppercase tracking-wider text-signal-pass mb-1">Registered clients</div>
+            <h1 className="font-display text-3xl font-bold text-white">Audit Console</h1>
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-xs text-mist font-mono">
+            <div className="text-xs text-chalk/80 font-mono">
               {rows.length} client{rows.length === 1 ? "" : "s"}
             </div>
             <CreateClientButton />

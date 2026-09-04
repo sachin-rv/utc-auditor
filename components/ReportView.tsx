@@ -290,7 +290,7 @@ export default function ReportView({
             exit={reduced ? undefined : { opacity: 0, y: -6 }}
             transition={{ duration: reduced ? 0 : 0.25 }}
           >
-          <div className="flex items-center justify-between px-5 py-2.5 border-b border-line bg-panel2/40">
+          <div className="flex items-center justify-between px-5 py-2.5 border-b border-white/10 bg-white/5">
             <span className="text-xs uppercase tracking-widest text-mist">reportJson</span>
             <CopyTextButton value={jsonText} label="Copy JSON" />
           </div>

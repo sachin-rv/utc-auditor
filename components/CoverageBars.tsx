@@ -32,7 +32,7 @@ export default function CoverageBars({ coverage }: { coverage: CoverageMetrics }
         return (
           <div key={key}>
             <div className="flex justify-between text-xs mb-1">
-              <span className="text-mist uppercase tracking-wider">{label}</span>
+              <span className="text-chalk/80 uppercase tracking-wider">{label}</span>
               <span className="font-mono tabular-nums" style={{ color }}>
                 {v}%
               </span>

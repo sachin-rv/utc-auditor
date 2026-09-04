@@ -93,30 +93,30 @@ export default function DashboardPreview() {
         <div className="flex min-w-0 flex-1 flex-col p-2.5">
           {/* Search bar */}
           <div className="mb-2 flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2 py-1">
-            <Search className="h-3 w-3 text-white/40" />
-            <span className="text-[10px] text-white/40">Search audits...</span>
+            <Search className="h-3 w-3 text-white/70" />
+            <span className="text-[10px] text-white/70">Search audits...</span>
           </div>
 
           <div className="mb-2 flex gap-2">
             {/* Audit report card */}
             <div className="flex-1 rounded-lg border border-white/10 bg-white/5 p-2">
-              <p className="text-[9px] font-medium uppercase tracking-wider text-white/50">
+              <p className="text-[9px] font-medium uppercase tracking-wider text-white/75">
                 Audit Report
               </p>
-              <p className="mt-0.5 truncate text-xs font-semibold text-white/90">
+              <p className="mt-0.5 truncate text-xs font-semibold text-white">
                 acme/web-app
               </p>
               <div className="mt-1 flex items-center gap-2">
                 <span className="rounded bg-emerald-400/25 px-1.5 py-0.5 text-[9px] font-bold text-emerald-100">
                   B+
                 </span>
-                <span className="text-[9px] text-white/50">86 quality score</span>
+                <span className="text-[9px] text-white/75">86 quality score</span>
               </div>
             </div>
 
             {/* Sparkline */}
             <div className="w-[4.5rem] rounded-lg border border-white/10 bg-white/5 p-1.5">
-              <p className="text-[8px] text-white/50">Trend</p>
+              <p className="text-[8px] text-white/75">Trend</p>
               <svg viewBox="0 0 64 32" className="mt-0.5 h-8 w-full text-white">
                 <polyline
                   points={SPARKLINE_POINTS}
@@ -132,7 +132,7 @@ export default function DashboardPreview() {
 
           {/* Repo list */}
           <div className="space-y-0.5">
-            <p className="text-[9px] font-medium uppercase tracking-wider text-white/50">
+            <p className="text-[9px] font-medium uppercase tracking-wider text-white/75">
               Recent
             </p>
             {REPOS.map((repo) => (
@@ -140,7 +140,7 @@ export default function DashboardPreview() {
                 key={repo.name}
                 className="flex items-center justify-between rounded-md bg-white/[0.05] px-2 py-0.5"
               >
-                <span className="truncate text-[10px] text-white/60">{repo.name}</span>
+                <span className="truncate text-[10px] text-white/85">{repo.name}</span>
                 <span
                   className={`h-1.5 w-1.5 shrink-0 rounded-full ${
                     repo.status === "pass" ? "bg-emerald-300" : "bg-amber-300"
