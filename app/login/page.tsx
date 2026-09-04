@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import ThemeToggle from "@/components/ThemeToggle";
 import Logo from "@/components/Logo";
 import InteractivePreview from "@/components/login-preview/InteractivePreview";
 import PasswordField from "@/components/PasswordField";
@@ -51,14 +50,13 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
       <div className="w-full max-w-5xl bg-panel rounded-2xl md:rounded-3xl border border-line shadow-xl shadow-black/5 dark:shadow-black/40 overflow-hidden flex flex-col md:flex-row md:min-h-[640px]">
         <div className="flex-1 flex flex-col p-8 sm:p-10 md:p-12 relative">
-          <div className="flex items-center justify-between mb-10">
+          <div className="flex items-center mb-10">
             <div className="flex items-center gap-2.5">
               <Logo />
               <span className="font-display font-bold text-lg text-chalk tracking-tight">
                 UTC Auditor
               </span>
             </div>
-            <ThemeToggle />
           </div>
 
           <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">

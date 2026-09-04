@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 import { redirect } from "next/navigation";
 import { dashboardHome, getSession } from "@/lib/auth";
 import LogoutButton from "@/components/LogoutButton";
-import ThemeToggle from "@/components/ThemeToggle";
 import Logo from "@/components/Logo";
 
 export const dynamic = "force-dynamic";
@@ -45,7 +44,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     {session.role === "admin" ? "Administrator" : "Client user"}
                   </div>
                 </div>
-                <ThemeToggle />
                 <LogoutButton />
               </div>
             </div>
